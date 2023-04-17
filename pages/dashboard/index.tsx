@@ -1,5 +1,6 @@
 import Header from "@/components/header/Header";
-import Sidebar from "@/components/sidebar/Sidebar";
+import MainWrapper from "@/components/main/MainWrapper";
+
 import styled from "styled-components";
 
 const StyledWrapper = styled.div`
@@ -13,7 +14,7 @@ export default function Dashboard() {
   return (
     <StyledWrapper>
       <Header />
-      <Sidebar />
+      <MainWrapper />
     </StyledWrapper>
   );
 }

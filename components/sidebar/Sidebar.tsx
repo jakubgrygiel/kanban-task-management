@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const StyledWrapper = styled.div`
+const StyledWrapper = styled.div<ISidebarIsOpen>`
   position: relative;
   z-index: 2;
   display: flex;
@@ -12,6 +12,8 @@ const StyledWrapper = styled.div`
   padding: 16px 24px 32px 0;
   background-color: ${({ theme }) => theme.colors.headerBg};
   border-right: 1px solid ${({ theme }) => theme.colors.lightBorder};
+  transform: translateX(${({ isOpen }) => (isOpen ? "0" : "-100%")});
+  transition: transform 0.3s ease-in-out;
 
   &:before {
     position: absolute;
@@ -23,9 +25,17 @@ const StyledWrapper = styled.div`
   }
 `;
 
-export default function Sidebar() {
+export interface ISidebarIsOpen {
+  isOpen: boolean;
+}
+
+interface ISidebarProps {
+  isOpen: boolean;
+}
+
+export default function Sidebar({ isOpen }: ISidebarProps) {
   return (
-    <StyledWrapper>
+    <StyledWrapper isOpen={isOpen}>
       <div>ALL BOARDS (0)</div>
       <div>Theme</div>
     </StyledWrapper>
