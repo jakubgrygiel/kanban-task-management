@@ -1,4 +1,6 @@
 import styled from "styled-components";
+import BoardsLinks from "./BoardsLinks";
+import SidebarSettings from "./SidebarSettings";
 
 const StyledWrapper = styled.div<ISidebarIsOpen>`
   position: relative;
@@ -36,8 +38,8 @@ interface ISidebarProps {
 export default function Sidebar({ isOpen }: ISidebarProps) {
   return (
     <StyledWrapper isOpen={isOpen}>
-      <div>ALL BOARDS (0)</div>
-      <div>Theme</div>
+      <BoardsLinks />
+      <SidebarSettings />
     </StyledWrapper>
   );
 }
