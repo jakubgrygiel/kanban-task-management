@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@paralleldrive/cuid2": "^2.2.0",
+    "@supabase/supabase-js": "^2.20.0",
     "@types/node": "18.15.11",
     "@types/react": "18.0.32",
     "@types/react-dom": "18.0.11",
