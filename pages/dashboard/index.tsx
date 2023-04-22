@@ -1,7 +1,6 @@
+import styled from "styled-components";
 import Header from "@/components/header/Header";
 import MainWrapper from "@/components/main/MainWrapper";
-
-import styled from "styled-components";
 
 const StyledWrapper = styled.div`
   min-height: 100vh;
@@ -12,9 +11,11 @@ const StyledWrapper = styled.div`
 
 export default function Dashboard() {
   return (
-    <StyledWrapper>
-      <Header />
-      <MainWrapper />
-    </StyledWrapper>
+    <>
+      <StyledWrapper>
+        <Header />
+        <MainWrapper />
+      </StyledWrapper>
+    </>
   );
 }

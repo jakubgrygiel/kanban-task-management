@@ -26,11 +26,13 @@ interface ITaskWrapperProps {
 
 export default function TasksWrapper({ isOpen }: ITaskWrapperProps) {
   return (
-    <StyledWrapper isOpen={isOpen}>
-      <EmptyInfo>
-        <p>This board is empty. Create a new column to get started.</p>
-        <AddNewColumnBtn />
-      </EmptyInfo>
-    </StyledWrapper>
+    <>
+      <StyledWrapper isOpen={isOpen}>
+        <EmptyInfo>
+          <p>This board is empty. Create a new column to get started.</p>
+          <AddNewColumnBtn />
+        </EmptyInfo>
+      </StyledWrapper>
+    </>
   );
 }

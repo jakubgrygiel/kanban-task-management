@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import EditTaskBtn from "./EditTaskBtn";
 import DeleteTaskBtn from "./DeleteTaskBtn";
+import useEscKeyDown from "@/hooks/useEscKeyDown";
 
 const StyledWrapper = styled.div`
   position: relative;
@@ -52,28 +53,14 @@ export default function MoreBtn() {
   const [isWindowOpen, setIsWindowOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
-  const buttonImgRef = useRef<HTMLImageElement>(null);
+  useEscKeyDown(closeDropdown);
 
   useEffect(() => {
-    // function closeOutside(e: MouseEvent) {
-    //   if (
-    //     isWindowOpen &&
-    //     e.target !== dropdownRef.current &&
-    //     e.target !== buttonRef.current &&
-    //     e.target !== buttonImgRef.current
-    //   ) {
-    //     closeDropdown();
-    //   }
-    // }
-    // document.body.addEventListener("click", closeOutside);
-    // return () => {
-    //   document.body.removeEventListener("click", closeOutside);
-    // };
+    document.body.addEventListener("click", closeOutside);
+    return () => {
+      document.body.removeEventListener("click", closeOutside);
+    };
   }, []);
-
-  useEffect(() => {
-    console.log(isWindowOpen);
-  }, [isWindowOpen]);
 
   function handleClick() {
     setIsWindowOpen((prevState) => !prevState);
@@ -83,13 +70,18 @@ export default function MoreBtn() {
     setIsWindowOpen(false);
   }
 
+  function closeOutside(e: MouseEvent) {
+    if (e.target !== buttonRef.current && e.target !== dropdownRef.current) {
+      closeDropdown();
+    }
+  }
+
   return (
     <StyledWrapper>
       <EditDeleteBtn onClick={handleClick} ref={buttonRef}>
         <img
           src="assets/icon-vertical-ellipsis.svg"
           alt="icon for more options"
-          ref={buttonImgRef}
         />
       </EditDeleteBtn>
       {isWindowOpen && (
