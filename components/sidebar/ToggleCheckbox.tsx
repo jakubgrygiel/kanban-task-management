@@ -11,7 +11,7 @@ const StyledWrapper = styled.span`
   border-radius: 12px;
 `;
 
-const Circle = styled.span<IToggleCheckboxProps>`
+const Circle = styled.span<IChecked>`
   position: absolute;
   top: 3px;
   left: 3px;
@@ -19,10 +19,13 @@ const Circle = styled.span<IToggleCheckboxProps>`
   width: 14px;
   background-color: ${({ theme }) => theme.colors.whiteBg};
   border-radius: 7px;
-  transform: ${({ isChecked }) =>
-    isChecked ? "translateX(0)" : "translateX(20px)"};
+  transform: translateX(${({ isChecked }) => (isChecked ? "0" : "20px")});
   transition: transform 0.3s ease-in-out;
 `;
+
+interface IChecked {
+  isChecked: boolean;
+}
 
 interface IToggleCheckboxProps {
   isChecked: boolean;

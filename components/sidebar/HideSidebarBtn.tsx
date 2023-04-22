@@ -1,7 +1,9 @@
 import styled from "styled-components";
+import { ISidebarIsOpen } from "./Sidebar";
 
 const StyledWrapper = styled.button`
   cursor: pointer;
+  position: relative;
   display: flex;
   justify-content: flex-start;
   align-items: center;
@@ -21,14 +23,41 @@ const StyledWrapper = styled.button`
   }
 `;
 
-export default function HideSidebarBtn() {
+const OpenSidebar = styled.div<ISidebarIsOpen>`
+  position: absolute;
+  top: 0;
+  left: -56px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 48px;
+  width: 56px;
+  background-color: ${({ theme }) => theme.colors.purpleBg};
+  border-radius: 0 24px 24px 0;
+  transform: translateX(${({ isOpen }) => (isOpen ? "0" : "356px")});
+  transition: transform 0.3s ease-in-out;
+`;
+
+interface IHideSidebarBtnProps {
+  isOpen: boolean;
+  toggleSidebar: () => void;
+}
+
+export default function HideSidebarBtn({
+  isOpen,
+  toggleSidebar,
+}: IHideSidebarBtnProps) {
+  function handleClick() {
+    toggleSidebar();
+  }
+
   return (
-    <StyledWrapper>
-      <img
-        src="assets/icon-hide-sidebar.svg"
-        alt="icon for show-hide sidebar"
-      />
+    <StyledWrapper onClick={handleClick}>
+      <img src="assets/icon-hide-sidebar.svg" alt="icon for showing sidebar" />
       <span>Hide Sidebar</span>
+      <OpenSidebar isOpen={isOpen}>
+        <img src="assets/icon-show-sidebar.svg" alt="icon for hiding sidebar" />
+      </OpenSidebar>
     </StyledWrapper>
   );
 }

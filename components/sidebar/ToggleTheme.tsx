@@ -32,6 +32,9 @@ const Label = styled.label`
 
 const Input = styled.input`
   cursor: pointer;
+  height: 20px;
+  width: 40px;
+  border-radius: 10px;
 `;
 
 export default function ToggleTheme() {

@@ -64,6 +64,13 @@ const lightTheme = {
     "hsla(7, 68%, 65%, 1)",
   ],
   screens: {},
+  zLevels: {
+    level1: 0,
+    level2: 1000,
+    level3: 2000,
+    level4: 3000,
+    level5: 4000,
+  },
 };
 
 const darkTheme = {
@@ -117,7 +124,7 @@ const darkTheme = {
     checkboxBg: "hsla(0, 0%, 100%, 1)",
     checkboxBorder: "hsla(216, 15%, 57%, 0.25)",
     checkboxCheckedBg: "hsla(242, 48%, 58%, 1)",
-    dropListCardBg: "hsla(220, 40%, 35%, 0.25)",
+    dropListCardBg: "hsla(235, 16%, 15%, 1)",
     dropListCardShadow: "0px 4px 6px rgba(54, 78, 126, 0.101545)",
   },
   columnColors: [
@@ -132,6 +139,13 @@ const darkTheme = {
     "hsla(7, 68%, 65%, 1)",
   ],
   screens: {},
+  zLevels: {
+    level1: 0,
+    level2: 1000,
+    level3: 2000,
+    level4: 3000,
+    level5: 4000,
+  },
 };
 
 export { lightTheme, darkTheme };

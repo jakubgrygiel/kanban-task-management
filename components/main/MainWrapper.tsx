@@ -23,9 +23,13 @@ export default function MainWrapper() {
     setIsOpen(false);
   }
 
+  function toggleSidebar() {
+    setIsOpen((prevState) => !prevState);
+  }
+
   return (
     <StyledWrapper>
-      <Sidebar isOpen={isOpen} />
+      <Sidebar isOpen={isOpen} toggleSidebar={toggleSidebar} />
       <TasksWrapper isOpen={isOpen} />
     </StyledWrapper>
   );

@@ -33,13 +33,14 @@ export interface ISidebarIsOpen {
 
 interface ISidebarProps {
   isOpen: boolean;
+  toggleSidebar: () => void;
 }
 
-export default function Sidebar({ isOpen }: ISidebarProps) {
+export default function Sidebar({ isOpen, toggleSidebar }: ISidebarProps) {
   return (
     <StyledWrapper isOpen={isOpen}>
       <BoardsLinks />
-      <SidebarSettings />
+      <SidebarSettings isOpen={isOpen} toggleSidebar={toggleSidebar} />
     </StyledWrapper>
   );
 }

@@ -5,6 +5,7 @@ import AddNewTaskBtn from "./AddNewTaskBtn";
 import MoreBtn from "./MoreBtn";
 
 const StyledWrapper = styled.div`
+  z-index: ${({ theme }) => theme.zLevels.level2};
   display: flex;
   justify-content: flex-start;
   align-items: center;

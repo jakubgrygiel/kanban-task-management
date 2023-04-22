@@ -11,11 +11,19 @@ const StyledWrapper = styled.div`
   width: 100%;
 `;
 
-export default function SidebarSettings() {
+interface ISidebarSettingsProps {
+  isOpen: boolean;
+  toggleSidebar: () => void;
+}
+
+export default function SidebarSettings({
+  isOpen,
+  toggleSidebar,
+}: ISidebarSettingsProps) {
   return (
     <StyledWrapper>
       <ToggleTheme />
-      <HideSidebarBtn />
+      <HideSidebarBtn isOpen={isOpen} toggleSidebar={toggleSidebar} />
     </StyledWrapper>
   );
 }
