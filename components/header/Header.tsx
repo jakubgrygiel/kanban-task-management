@@ -1,4 +1,8 @@
+import { DarkModeCtx } from "@/context/DarkModeCtx";
+import { useContext } from "react";
 import styled from "styled-components";
+import AddNewTaskBtn from "./AddNewTaskBtn";
+import MoreBtn from "./MoreBtn";
 
 const StyledWrapper = styled.div`
   display: flex;
@@ -24,8 +28,16 @@ const MainWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 24px;
   width: calc(100% - 300px);
   padding: 24px;
+`;
+
+const BtnsWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 24px;
 `;
 
 const BoardTitle = styled.h1`
@@ -33,14 +45,22 @@ const BoardTitle = styled.h1`
 `;
 
 export default function Header() {
+  const ctx = useContext(DarkModeCtx);
   return (
     <StyledWrapper>
       <LogoWrapper>
-        <img src="/assets/logo-light.svg" alt="logo of the app" />
+        {ctx.darkMode ? (
+          <img src="/assets/logo-light.svg" alt="logo of the app" />
+        ) : (
+          <img src="/assets/logo-dark.svg" alt="logo of the app" />
+        )}
       </LogoWrapper>
       <MainWrapper>
         <BoardTitle>Platform Launch</BoardTitle>
-        <div>Add New Task</div>
+        <BtnsWrapper>
+          <AddNewTaskBtn />
+          <MoreBtn />
+        </BtnsWrapper>
       </MainWrapper>
     </StyledWrapper>
   );

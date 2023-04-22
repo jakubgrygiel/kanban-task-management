@@ -1,12 +1,13 @@
 import styled from "styled-components";
 import BoardBtn from "./BoardBtn";
+import AddBoardBtn from "./AddBoardBtn";
 
 const StyledWrapper = styled.div`
   display: flex;
   justify-content: flex-start;
   align-items: flex-start;
   flex-direction: column;
-  gap: 18px;
+  gap: 12px;
   width: 100%;
 `;
 
@@ -21,9 +22,10 @@ export default function BoardsLinks() {
   return (
     <StyledWrapper>
       <H2>ALL BOARDS (3)</H2>
-      <BoardBtn />
-      <BoardBtn />
-      <BoardBtn />
+      <BoardBtn isActive={true} />
+      <BoardBtn isActive={false} />
+      <BoardBtn isActive={false} />
+      <AddBoardBtn />
     </StyledWrapper>
   );
 }
