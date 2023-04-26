@@ -11,7 +11,7 @@ const GlobalStyle = createGlobalStyle`
       padding:0;
       box-sizing: border-box;
     }
-    body,button,input {
+    body,button,input,textarea {
       font-family: 'Plus Jakarta Sans', sans-serif;
       font-weight: 700;
       font-size: 16px;
