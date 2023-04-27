@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import SubtaskInput from "./SubtaskInput";
 import { FormEvent } from "react";
+import ItemInput from "./ItemInput";
 
 const StyledWrapper = styled.fieldset`
   display: flex;
@@ -17,7 +17,16 @@ const Legend = styled.legend`
   font-size: 0.75rem;
 `;
 
-const AddNewSubtaskBtn = styled.button`
+const List = styled.ul`
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: column;
+  gap: 0.75rem;
+  width: 100%;
+`;
+
+const AddNewItemBtn = styled.button`
   cursor: pointer;
   display: flex;
   justify-content: center;
@@ -39,26 +48,27 @@ const AddNewSubtaskBtn = styled.button`
   }
 `;
 
-interface ISubtasksModalProps {}
+interface IItemListProps {
+  label: string;
+  type: string;
+}
 
-export default function SubtasksModal() {
+export default function ItemList({ label, type }: IItemListProps) {
   function handleClick(e: FormEvent) {
     e.preventDefault();
   }
+
   return (
     <StyledWrapper>
-      <Legend>Subtasks</Legend>
-      <SubtaskInput
-        id="subtask-1-add-new-task"
-        placeholder="e.g. Make coffee"
-      />
-      <SubtaskInput
-        id="subtask-2-add-new-task"
-        placeholder="e.g. Drink coffee & smile"
-      />
-      <AddNewSubtaskBtn onClick={handleClick}>
-        +Add New Subtask
-      </AddNewSubtaskBtn>
+      <Legend>{label}</Legend>
+      <List>
+        <ItemInput id="item-1-add-new-task" placeholder="e.g. Make coffee" />
+        <ItemInput
+          id="item-2-add-new-task"
+          placeholder="e.g. Drink coffee & smile"
+        />
+      </List>
+      <AddNewItemBtn onClick={handleClick}>+Add New {type}</AddNewItemBtn>
     </StyledWrapper>
   );
 }

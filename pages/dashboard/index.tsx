@@ -3,6 +3,10 @@ import Header from "@/components/header/Header";
 import MainWrapper from "@/components/main/MainWrapper";
 import Portal from "@/components/portal/Portal";
 import AddNewTaskModal from "@/components/modals/AddNewTaskModal";
+import AddNewBoardModal from "@/components/modals/AddNewBoardModal";
+import DeleteTaskModal from "@/components/modals/DeleteTaskModal";
+import EditBoardModal from "@/components/modals/EditBoardModal";
+import TaskModal from "@/components/modals/TaskModal";
 
 const StyledWrapper = styled.div`
   min-height: 100vh;
@@ -19,7 +23,7 @@ export default function Dashboard() {
         <MainWrapper />
       </StyledWrapper>
       <Portal>
-        <AddNewTaskModal />
+        <TaskModal />
       </Portal>
     </>
   );

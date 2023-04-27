@@ -2,7 +2,9 @@ import { DarkModeCtx } from "@/context/DarkModeCtx";
 import { useContext } from "react";
 import styled from "styled-components";
 import AddNewTaskBtn from "./AddNewTaskBtn";
-import MoreBtn from "./MoreBtn";
+import MoreBtn from "../ui/MoreBtn";
+import EditTaskBtn from "./EditBoardBtn";
+import DeleteTaskBtn from "./DeleteBoardBtn";
 
 const StyledWrapper = styled.div`
   z-index: ${({ theme }) => theme.zLevels.level2};
@@ -60,7 +62,10 @@ export default function Header() {
         <BoardTitle>Platform Launch</BoardTitle>
         <BtnsWrapper>
           <AddNewTaskBtn />
-          <MoreBtn />
+          <MoreBtn>
+            <EditTaskBtn />
+            <DeleteTaskBtn />
+          </MoreBtn>
         </BtnsWrapper>
       </MainWrapper>
     </StyledWrapper>

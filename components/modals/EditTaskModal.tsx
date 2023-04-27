@@ -7,13 +7,13 @@ const ModalTitle = styled.h3`
   font-size: 1.125rem;
 `;
 
-interface IAddNewTaskModalProps {}
+interface IEditTaskModalProps {}
 
-export default function AddNewTaskModal() {
+export default function EditTaskModal() {
   return (
     <ModalWrapper>
-      <ModalTitle>Add New Task</ModalTitle>
-      <AddEditTaskForm editMode={false} />
+      <ModalTitle>Edit Task</ModalTitle>
+      <AddEditTaskForm editMode={true} />
     </ModalWrapper>
   );
 }

@@ -1,3 +1,4 @@
+import { FormEvent } from "react";
 import styled from "styled-components";
 
 const StyledWrapper = styled.button`
@@ -18,5 +19,9 @@ const StyledWrapper = styled.button`
 `;
 
 export default function EditTaskBtn() {
-  return <StyledWrapper>Edit Task</StyledWrapper>;
+  function handleClick(e: FormEvent) {
+    e.preventDefault();
+  }
+
+  return <StyledWrapper onClick={handleClick}>Edit Task</StyledWrapper>;
 }

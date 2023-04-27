@@ -1,12 +1,13 @@
 import { FormEvent } from "react";
 import styled from "styled-components";
 
-const StyledWrapper = styled.div`
+const StyledWrapper = styled.li`
   display: flex;
   justify-content: flex-start;
   align-items: center;
   gap: 0.8rem;
   width: 100%;
+  list-style: none;
 `;
 
 const Input = styled.input`
@@ -19,15 +20,20 @@ const Input = styled.input`
   background-color: ${({ theme }) => theme.colors.inputBg};
   border: 1px solid ${({ theme }) => theme.colors.inputBorder};
   border-radius: 0.25rem;
+  transition: border-color 0.3s ease-in-out;
 
   &::placeholder {
     font-weight: 500;
     font-size: 0.8125rem;
     color: ${({ theme }) => theme.colors.inputPlaceholder};
   }
+
+  &:hover {
+    border-color: ${({ theme }) => theme.colors.inputHoverBorder};
+  }
 `;
 
-const DeleteSubtaskBtn = styled.button`
+const DeleteItemBtn = styled.button`
   cursor: pointer;
   padding: 0.2rem;
   background-color: transparent;
@@ -40,21 +46,22 @@ const DeleteSubtaskBtn = styled.button`
   }
 `;
 
-interface ISubtaskInputProps {
+interface IItemInputProps {
   id: string;
   placeholder: string;
 }
 
-export default function SubtaskInput({ id, placeholder }: ISubtaskInputProps) {
+export default function ItemInput({ id, placeholder }: IItemInputProps) {
   function handleClick(e: FormEvent) {
     e.preventDefault();
   }
+
   return (
     <StyledWrapper>
       <Input id={id} type="text" placeholder={placeholder} />
-      <DeleteSubtaskBtn onClick={handleClick}>
+      <DeleteItemBtn onClick={handleClick}>
         <img src="/assets/icon-cross.svg" alt="delete subtask icon" />
-      </DeleteSubtaskBtn>
+      </DeleteItemBtn>
     </StyledWrapper>
   );
 }

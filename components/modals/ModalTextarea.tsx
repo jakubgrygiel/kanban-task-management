@@ -25,12 +25,17 @@ const Textarea = styled.textarea`
   border: 1px solid ${({ theme }) => theme.colors.inputBorder};
   border-radius: 0.25rem;
   resize: none;
+  transition: border-color 0.3s ease-in-out;
 
   &::placeholder {
     font-weight: 500;
     font-size: 0.8125rem;
     line-height: 1.5rem;
     color: ${({ theme }) => theme.colors.inputPlaceholder};
+  }
+
+  &:hover {
+    border-color: ${({ theme }) => theme.colors.inputHoverBorder};
   }
 `;
 

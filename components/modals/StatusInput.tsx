@@ -31,6 +31,7 @@ const Button = styled.button`
   background-color: ${({ theme }) => theme.colors.inputBg};
   border: 1px solid ${({ theme }) => theme.colors.inputBorder};
   border-radius: 0.25rem;
+  transition: border-color 0.3s ease-in-out;
 
   &::placeholder {
     font-weight: 500;
@@ -40,6 +41,10 @@ const Button = styled.button`
   img {
     position: absolute;
     right: 1rem;
+  }
+
+  &:hover {
+    border-color: ${({ theme }) => theme.colors.inputHoverBorder};
   }
 `;
 
@@ -60,9 +65,11 @@ const StatusOptions = styled.div`
 
 const Option = styled.button`
   cursor: pointer;
+  width: 100%;
   padding: 0.25rem 0;
   font-size: 0.8125rem;
   font-weight: 500;
+  text-align: left;
   color: ${({ theme }) => theme.colors.secondaryText};
   background-color: transparent;
   border: none;

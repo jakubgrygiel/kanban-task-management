@@ -7,16 +7,16 @@ const ModalTitle = styled.h3`
   font-size: 1.125rem;
 `;
 
-interface IAddNewBoardModalProps {}
+interface IEditBoardModalProps {}
 
-export default function AddNewBoardModal() {
+export default function EditBoardModal() {
   function handleClick(e: FormEvent) {
     e.preventDefault();
   }
   return (
     <ModalWrapper>
-      <ModalTitle>Add New Board</ModalTitle>
-      <AddEditBoardForm editMode={false} />
+      <ModalTitle>Edit Board</ModalTitle>
+      <AddEditBoardForm editMode={true} />
     </ModalWrapper>
   );
 }

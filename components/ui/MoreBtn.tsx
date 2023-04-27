@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
-import EditTaskBtn from "./EditTaskBtn";
-import DeleteTaskBtn from "./DeleteTaskBtn";
+import EditTaskBtn from "../header/EditBoardBtn";
+import DeleteTaskBtn from "../header/DeleteBoardBtn";
 import useEscKeyDown from "@/hooks/useEscKeyDown";
 
 const StyledWrapper = styled.div`
@@ -49,7 +49,11 @@ const Dropdown = styled.div`
   box-shadow: ${({ theme }) => theme.colors.dropListCardShadow};
 `;
 
-export default function MoreBtn() {
+interface IMoreBtnProps {
+  children: React.ReactNode;
+}
+
+export default function MoreBtn({ children }: IMoreBtnProps) {
   const [isWindowOpen, setIsWindowOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
@@ -84,12 +88,7 @@ export default function MoreBtn() {
           alt="icon for more options"
         />
       </EditDeleteBtn>
-      {isWindowOpen && (
-        <Dropdown ref={dropdownRef}>
-          <EditTaskBtn />
-          <DeleteTaskBtn />
-        </Dropdown>
-      )}
+      {isWindowOpen && <Dropdown ref={dropdownRef}>{children}</Dropdown>}
     </StyledWrapper>
   );
 }
