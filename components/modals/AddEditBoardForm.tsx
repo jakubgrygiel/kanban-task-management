@@ -2,7 +2,6 @@ import styled from "styled-components";
 import ModalInput from "./ModalInput";
 import { FormEvent } from "react";
 import ItemList from "./ItemList";
-import StatusInput from "./StatusInput";
 
 const StyledWrapper = styled.form`
   display: flex;
@@ -55,7 +54,6 @@ export default function AddEditBoardForm({
         placeholder="e.g. Web Design"
       />
       <ItemList label="Columns" type="Column" />
-      <StatusInput name="Status" id="status" />
       <CreateEditBoardBtn onClick={handleClick}>
         {editMode ? "Save changes" : "Create New Board"}
       </CreateEditBoardBtn>

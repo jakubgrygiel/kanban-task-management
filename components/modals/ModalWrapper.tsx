@@ -1,5 +1,5 @@
 import { ModalsCtx } from "@/context/ModalsCtx";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import styled, { keyframes } from "styled-components";
 
 const fadeIn = keyframes`
@@ -49,6 +49,18 @@ interface IModalWrapperProps {
 
 export default function ModalWrapper({ children }: IModalWrapperProps) {
   const { closeModal } = useContext(ModalsCtx);
+
+  useEffect(() => {
+    function closeModalOnEsc(e: KeyboardEvent) {
+      if (e.key === "Escape") {
+        closeModal();
+      }
+    }
+    window.addEventListener("keydown", closeModalOnEsc);
+    return () => {
+      window.removeEventListener("keydown", closeModalOnEsc);
+    };
+  }, []);
 
   function handleClick() {
     closeModal();

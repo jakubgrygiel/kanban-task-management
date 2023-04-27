@@ -3,6 +3,7 @@ import ModalInput from "./ModalInput";
 import ModalTextarea from "./ModalTextarea";
 import { FormEvent } from "react";
 import ItemList from "./ItemList";
+import StatusInput from "./StatusInput";
 
 const StyledWrapper = styled.form`
   display: flex;
@@ -58,6 +59,7 @@ export default function AddEditTaskForm({ editMode }: IAddEditTaskFormProps) {
           recharge the batteries a little."
       />
       <ItemList label="Subtasks" type="Subtask" />
+      <StatusInput name="Status" id="status" />
       <CreateEditTaskBtn onClick={handleClick}>
         {editMode ? "Save changes" : "Create New Task"}
       </CreateEditTaskBtn>

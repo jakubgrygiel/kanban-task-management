@@ -1,38 +1,54 @@
 import styled from "styled-components";
 import { ISidebarIsOpen } from "../sidebar/Sidebar";
-import AddNewColumnBtn from "./AddNewColumnBtn";
+import EmptyInfo from "./EmptyInfo";
+import Column from "./Column";
+import SecondAddNewColumnBtn from "./SecondAddNewColumnBtn";
 
-const StyledWrapper = styled.div<ISidebarIsOpen>`
+const StyledWrapper = styled.div<IWrapper>`
   position: absolute;
   inset: 0;
   left: ${({ isOpen }) => (isOpen ? "300px" : "0")};
   display: flex;
-  justify-content: center;
-  align-items: center;
+  justify-content: ${({ isEmpty }) => (isEmpty ? "center" : "flex-start")};
+  align-items: ${({ isEmpty }) => (isEmpty ? "center" : "flex-start")};
+  align-items: stretch;
+  gap: 1.5rem;
+  padding: 1.5rem;
+  transition: left 0.3s ease-in-out;
+  overflow: hidden;
+  overflow-x: auto;
+  overflow-y: auto;
+`;
+
+const ColumnsWrapper = styled.div`
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 1.5rem;
+  padding: 1.5rem;
   transition: left 0.3s ease-in-out;
 `;
 
-const EmptyInfo = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  gap: 32px;
-  color: ${({ theme }) => theme.colors.secondaryText};
-`;
-interface ITaskWrapperProps {
+interface IWrapper {
   isOpen: boolean;
+  isEmpty: boolean;
 }
 
-export default function TasksWrapper({ isOpen }: ITaskWrapperProps) {
+interface ITaskWrapperProps {
+  isOpen: boolean;
+  isEmpty: boolean;
+}
+
+export default function TasksWrapper({ isOpen, isEmpty }: ITaskWrapperProps) {
   return (
-    <>
-      <StyledWrapper isOpen={isOpen}>
-        <EmptyInfo>
-          <p>This board is empty. Create a new column to get started.</p>
-          <AddNewColumnBtn />
-        </EmptyInfo>
-      </StyledWrapper>
-    </>
+    <StyledWrapper isOpen={isOpen} isEmpty={isEmpty}>
+      <ColumnsWrapper>
+        <Column />
+        <Column />
+        <Column />
+        <SecondAddNewColumnBtn />
+      </ColumnsWrapper>
+      {isEmpty && <EmptyInfo />}
+    </StyledWrapper>
   );
 }
