@@ -37,9 +37,13 @@ const CreateEditBoardBtn = styled.button`
 
 interface IAddEditBoardFormProps {
   editMode: boolean;
+  addColumnMode: boolean;
 }
 
-export default function AddEditBoardForm({ editMode }: IAddEditBoardFormProps) {
+export default function AddEditBoardForm({
+  editMode,
+  addColumnMode,
+}: IAddEditBoardFormProps) {
   function handleClick(e: FormEvent) {
     e.preventDefault();
   }
@@ -53,7 +57,7 @@ export default function AddEditBoardForm({ editMode }: IAddEditBoardFormProps) {
       <ItemList label="Columns" type="Column" />
       <StatusInput name="Status" id="status" />
       <CreateEditBoardBtn onClick={handleClick}>
-        {editMode ? "Save changes" : "Create New"} Board
+        {editMode ? "Save changes" : "Create New Board"}
       </CreateEditBoardBtn>
     </StyledWrapper>
   );

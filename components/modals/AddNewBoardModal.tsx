@@ -16,7 +16,7 @@ export default function AddNewBoardModal() {
   return (
     <ModalWrapper>
       <ModalTitle>Add New Board</ModalTitle>
-      <AddEditBoardForm editMode={false} />
+      <AddEditBoardForm editMode={false} addColumnMode={false} />
     </ModalWrapper>
   );
 }

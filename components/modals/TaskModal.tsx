@@ -4,6 +4,7 @@ import MoreBtn from "../ui/MoreBtn";
 import EditTaskBtn from "./EditTaskBtn";
 import DeleteTaskBtn from "./DeleteTaskBtn";
 import StatusInput from "./StatusInput";
+import Subtasks from "./Subtasks";
 
 const TopWrapper = styled.div`
   display: flex;
@@ -43,6 +44,7 @@ export default function TaskModal() {
         finalise the first pricing model we'll use. Keep iterating the subtasks
         until we have a coherent proposition.
       </Description>
+      <Subtasks />
       <StatusInput name="Status" id="status" />
     </ModalWrapper>
   );

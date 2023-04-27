@@ -1,4 +1,5 @@
-import { FormEvent } from "react";
+import { ModalsCtx } from "@/context/ModalsCtx";
+import { FormEvent, useContext } from "react";
 import styled from "styled-components";
 
 const StyledWrapper = styled.button`
@@ -20,8 +21,11 @@ const StyledWrapper = styled.button`
 `;
 
 export default function DeleteTaskBtn() {
+  const { openModal } = useContext(ModalsCtx);
+
   function handleClick(e: FormEvent) {
     e.preventDefault();
+    openModal("delete-board");
   }
 
   return <StyledWrapper onClick={handleClick}>Delete Task</StyledWrapper>;

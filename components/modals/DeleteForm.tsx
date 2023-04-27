@@ -1,6 +1,7 @@
 import styled from "styled-components";
-import { FormEvent } from "react";
+import { FormEvent, useContext } from "react";
 import { describe } from "node:test";
+import { ModalsCtx } from "@/context/ModalsCtx";
 
 const StyledWrapper = styled.div`
   display: flex;
@@ -63,11 +64,15 @@ interface IDeleteFormProps {
 }
 
 export default function DeleteForm({ label, description }: IDeleteFormProps) {
+  const { closeModal } = useContext(ModalsCtx);
+
   function handleClickDelete(e: FormEvent) {
     e.preventDefault();
+    closeModal();
   }
   function handleClickCancel(e: FormEvent) {
     e.preventDefault();
+    closeModal();
   }
   return (
     <StyledWrapper>

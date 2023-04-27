@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { FormEvent } from "react";
 import ItemInput from "./ItemInput";
+import SubtaskItem from "./SubtaskItem";
 
 const StyledWrapper = styled.fieldset`
   display: flex;
@@ -36,7 +37,18 @@ export default function Subtasks() {
   return (
     <StyledWrapper>
       <Legend>Subtasks (2 of 3)</Legend>
-      <List></List>
+      <List>
+        <SubtaskItem
+          id="098098"
+          text="Talk to potential customers about our proposed solution and ask for fair price expectancy"
+          isChecked={false}
+        />
+        <SubtaskItem
+          id="0asd098"
+          text="Outline a business model that works for our solution"
+          isChecked={true}
+        />
+      </List>
     </StyledWrapper>
   );
 }

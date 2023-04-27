@@ -1,4 +1,5 @@
-import { FormEvent } from "react";
+import { ModalsCtx } from "@/context/ModalsCtx";
+import { FormEvent, useContext } from "react";
 import styled from "styled-components";
 
 const StyledWrapper = styled.button`
@@ -19,8 +20,11 @@ const StyledWrapper = styled.button`
 `;
 
 export default function EditBoardBtn() {
+  const { openModal } = useContext(ModalsCtx);
+
   function handleClick(e: FormEvent) {
     e.preventDefault();
+    openModal("edit-board");
   }
 
   return <StyledWrapper onClick={handleClick}>Edit Board</StyledWrapper>;

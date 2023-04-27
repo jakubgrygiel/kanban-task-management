@@ -4,6 +4,7 @@ import type { AppProps } from "next/app";
 import Head from "next/head";
 import { DarkModeCtxProvider } from "@/context/DarkModeCtx";
 import ThemeProviderCustom from "@/providers/ThemeProviderCustom";
+import { ModalsCtxProvider } from "@/context/ModalsCtx";
 
 const GlobalStyle = createGlobalStyle`
     *,*::before,*::after{
@@ -32,7 +33,9 @@ export default function App({ Component, pageProps }: AppProps) {
       </Head>
       <DarkModeCtxProvider>
         <ThemeProviderCustom>
-          <Component {...pageProps} />
+          <ModalsCtxProvider>
+            <Component {...pageProps} />
+          </ModalsCtxProvider>
         </ThemeProviderCustom>
       </DarkModeCtxProvider>
     </>

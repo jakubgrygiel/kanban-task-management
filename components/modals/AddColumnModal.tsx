@@ -7,16 +7,16 @@ const ModalTitle = styled.h3`
   font-size: 1.125rem;
 `;
 
-interface IEditBoardModalProps {}
+interface IAddColumnModalProps {}
 
-export default function EditBoardModal() {
+export default function AddColumnModal() {
   function handleClick(e: FormEvent) {
     e.preventDefault();
   }
   return (
     <ModalWrapper>
-      <ModalTitle>Edit Board</ModalTitle>
-      <AddEditBoardForm editMode={true} addColumnMode={false} />
+      <ModalTitle>Add New Column</ModalTitle>
+      <AddEditBoardForm editMode={true} addColumnMode={true} />
     </ModalWrapper>
   );
 }

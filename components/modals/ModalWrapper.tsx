@@ -1,3 +1,5 @@
+import { ModalsCtx } from "@/context/ModalsCtx";
+import { useContext } from "react";
 import styled, { keyframes } from "styled-components";
 
 const fadeIn = keyframes`
@@ -46,9 +48,15 @@ interface IModalWrapperProps {
 }
 
 export default function ModalWrapper({ children }: IModalWrapperProps) {
+  const { closeModal } = useContext(ModalsCtx);
+
+  function handleClick() {
+    closeModal();
+  }
+
   return (
     <StyledWrapper>
-      <Backdrop />
+      <Backdrop onClick={handleClick} />
       <ModalContainer>{children}</ModalContainer>
     </StyledWrapper>
   );

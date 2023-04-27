@@ -1,3 +1,5 @@
+import { ModalsCtx } from "@/context/ModalsCtx";
+import { useContext } from "react";
 import styled from "styled-components";
 
 const StyledWrapper = styled.button`
@@ -22,5 +24,10 @@ const StyledWrapper = styled.button`
 `;
 
 export default function AddNewTaskBtn() {
-  return <StyledWrapper>+ Add New Task</StyledWrapper>;
+  const { openModal } = useContext(ModalsCtx);
+
+  function handleClick() {
+    openModal("add-task");
+  }
+  return <StyledWrapper onClick={handleClick}>+ Add New Task</StyledWrapper>;
 }

@@ -59,7 +59,7 @@ export default function AddEditTaskForm({ editMode }: IAddEditTaskFormProps) {
       />
       <ItemList label="Subtasks" type="Subtask" />
       <CreateEditTaskBtn onClick={handleClick}>
-        {editMode ? "Save changes" : "Create New"} Task
+        {editMode ? "Save changes" : "Create New Task"}
       </CreateEditTaskBtn>
     </StyledWrapper>
   );
