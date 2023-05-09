@@ -1,3 +1,4 @@
+import useActiveBoard from "@/hooks/useLocalStorage";
 import styled from "styled-components";
 
 const StyledWrapper = styled.button<IIsActive>`

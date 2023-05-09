@@ -40,6 +40,7 @@ const SubtasksInfo = styled.span`
 `;
 
 interface ITaskProps {
+  columnId: string;
   content: ITask;
 }
 

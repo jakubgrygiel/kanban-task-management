@@ -47,8 +47,9 @@ interface IColumnProps {
 
 export default function Column({ content }: IColumnProps) {
   function renderTasks() {
+    const columnId = content.id;
     return content.tasks.map((task: any) => (
-      <Task key={task.id} content={task} />
+      <Task key={task.id} columnId={columnId} content={task} />
     ));
   }
 
