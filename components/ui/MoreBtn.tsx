@@ -1,7 +1,5 @@
 import { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
-import EditTaskBtn from "../header/EditBoardBtn";
-import DeleteTaskBtn from "../header/DeleteBoardBtn";
 import useEscKeyDown from "@/hooks/useEscKeyDown";
 
 const StyledWrapper = styled.div`

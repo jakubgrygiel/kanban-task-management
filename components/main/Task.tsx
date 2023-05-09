@@ -1,8 +1,14 @@
 import { ModalsCtx } from "@/context/ModalsCtx";
+import { ITask } from "@/data/initialData";
 import { useContext } from "react";
 import styled from "styled-components";
 
-const StyledWrapper = styled.button`
+const StyledWrapper = styled.li`
+  width: 100%;
+  list-style: none;
+`;
+
+const TaskButton = styled.button`
   cursor: pointer;
   display: flex;
   justify-content: center;
@@ -15,7 +21,7 @@ const StyledWrapper = styled.button`
   background-color: ${({ theme }) => theme.colors.taskBg};
   box-shadow: ${({ theme }) => theme.colors.taskShadow};
   border-radius: 0.5rem;
-  border: none;
+  border: 1px solid ${({ theme }) => theme.colors.taskBorder};
   transition: opacity 0.3s ease-in-out;
 
   &:hover {
@@ -24,6 +30,7 @@ const StyledWrapper = styled.button`
 `;
 
 const TaskTitle = styled.h4`
+  text-align: left;
   font-size: 0.9375rem;
 `;
 
@@ -32,16 +39,29 @@ const SubtasksInfo = styled.span`
   color: ${({ theme }) => theme.colors.secondaryText};
 `;
 
-export default function Task() {
+interface ITaskProps {
+  content: ITask;
+}
+
+export default function Task({ content }: ITaskProps) {
   const { openModal } = useContext(ModalsCtx);
 
   function handleClick() {
     openModal("task-info");
   }
+
   return (
-    <StyledWrapper onClick={handleClick}>
-      <TaskTitle>Build UI for onboarding flow</TaskTitle>
-      <SubtasksInfo>0 of 3 subtasks</SubtasksInfo>
+    <StyledWrapper>
+      <TaskButton onClick={handleClick}>
+        <TaskTitle>{content.title}</TaskTitle>
+        <SubtasksInfo>
+          {
+            content.subtasks.filter((subtask: any) => subtask.isCompleted)
+              .length
+          }{" "}
+          of {content.subtasks.length} subtasks
+        </SubtasksInfo>
+      </TaskButton>
     </StyledWrapper>
   );
 }

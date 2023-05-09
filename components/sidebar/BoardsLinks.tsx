@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import BoardBtn from "./BoardBtn";
 import AddBoardBtn from "./AddBoardBtn";
+import initialData from "@/data/initialData";
 
 const StyledWrapper = styled.div`
   display: flex;
@@ -13,18 +14,28 @@ const StyledWrapper = styled.div`
 
 const H2 = styled.h2`
   padding-left: 32px;
+  padding-bottom: 1rem;
   font-size: 12px;
   letter-spacing: 2.4px;
   color: ${({ theme }) => theme.colors.secondaryText};
 `;
 
 export default function BoardsLinks() {
+  function renderBoardLinks() {
+    return initialData.boards.map((board) => (
+      <BoardBtn
+        key={board.id}
+        id={board.id}
+        name={board.name}
+        isActive={board.isActive}
+      />
+    ));
+  }
+
   return (
     <StyledWrapper>
       <H2>ALL BOARDS (3)</H2>
-      <BoardBtn isActive={true} />
-      <BoardBtn isActive={false} />
-      <BoardBtn isActive={false} />
+      {renderBoardLinks()}
       <AddBoardBtn />
     </StyledWrapper>
   );

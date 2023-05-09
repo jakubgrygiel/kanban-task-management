@@ -11,7 +11,7 @@ const StyledWrapper = styled.div<ISidebarIsOpen>`
   flex-direction: column;
   height: calc(100vh - 100px);
   width: 300px;
-  padding: 16px 24px 32px 0;
+  padding: 1rem 1.5rem 2rem 0;
   background-color: ${({ theme }) => theme.colors.headerBg};
   border-right: 1px solid ${({ theme }) => theme.colors.lightBorder};
   transform: translateX(${({ isOpen }) => (isOpen ? "0" : "-100%")});

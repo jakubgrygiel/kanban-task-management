@@ -76,7 +76,7 @@ export default function DeleteForm({ label, description }: IDeleteFormProps) {
   }
   return (
     <StyledWrapper>
-      <ModalTitle>Edit {label}</ModalTitle>
+      <ModalTitle>Delete {label}</ModalTitle>
       <Description>{description}</Description>
       <BtnsWrapper>
         <DeleteBtn onClick={handleClickDelete}>Delete</DeleteBtn>

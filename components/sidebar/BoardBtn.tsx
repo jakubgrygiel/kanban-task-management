@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const StyledWrapper = styled.button<IBoardBtnProps>`
+const StyledWrapper = styled.button<IIsActive>`
   cursor: pointer;
   display: flex;
   justify-content: flex-start;
@@ -51,11 +51,17 @@ const StyledWrapper = styled.button<IBoardBtnProps>`
   }
 `;
 
-interface IBoardBtnProps {
+interface IIsActive {
   isActive: boolean;
 }
 
-export default function BoardBtn({ isActive }: IBoardBtnProps) {
+interface IBoardBtnProps {
+  id: string;
+  name: string;
+  isActive: boolean;
+}
+
+export default function BoardBtn({ name, isActive }: IBoardBtnProps) {
   return (
     <StyledWrapper isActive={isActive}>
       <svg width="16" height="16" xmlns="http://www.w3.org/2000/svg">
@@ -64,7 +70,7 @@ export default function BoardBtn({ isActive }: IBoardBtnProps) {
           fill="#828FA3"
         />
       </svg>
-      <span>Board</span>
+      <span>{name}</span>
     </StyledWrapper>
   );
 }

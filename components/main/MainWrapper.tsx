@@ -30,7 +30,7 @@ export default function MainWrapper() {
   return (
     <StyledWrapper>
       <Sidebar isOpen={isOpen} toggleSidebar={toggleSidebar} />
-      <TasksWrapper isOpen={isOpen} isEmpty={false} />
+      <TasksWrapper isOpen={isOpen} />
     </StyledWrapper>
   );
 }

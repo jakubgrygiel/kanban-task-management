@@ -3,6 +3,8 @@ import { ISidebarIsOpen } from "../sidebar/Sidebar";
 import EmptyInfo from "./EmptyInfo";
 import Column from "./Column";
 import SecondAddNewColumnBtn from "./SecondAddNewColumnBtn";
+import initialData, { IColumn } from "@/data/initialData";
+import { useState } from "react";
 
 const StyledWrapper = styled.div<IWrapper>`
   position: absolute;
@@ -36,16 +38,22 @@ interface IWrapper {
 
 interface ITaskWrapperProps {
   isOpen: boolean;
-  isEmpty: boolean;
 }
 
-export default function TasksWrapper({ isOpen, isEmpty }: ITaskWrapperProps) {
+export default function TasksWrapper({ isOpen }: ITaskWrapperProps) {
+  const [isEmpty, setIsEmpty] = useState(false);
+
+  function renderColumns() {
+    const data = initialData.boards.find((board) => board.isActive);
+    return data?.columns.map((column) => (
+      <Column key={column.id} content={column} />
+    ));
+  }
+
   return (
     <StyledWrapper isOpen={isOpen} isEmpty={isEmpty}>
       <ColumnsWrapper>
-        <Column />
-        <Column />
-        <Column />
+        {renderColumns()}
         <SecondAddNewColumnBtn />
       </ColumnsWrapper>
       {isEmpty && <EmptyInfo />}

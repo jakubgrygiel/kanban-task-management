@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import Task from "./Task";
+import { IColumn } from "@/data/initialData";
 
 const StyledWrapper = styled.div`
   display: flex;
@@ -31,16 +32,35 @@ const ColumnTitle = styled.h3`
   text-transform: uppercase;
 `;
 
-export default function Column() {
+const TaskList = styled.ul`
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  flex-direction: column;
+  gap: 1.5rem;
+  width: 100%;
+`;
+
+interface IColumnProps {
+  content: IColumn;
+}
+
+export default function Column({ content }: IColumnProps) {
+  function renderTasks() {
+    return content.tasks.map((task: any) => (
+      <Task key={task.id} content={task} />
+    ));
+  }
+
   return (
     <StyledWrapper>
       <ColumnTitleWrapper>
         <ColumnIcon />
-        <ColumnTitle>Todo (4)</ColumnTitle>
+        <ColumnTitle>
+          {content.name} ({content.tasks.length})
+        </ColumnTitle>
       </ColumnTitleWrapper>
-      <Task />
-      <Task />
-      <Task />
+      <TaskList>{renderTasks()}</TaskList>
     </StyledWrapper>
   );
 }
