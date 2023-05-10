@@ -1,14 +1,26 @@
+enum UpdateEnum {
+  ADD = "add",
+  UPDATE = "update",
+  DELETE = "delete",
+}
+
+type UpdateType = UpdateEnum.ADD | UpdateEnum.UPDATE | UpdateEnum.DELETE;
+
+interface IData {
+  boards: IBoard[] | [];
+}
+
 interface IBoard {
   name: string;
   id: string;
   isActive: boolean;
-  columns: IColumn[];
+  columns: IColumn[] | [];
 }
 
 interface IColumn {
   name: string;
   id: string;
-  tasks: ITask[];
+  tasks: ITask[] | [];
 }
 
 interface ITask {
@@ -16,7 +28,7 @@ interface ITask {
   id: string;
   description: string;
   status: string;
-  subtasks: ISubtask[];
+  subtasks: ISubtask[] | [];
 }
 
 interface ISubtask {
@@ -25,7 +37,7 @@ interface ISubtask {
   isCompleted: boolean;
 }
 
-const initialData = {
+const initialData: IData = {
   boards: [
     {
       name: "Platform Launch",
@@ -561,4 +573,5 @@ const initialData = {
 
 export default initialData;
 
-export type { IBoard, IColumn, ITask, ISubtask };
+export { UpdateEnum };
+export type { UpdateType, IData, IBoard, IColumn, ITask, ISubtask };
