@@ -1,7 +1,8 @@
 import styled from "styled-components";
 import BoardBtn from "./BoardBtn";
 import AddBoardBtn from "./AddBoardBtn";
-import initialData from "@/data/initialData";
+import { useContext } from "react";
+import { DataCtx } from "@/context/DataCtx";
 
 const StyledWrapper = styled.div`
   display: flex;
@@ -21,8 +22,10 @@ const H2 = styled.h2`
 `;
 
 export default function BoardsLinks() {
+  const { data } = useContext(DataCtx);
+
   function renderBoardLinks() {
-    return initialData.boards.map((board) => (
+    return data.boards.map((board) => (
       <BoardBtn
         key={board.id}
         id={board.id}
@@ -34,7 +37,7 @@ export default function BoardsLinks() {
 
   return (
     <StyledWrapper>
-      <H2>ALL BOARDS (3)</H2>
+      <H2>ALL BOARDS ({data.boards.length})</H2>
       {renderBoardLinks()}
       <AddBoardBtn />
     </StyledWrapper>

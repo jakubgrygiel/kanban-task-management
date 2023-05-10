@@ -1,10 +1,10 @@
 import styled from "styled-components";
-import { ISidebarIsOpen } from "../sidebar/Sidebar";
 import EmptyInfo from "./EmptyInfo";
 import Column from "./Column";
 import SecondAddNewColumnBtn from "./SecondAddNewColumnBtn";
-import initialData, { IColumn } from "@/data/initialData";
-import { useState } from "react";
+import { IBoard } from "@/data/initialData";
+import { useContext, useState } from "react";
+import { DataCtx } from "@/context/DataCtx";
 
 const StyledWrapper = styled.div<IWrapper>`
   position: absolute;
@@ -41,13 +41,18 @@ interface ITaskWrapperProps {
 }
 
 export default function TasksWrapper({ isOpen }: ITaskWrapperProps) {
+  const { data } = useContext(DataCtx);
   const [isEmpty, setIsEmpty] = useState(false);
 
   function renderColumns() {
-    const data = initialData.boards.find((board) => board.isActive);
-    return data?.columns.map((column) => (
-      <Column key={column.id} content={column} />
-    ));
+    const activeBoard: IBoard | undefined = data.boards.find(
+      (board) => board.isActive
+    );
+    let i = -1;
+    return activeBoard?.columns.map((column) => {
+      i++;
+      return <Column key={column.id} content={column} colorNum={i} />;
+    });
   }
 
   return (

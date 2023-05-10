@@ -8,17 +8,17 @@ export default function useBoardCRUD() {
   const { data, activeBoardId, updateData } = useContext(DataCtx);
 
   function addBoard(data: IData) {
-    const newData = deepCopyObject(data);
+    let newData = deepCopyObject(data);
     return newData;
   }
 
   function updateBoard(data: IData) {
-    const newData = deepCopyObject(data);
+    let newData = deepCopyObject(data);
     return newData;
   }
 
   function deleteBoard(data: IData) {
-    const newData = deepCopyObject(data);
+    let newData = deepCopyObject(data);
     return newData;
   }
 

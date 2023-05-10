@@ -2,12 +2,11 @@ import initialData, { IData } from "@/data/initialData";
 import { useEffect, useState } from "react";
 
 export default function useLocalStorage(key: string) {
-  const [data, setData] = useState<IData>(readValue());
+  const [data, setData] = useState<IData>(initialData);
 
-  const activeBoardId: string | undefined =
-    data.boards.length < 1
-      ? undefined
-      : data.boards.find((board) => board.isActive)?.id;
+  const activeBoardId: string | undefined = data.boards.find(
+    (board) => board.isActive
+  )?.id;
 
   useEffect(() => {
     setData(readValue());

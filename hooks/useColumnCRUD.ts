@@ -8,17 +8,17 @@ export default function useColumnCRUD() {
   const { data, activeBoardId, updateData } = useContext(DataCtx);
 
   function addColumn(data: IData, columnId: string) {
-    const newData = deepCopyObject(data);
+    let newData = deepCopyObject(data);
     return newData;
   }
 
   function updateColumn(data: IData, columnId: string) {
-    const newData = deepCopyObject(data);
+    let newData = deepCopyObject(data);
     return newData;
   }
 
   function deleteColumn(data: IData, columnId: string) {
-    const newData = deepCopyObject(data);
+    let newData = deepCopyObject(data);
     return newData;
   }
 

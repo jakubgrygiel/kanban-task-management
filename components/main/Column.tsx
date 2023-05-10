@@ -18,11 +18,11 @@ const ColumnTitleWrapper = styled.div`
   gap: 0.75rem;
 `;
 
-const ColumnIcon = styled.span`
+const ColumnIcon = styled.span<IColorNum>`
   height: 15px;
   width: 15px;
   border-radius: 7.5px;
-  background-color: hsla(193, 75%, 59%, 1);
+  background-color: ${({ theme, colorNum }) => theme.columnColors[colorNum]};
 `;
 
 const ColumnTitle = styled.h3`
@@ -41,11 +41,15 @@ const TaskList = styled.ul`
   width: 100%;
 `;
 
+interface IColorNum {
+  colorNum: number;
+}
 interface IColumnProps {
   content: IColumn;
+  colorNum: number;
 }
 
-export default function Column({ content }: IColumnProps) {
+export default function Column({ content, colorNum }: IColumnProps) {
   function renderTasks() {
     const columnId = content.id;
     return content.tasks.map((task: any) => (
@@ -56,7 +60,7 @@ export default function Column({ content }: IColumnProps) {
   return (
     <StyledWrapper>
       <ColumnTitleWrapper>
-        <ColumnIcon />
+        <ColumnIcon colorNum={colorNum} />
         <ColumnTitle>
           {content.name} ({content.tasks.length})
         </ColumnTitle>

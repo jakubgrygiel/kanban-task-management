@@ -8,17 +8,17 @@ export default function useTaskCRUD() {
   const { data, activeBoardId, updateData } = useContext(DataCtx);
 
   function addTask(data: IData, columnId: string, taskId: string): IData {
-    const newData = deepCopyObject(data);
+    let newData = deepCopyObject(data);
     return newData;
   }
 
   function updateTask(data: IData, columnId: string, taskId: string) {
-    const newData = deepCopyObject(data);
+    let newData = deepCopyObject(data);
     return newData;
   }
 
   function deleteTask(data: IData, columnId: string, taskId: string) {
-    const newData = deepCopyObject(data);
+    let newData = deepCopyObject(data);
     return newData;
   }
 
