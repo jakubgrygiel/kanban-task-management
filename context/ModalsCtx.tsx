@@ -1,5 +1,5 @@
 import { createContext, useState } from "react";
-interface IDarkModeProviderProps {
+interface IModalsProviderProps {
   children: React.ReactNode;
 }
 
@@ -16,7 +16,7 @@ export const ModalsCtx = createContext({
   openModal: (modal: string) => {},
 });
 
-export function ModalsCtxProvider({ children }: IDarkModeProviderProps) {
+export function ModalsCtxProvider({ children }: IModalsProviderProps) {
   const [isAddTaskOpen, setIsAddTaskOpen] = useState(false);
   const [isEditTaskOpen, setIsEditTaskOpen] = useState(false);
   const [isDeleteTaskOpen, setIsDeleteTaskOpen] = useState(false);
@@ -54,16 +54,16 @@ export function ModalsCtxProvider({ children }: IDarkModeProviderProps) {
   }
 
   const ctx = {
-    isAddTaskOpen: isAddTaskOpen,
-    isEditTaskOpen: isEditTaskOpen,
-    isDeleteTaskOpen: isDeleteTaskOpen,
-    isAddBoardOpen: isAddBoardOpen,
-    isEditBoardOpen: isEditBoardOpen,
-    isDeleteBoardOpen: isDeleteBoardOpen,
-    isAddColumnOpen: isAddColumnOpen,
-    isTaskOpen: isTaskOpen,
-    closeModal: closeModal,
-    openModal: openModal,
+    isAddTaskOpen,
+    isEditTaskOpen,
+    isDeleteTaskOpen,
+    isAddBoardOpen,
+    isEditBoardOpen,
+    isDeleteBoardOpen,
+    isAddColumnOpen,
+    isTaskOpen,
+    closeModal,
+    openModal,
   };
 
   return <ModalsCtx.Provider value={ctx}>{children}</ModalsCtx.Provider>;

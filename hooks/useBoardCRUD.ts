@@ -1,27 +1,37 @@
 import { deepCopyObject } from "@/utils/helpers";
-import useData from "./useData";
 import { createId } from "@paralleldrive/cuid2";
 import { IData, UpdateEnum, UpdateType } from "@/data/initialData";
+import { DataCtx } from "@/context/DataCtx";
+import { useContext } from "react";
 
 export default function useBoardCRUD() {
-  const { activeBoardId, data, updateData } = useData();
+  const { data, activeBoardId, updateData } = useContext(DataCtx);
 
-  function addBoard(newData: IData) {}
+  function addBoard(data: IData) {
+    const newData = deepCopyObject(data);
+    return newData;
+  }
 
-  function updateBoard(newData: IData) {}
+  function updateBoard(data: IData) {
+    const newData = deepCopyObject(data);
+    return newData;
+  }
 
-  function deleteBoard(newData: IData) {}
+  function deleteBoard(data: IData) {
+    const newData = deepCopyObject(data);
+    return newData;
+  }
 
   function updateBoardData(updateType: UpdateType) {
-    const newData = deepCopyObject(data);
+    let newData: IData = deepCopyObject(data);
     if (updateType === UpdateEnum.ADD) {
-      addBoard(newData);
+      newData = addBoard(newData);
     }
     if (updateType === UpdateEnum.UPDATE) {
-      updateBoard(newData);
+      newData = updateBoard(newData);
     }
     if (updateType === UpdateEnum.DELETE) {
-      deleteBoard(newData);
+      newData = deleteBoard(newData);
     }
     updateData(newData);
   }

@@ -1,31 +1,41 @@
 import { deepCopyObject } from "@/utils/helpers";
-import useData from "./useData";
 import { createId } from "@paralleldrive/cuid2";
 import { IData, UpdateEnum, UpdateType } from "@/data/initialData";
+import { useContext } from "react";
+import { DataCtx } from "@/context/DataCtx";
 
 export default function useTaskCRUD() {
-  const { activeBoardId, data, updateData } = useData();
+  const { data, activeBoardId, updateData } = useContext(DataCtx);
 
-  function addTask(newData: IData, columnId: string, taskId: string) {}
+  function addTask(data: IData, columnId: string, taskId: string): IData {
+    const newData = deepCopyObject(data);
+    return newData;
+  }
 
-  function updateTask(newData: IData, columnId: string, taskId: string) {}
+  function updateTask(data: IData, columnId: string, taskId: string) {
+    const newData = deepCopyObject(data);
+    return newData;
+  }
 
-  function deleteTask(newData: IData, columnId: string, taskId: string) {}
+  function deleteTask(data: IData, columnId: string, taskId: string) {
+    const newData = deepCopyObject(data);
+    return newData;
+  }
 
   function updateTaskData(
     taskId: string,
     columnId: string,
     updateType: UpdateType
   ) {
-    const newData = deepCopyObject(data);
+    let newData: IData = deepCopyObject(data);
     if (updateType === UpdateEnum.ADD) {
-      addTask(newData, columnId, taskId);
+      newData = addTask(data, columnId, taskId);
     }
     if (updateType === UpdateEnum.UPDATE) {
-      updateTask(newData, columnId, taskId);
+      newData = updateTask(data, columnId, taskId);
     }
     if (updateType === UpdateEnum.DELETE) {
-      deleteTask(newData, columnId, taskId);
+      newData = deleteTask(data, columnId, taskId);
     }
     updateData(newData);
   }

@@ -1,27 +1,37 @@
+import { DataCtx } from "@/context/DataCtx";
 import { IData, UpdateEnum, UpdateType } from "@/data/initialData";
-import useData from "./useData";
 import { deepCopyObject } from "@/utils/helpers";
 import { createId } from "@paralleldrive/cuid2";
+import { useContext } from "react";
 
 export default function useColumnCRUD() {
-  const { activeBoardId, data, updateData } = useData();
+  const { data, activeBoardId, updateData } = useContext(DataCtx);
 
-  function addColumn(newData: IData, columnId: string) {}
+  function addColumn(data: IData, columnId: string) {
+    const newData = deepCopyObject(data);
+    return newData;
+  }
 
-  function updateColumn(newData: IData, columnId: string) {}
+  function updateColumn(data: IData, columnId: string) {
+    const newData = deepCopyObject(data);
+    return newData;
+  }
 
-  function deleteColumn(newData: IData, columnId: string) {}
+  function deleteColumn(data: IData, columnId: string) {
+    const newData = deepCopyObject(data);
+    return newData;
+  }
 
   function updateColumnData(columnId: string, updateType: UpdateType) {
-    const newData = deepCopyObject(data);
+    let newData: IData = deepCopyObject(data);
     if (updateType === UpdateEnum.ADD) {
-      addColumn(newData, columnId);
+      newData = addColumn(newData, columnId);
     }
     if (updateType === UpdateEnum.UPDATE) {
-      updateColumn(newData, columnId);
+      newData = updateColumn(newData, columnId);
     }
     if (updateType === UpdateEnum.DELETE) {
-      deleteColumn(newData, columnId);
+      newData = deleteColumn(newData, columnId);
     }
     updateData(newData);
   }

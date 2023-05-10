@@ -5,6 +5,7 @@ import Head from "next/head";
 import { DarkModeCtxProvider } from "@/context/DarkModeCtx";
 import ThemeProviderCustom from "@/providers/ThemeProviderCustom";
 import { ModalsCtxProvider } from "@/context/ModalsCtx";
+import { DataCtxProvider } from "@/context/DataCtx";
 
 const GlobalStyle = createGlobalStyle`
     *,*::before,*::after{
@@ -33,9 +34,11 @@ export default function App({ Component, pageProps }: AppProps) {
       </Head>
       <DarkModeCtxProvider>
         <ThemeProviderCustom>
-          <ModalsCtxProvider>
-            <Component {...pageProps} />
-          </ModalsCtxProvider>
+          <DataCtxProvider>
+            <ModalsCtxProvider>
+              <Component {...pageProps} />
+            </ModalsCtxProvider>
+          </DataCtxProvider>
         </ThemeProviderCustom>
       </DarkModeCtxProvider>
     </>

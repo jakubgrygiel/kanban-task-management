@@ -7,20 +7,20 @@ enum UpdateEnum {
 type UpdateType = UpdateEnum.ADD | UpdateEnum.UPDATE | UpdateEnum.DELETE;
 
 interface IData {
-  boards: IBoard[] | [];
+  boards: IBoard[];
 }
 
 interface IBoard {
   name: string;
   id: string;
   isActive: boolean;
-  columns: IColumn[] | [];
+  columns: IColumn[];
 }
 
 interface IColumn {
   name: string;
   id: string;
-  tasks: ITask[] | [];
+  tasks: ITask[];
 }
 
 interface ITask {
@@ -28,7 +28,7 @@ interface ITask {
   id: string;
   description: string;
   status: string;
-  subtasks: ISubtask[] | [];
+  subtasks: ISubtask[];
 }
 
 interface ISubtask {
