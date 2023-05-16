@@ -442,7 +442,7 @@ const initialData: IData = {
               title: "Share on Show HN",
               id: "ajouqrypgicr1ilvpo4hrtz1",
               description: "",
-              status: "",
+              status: "Todo",
               subtasks: [
                 {
                   id: "idxcupxeb9c4kzk1ml2r1t34",
@@ -465,7 +465,7 @@ const initialData: IData = {
               title: "Write launch article to publish on multiple channels",
               id: "apval72paycf4kv61f8zkc2u",
               description: "",
-              status: "",
+              status: "Todo",
               subtasks: [
                 {
                   id: "idfroygnavixl97or141ie0h",
@@ -516,7 +516,7 @@ const initialData: IData = {
               title: "Launch version one",
               id: "dxy3m0qp659nzew07rvzcx0z",
               description: "",
-              status: "",
+              status: "Now",
               subtasks: [
                 {
                   id: "mbwsm148wdvypeajccf223m4",
@@ -535,7 +535,7 @@ const initialData: IData = {
               id: "etl38fj34uz6cdzexmhub0rm",
               description:
                 "Beyond the initial launch, we're keeping the initial roadmap completely empty. This meeting will help us plan out our next steps based on actual customer feedback.",
-              status: "",
+              status: "Now",
               subtasks: [
                 {
                   id: "et42a8f7ib6pwcs3lhwdgst1",

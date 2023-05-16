@@ -3,6 +3,25 @@ interface IModalsProviderProps {
   children: React.ReactNode;
 }
 
+export interface ICurrentTaskIds {
+  taskId: string | undefined;
+  columnId: string | undefined;
+}
+
+interface IModalCtx {
+  isAddTaskOpen: boolean;
+  isEditTaskOpen: boolean;
+  isDeleteTaskOpen: boolean;
+  isAddBoardOpen: boolean;
+  isEditBoardOpen: boolean;
+  isDeleteBoardOpen: boolean;
+  isAddColumnOpen: boolean;
+  isTaskOpen: boolean;
+  currentTaskIds: { columnId: string | undefined; taskId: string | undefined };
+  closeModal: () => void;
+  openModal: (modal: string, taskIds?: ICurrentTaskIds) => void;
+}
+
 export const ModalsCtx = createContext({
   isAddTaskOpen: false,
   isEditTaskOpen: false,
@@ -12,8 +31,9 @@ export const ModalsCtx = createContext({
   isDeleteBoardOpen: false,
   isAddColumnOpen: false,
   isTaskOpen: false,
+  currentTaskIds: { columnId: undefined, taskId: undefined },
   closeModal: () => {},
-  openModal: (modal: string) => {},
+  openModal: (modal: string, taskIds?: ICurrentTaskIds) => {},
 });
 
 export function ModalsCtxProvider({ children }: IModalsProviderProps) {
@@ -25,8 +45,15 @@ export function ModalsCtxProvider({ children }: IModalsProviderProps) {
   const [isDeleteBoardOpen, setIsDeleteBoardOpen] = useState(false);
   const [isAddColumnOpen, setIsAddColumnOpen] = useState(false);
   const [isTaskOpen, setIsTaskOpen] = useState(false);
+  const [currentTaskIds, setCurrentTaskIds] = useState<ICurrentTaskIds>({
+    columnId: undefined,
+    taskId: undefined,
+  });
 
-  function openModal(modal: string) {
+  function openModal(modal: string, taskIds?: ICurrentTaskIds) {
+    if (taskIds !== undefined) {
+      setCurrentTaskIds(taskIds);
+    }
     closeAllModals();
     if (modal === "add-task") return setIsAddTaskOpen(true);
     if (modal === "edit-task") return setIsEditTaskOpen(true);
@@ -51,9 +78,10 @@ export function ModalsCtxProvider({ children }: IModalsProviderProps) {
 
   function closeModal() {
     closeAllModals();
+    setCurrentTaskIds({ columnId: undefined, taskId: undefined });
   }
 
-  const ctx = {
+  const ctx: IModalCtx = {
     isAddTaskOpen,
     isEditTaskOpen,
     isDeleteTaskOpen,
@@ -62,6 +90,7 @@ export function ModalsCtxProvider({ children }: IModalsProviderProps) {
     isDeleteBoardOpen,
     isAddColumnOpen,
     isTaskOpen,
+    currentTaskIds,
     closeModal,
     openModal,
   };

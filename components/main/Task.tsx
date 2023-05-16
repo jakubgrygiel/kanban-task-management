@@ -44,11 +44,12 @@ interface ITaskProps {
   content: ITask;
 }
 
-export default function Task({ content }: ITaskProps) {
+export default function Task({ content, columnId }: ITaskProps) {
   const { openModal } = useContext(ModalsCtx);
 
   function handleClick() {
-    openModal("task-info");
+    const currentTaskIds = { taskId: content.id, columnId: columnId };
+    openModal("task-info", currentTaskIds);
   }
 
   return (

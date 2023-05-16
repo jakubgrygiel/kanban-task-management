@@ -39,6 +39,7 @@ const TaskList = styled.ul`
   flex-direction: column;
   gap: 1.5rem;
   width: 100%;
+  padding-bottom: 3rem;
 `;
 
 interface IColorNum {

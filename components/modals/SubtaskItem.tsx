@@ -1,3 +1,8 @@
+import { DataCtx } from "@/context/DataCtx";
+import { ModalsCtx } from "@/context/ModalsCtx";
+import { getSubtask, updateSubtask } from "@/utils/filterBoard";
+import { deepCopyObject } from "@/utils/helpers";
+import { FormEvent, useContext } from "react";
 import styled from "styled-components";
 
 const StyledWrapper = styled.li`
@@ -85,9 +90,33 @@ export default function SubtaskItem({
   text,
   isChecked,
 }: ISubtaskItemProps) {
+  const { data, updateData, activeBoardId } = useContext(DataCtx);
+  const {
+    currentTaskIds: { columnId, taskId },
+  } = useContext(ModalsCtx);
+
+  function changeStatus() {
+    let newData = deepCopyObject(data);
+    newData = updateSubtask(
+      newData,
+      activeBoardId,
+      columnId,
+      taskId,
+      id,
+      "isCompleted",
+      !isChecked
+    );
+    updateData(newData);
+  }
+
+  function handleClick(e: FormEvent) {
+    e.preventDefault();
+    changeStatus();
+  }
+
   return (
     <StyledWrapper>
-      <SubtaskWrapper htmlFor={id} isChecked={isChecked}>
+      <SubtaskWrapper htmlFor={id} isChecked={isChecked} onClick={handleClick}>
         <CheckboxWrapper>
           <Checkbox type="checkbox" id={id} checked={isChecked} readOnly />
           <CheckboxVisual isChecked={isChecked}>

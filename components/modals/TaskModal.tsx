@@ -5,6 +5,11 @@ import EditTaskBtn from "./EditTaskBtn";
 import DeleteTaskBtn from "./DeleteTaskBtn";
 import StatusInput from "./StatusInput";
 import Subtasks from "./Subtasks";
+import { useContext } from "react";
+import { ModalsCtx } from "@/context/ModalsCtx";
+import { DataCtx } from "@/context/DataCtx";
+import { getBoard, getColumn, getTask } from "@/utils/filterBoard";
+import { IColumn } from "@/data/initialData";
 
 const TopWrapper = styled.div`
   display: flex;
@@ -27,25 +32,34 @@ const Description = styled.p`
 interface ITaskModalProps {}
 
 export default function TaskModal() {
+  const { currentTaskIds } = useContext(ModalsCtx);
+  const { data, activeBoardId } = useContext(DataCtx);
+
+  const task = getTask(
+    data,
+    activeBoardId,
+    currentTaskIds.columnId,
+    currentTaskIds.taskId
+  );
+
   return (
-    <ModalWrapper>
-      <TopWrapper>
-        <ModalTitle>
-          Research pricing points of various competitors and trial different
-          business models
-        </ModalTitle>
-        <MoreBtn>
-          <EditTaskBtn />
-          <DeleteTaskBtn />
-        </MoreBtn>
-      </TopWrapper>
-      <Description>
-        We know what we're planning to build for version one. Now we need to
-        finalise the first pricing model we'll use. Keep iterating the subtasks
-        until we have a coherent proposition.
-      </Description>
-      <Subtasks />
-      <StatusInput name="Status" id="status" />
-    </ModalWrapper>
+    <>
+      {task ? (
+        <ModalWrapper>
+          <TopWrapper>
+            <ModalTitle>{task.title}</ModalTitle>
+            <MoreBtn>
+              <EditTaskBtn />
+              <DeleteTaskBtn />
+            </MoreBtn>
+          </TopWrapper>
+          <Description>{task.description}</Description>
+          <Subtasks content={task.subtasks} />
+          <StatusInput name="Status" id="status" status={task.status} />
+        </ModalWrapper>
+      ) : (
+        <p>loading</p>
+      )}
+    </>
   );
 }

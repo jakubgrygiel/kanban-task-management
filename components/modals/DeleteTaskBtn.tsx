@@ -25,7 +25,7 @@ export default function DeleteTaskBtn() {
 
   function handleClick(e: FormEvent) {
     e.preventDefault();
-    openModal("delete-board");
+    openModal("delete-task");
   }
 
   return <StyledWrapper onClick={handleClick}>Delete Task</StyledWrapper>;

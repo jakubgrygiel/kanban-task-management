@@ -1,4 +1,6 @@
-import { FormEvent, useState } from "react";
+import { DataCtx } from "@/context/DataCtx";
+import { createId } from "@paralleldrive/cuid2";
+import { FormEvent, useContext, useState } from "react";
 import styled from "styled-components";
 
 const StyledWrapper = styled.div`
@@ -83,33 +85,40 @@ const Option = styled.button`
 interface IStatusInputProps {
   id: string;
   name: string;
+  status: string;
 }
 
-export default function StatusInput({ id, name }: IStatusInputProps) {
+export default function StatusInput({ id, name, status }: IStatusInputProps) {
   const [isOptionsOpen, setIsOptionsOpen] = useState(false);
+  const { data, activeBoardId } = useContext(DataCtx);
+  const content = data.boards.find((board) => board.id === activeBoardId);
+  const columnsNames = content?.columns.map((column) => column.name);
 
   function handleClick(e: FormEvent) {
     e.preventDefault();
     setIsOptionsOpen((prevState) => !prevState);
   }
+
   function handleClickOption(e: FormEvent) {
     e.preventDefault();
     setIsOptionsOpen(false);
+  }
+
+  function renderOptions() {
+    return columnsNames?.map((column) => (
+      <Option key={createId()} onClick={handleClickOption}>
+        {column}
+      </Option>
+    ));
   }
   return (
     <StyledWrapper>
       <Label htmlFor={id}>{name}</Label>
       <Button id={id} onClick={handleClick}>
-        Todo
+        {status}
         <img src="/assets/icon-chevron-down.svg" alt="arrow down icon" />
       </Button>
-      {isOptionsOpen && (
-        <StatusOptions>
-          <Option onClick={handleClickOption}>Todo</Option>
-          <Option onClick={handleClickOption}>Doing</Option>
-          <Option onClick={handleClickOption}>Done</Option>
-        </StatusOptions>
-      )}
+      {isOptionsOpen && <StatusOptions>{renderOptions()}</StatusOptions>}
     </StyledWrapper>
   );
 }

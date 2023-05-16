@@ -15,7 +15,7 @@ const StyledWrapper = styled.div<IWrapper>`
   align-items: ${({ isEmpty }) => (isEmpty ? "center" : "flex-start")};
   align-items: stretch;
   gap: 1.5rem;
-  padding: 1.5rem;
+  /* padding: 1.5rem; */
   transition: left 0.3s ease-in-out;
   overflow: hidden;
   overflow-x: auto;

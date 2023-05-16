@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { FormEvent } from "react";
 import ItemInput from "./ItemInput";
 import SubtaskItem from "./SubtaskItem";
+import { ISubtask } from "@/data/initialData";
 
 const StyledWrapper = styled.fieldset`
   display: flex;
@@ -27,28 +28,30 @@ const List = styled.ul`
   width: 100%;
 `;
 
-interface ISubtasksProps {}
+interface ISubtasksProps {
+  content: ISubtask[];
+}
 
-export default function Subtasks() {
+export default function Subtasks({ content }: ISubtasksProps) {
   function handleClick(e: FormEvent) {
     e.preventDefault();
+  }
+
+  function renderSubtasks() {
+    return content.map((subtask) => (
+      <SubtaskItem
+        key={subtask.id}
+        id={subtask.id}
+        text={subtask.title}
+        isChecked={subtask.isCompleted}
+      />
+    ));
   }
 
   return (
     <StyledWrapper>
       <Legend>Subtasks (2 of 3)</Legend>
-      <List>
-        <SubtaskItem
-          id="098098"
-          text="Talk to potential customers about our proposed solution and ask for fair price expectancy"
-          isChecked={false}
-        />
-        <SubtaskItem
-          id="0asd098"
-          text="Outline a business model that works for our solution"
-          isChecked={true}
-        />
-      </List>
+      <List>{renderSubtasks()}</List>
     </StyledWrapper>
   );
 }
