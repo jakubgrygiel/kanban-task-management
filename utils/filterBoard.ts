@@ -1,4 +1,5 @@
 import { IBoard, IColumn, IData, ISubtask, ITask } from "@/data/initialData";
+import { deepCopyObject } from "./helpers";
 
 interface IKeyString {
   [path: string]: string;
@@ -67,10 +68,34 @@ function updateSubtask(
   const subtaskIdx = data.boards[boardIdx].columns[columnIdx].tasks[
     taskIdx
   ].subtasks.findIndex((subtask) => subtask.id === subtaskId);
-  data.boards[boardIdx].columns[columnIdx].tasks[taskIdx].subtasks[subtaskIdx][
-    path
-  ] = value;
-  return data;
+  let newData = deepCopyObject(data);
+  newData.boards[boardIdx].columns[columnIdx].tasks[taskIdx].subtasks[
+    subtaskIdx
+  ][path] = value;
+  return newData;
 }
 
-export { getBoard, getColumn, getTask, getSubtask, updateSubtask };
+function updateTask(
+  data: IData,
+  boardId: string | undefined,
+  columnId: string | undefined,
+  taskId: string | undefined,
+  path: IKeyString,
+  value: any
+) {
+  const boardIdx = data.boards.findIndex((board) => board.id === boardId);
+  if (boardIdx === -1) return data;
+  const columnIdx = data.boards[boardIdx].columns.findIndex(
+    (column) => column.id === columnId
+  );
+  if (columnIdx === -1) return data;
+  const taskIdx = data.boards[boardIdx].columns[columnIdx].tasks.findIndex(
+    (task) => task.id === taskId
+  );
+  if (taskIdx === -1) return data;
+  let newData = deepCopyObject(data);
+  newData.boards[boardIdx].columns[columnIdx].tasks[taskIdx][path] = value;
+  return newData;
+}
+
+export { getBoard, getColumn, getTask, getSubtask, updateSubtask, updateTask };

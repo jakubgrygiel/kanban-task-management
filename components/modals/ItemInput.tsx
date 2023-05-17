@@ -50,23 +50,26 @@ interface IItemInputProps {
   subtaskId: string;
   placeholder: string;
   value: string;
-  updateTaskItem: (subtaskId: string, newValue: string) => void;
+  updateSubtask: (subtaskId: string, newValue: string) => void;
+  deleteSubtask: (subtaskId: string) => void;
 }
 
 export default function ItemInput({
   subtaskId,
   placeholder,
   value,
-  updateTaskItem,
+  updateSubtask,
+  deleteSubtask,
 }: IItemInputProps) {
   const inputRef = useRef<HTMLInputElement>(null);
 
   function handleChange() {
-    inputRef.current && updateTaskItem(subtaskId, inputRef.current.value);
+    inputRef.current && updateSubtask(subtaskId, inputRef.current.value);
   }
 
   function handleClick(e: FormEvent) {
     e.preventDefault();
+    deleteSubtask(subtaskId);
   }
 
   return (

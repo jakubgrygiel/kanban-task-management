@@ -8,8 +8,9 @@ import Subtasks from "./Subtasks";
 import { useContext } from "react";
 import { ModalsCtx } from "@/context/ModalsCtx";
 import { DataCtx } from "@/context/DataCtx";
-import { getBoard, getColumn, getTask } from "@/utils/filterBoard";
+import { getBoard, getColumn, getTask, updateTask } from "@/utils/filterBoard";
 import { IColumn } from "@/data/initialData";
+import { deepCopyObject } from "@/utils/helpers";
 
 const TopWrapper = styled.div`
   display: flex;
@@ -33,7 +34,7 @@ interface ITaskModalProps {}
 
 export default function TaskModal() {
   const { currentTaskIds } = useContext(ModalsCtx);
-  const { data, activeBoardId } = useContext(DataCtx);
+  const { data, updateData, activeBoardId } = useContext(DataCtx);
 
   const task = getTask(
     data,
@@ -41,6 +42,19 @@ export default function TaskModal() {
     currentTaskIds.columnId,
     currentTaskIds.taskId
   );
+
+  function changeStatus(status: string) {
+    let newData = deepCopyObject(data);
+    newData = updateTask(
+      newData,
+      activeBoardId,
+      currentTaskIds.columnId,
+      task!.id,
+      "status",
+      status
+    );
+    updateData(newData);
+  }
 
   return (
     <>
@@ -55,7 +69,12 @@ export default function TaskModal() {
           </TopWrapper>
           <Description>{task.description}</Description>
           <Subtasks content={task.subtasks} />
-          <StatusInput name="Status" id="status" status={task.status} />
+          <StatusInput
+            name="Status"
+            id="status"
+            status={task.status}
+            changeStatus={changeStatus}
+          />
         </ModalWrapper>
       ) : (
         <p>loading</p>

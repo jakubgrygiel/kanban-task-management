@@ -95,7 +95,7 @@ export default function SubtaskItem({
     currentTaskIds: { columnId, taskId },
   } = useContext(ModalsCtx);
 
-  function changeStatus() {
+  function changeCompletedState() {
     let newData = deepCopyObject(data);
     newData = updateSubtask(
       newData,
@@ -111,7 +111,7 @@ export default function SubtaskItem({
 
   function handleClick(e: FormEvent) {
     e.preventDefault();
-    changeStatus();
+    changeCompletedState();
   }
 
   return (

@@ -90,7 +90,7 @@ export default function AddEditTaskForm({ editMode }: IAddEditTaskFormProps) {
     setFormData(newTask);
   }
 
-  function updateTaskItem(subtaskId: string, newValue: string) {
+  function updateSubtask(subtaskId: string, newValue: string) {
     let newTask: ITask = deepCopyObject(formData);
     let indexOfSubtaskToUpdate = newTask.subtasks.findIndex(
       (subtask) => subtask.id === subtaskId
@@ -100,6 +100,29 @@ export default function AddEditTaskForm({ editMode }: IAddEditTaskFormProps) {
       "title",
       newValue
     );
+    setFormData(newTask);
+  }
+
+  function deleteSubtask(subtaskId: string) {
+    let newTask: ITask = deepCopyObject(formData);
+    let indexOfSubtaskToDelete = newTask.subtasks.findIndex(
+      (subtask) => subtask.id === subtaskId
+    );
+    newTask.subtasks.splice(indexOfSubtaskToDelete, 1);
+    setFormData(newTask);
+  }
+
+  function addNewSubtask() {
+    let newTask: ITask = deepCopyObject(formData);
+    let newSubtask = { ...initialEmptySubtask };
+    newSubtask.id = createId();
+    newTask.subtasks.push(newSubtask);
+    setFormData(newTask);
+  }
+
+  function changeStatus(status: string) {
+    let newTask: ITask = deepCopyObject(formData);
+    newTask.status = status;
     setFormData(newTask);
   }
 
@@ -126,9 +149,16 @@ export default function AddEditTaskForm({ editMode }: IAddEditTaskFormProps) {
             label="Subtasks"
             type="Subtask"
             content={formData.subtasks}
-            updateTaskItem={updateTaskItem}
+            addNewSubtask={addNewSubtask}
+            updateSubtask={updateSubtask}
+            deleteSubtask={deleteSubtask}
           />
-          <StatusInput name="Status" id="status" status={formData.status} />
+          <StatusInput
+            name="Status"
+            id="status"
+            status={formData.status}
+            changeStatus={changeStatus}
+          />
           <CreateEditTaskBtn onClick={handleClick}>
             {editMode ? "Save changes" : "Create New Task"}
           </CreateEditTaskBtn>

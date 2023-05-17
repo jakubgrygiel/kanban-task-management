@@ -1,6 +1,6 @@
 import { DataCtx } from "@/context/DataCtx";
 import { createId } from "@paralleldrive/cuid2";
-import { FormEvent, useContext, useState } from "react";
+import { FormEvent, useContext, useRef, useState } from "react";
 import styled from "styled-components";
 
 const StyledWrapper = styled.div`
@@ -86,10 +86,17 @@ interface IStatusInputProps {
   id: string;
   name: string;
   status: string;
+  changeStatus: (status: string) => void;
 }
 
-export default function StatusInput({ id, name, status }: IStatusInputProps) {
+export default function StatusInput({
+  id,
+  name,
+  status,
+  changeStatus,
+}: IStatusInputProps) {
   const [isOptionsOpen, setIsOptionsOpen] = useState(false);
+  const optionRef = useRef<HTMLButtonElement>(null);
   const { data, activeBoardId } = useContext(DataCtx);
   const content = data.boards.find((board) => board.id === activeBoardId);
   const columnsNames = content?.columns.map((column) => column.name);
@@ -99,14 +106,15 @@ export default function StatusInput({ id, name, status }: IStatusInputProps) {
     setIsOptionsOpen((prevState) => !prevState);
   }
 
-  function handleClickOption(e: FormEvent) {
+  function handleClickOption(e: FormEvent, status: string) {
     e.preventDefault();
+    changeStatus(status);
     setIsOptionsOpen(false);
   }
 
   function renderOptions() {
     return columnsNames?.map((column) => (
-      <Option key={createId()} onClick={handleClickOption}>
+      <Option key={createId()} onClick={(e) => handleClickOption(e, column)}>
         {column}
       </Option>
     ));
