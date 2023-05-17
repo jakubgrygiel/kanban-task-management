@@ -37,6 +37,20 @@ interface ISubtask {
   isCompleted: boolean;
 }
 
+const initialEmptyTask: ITask = {
+  title: "",
+  id: "",
+  description: "",
+  status: "",
+  subtasks: [],
+};
+
+const initialEmptySubtask: ISubtask = {
+  id: "",
+  title: "",
+  isCompleted: false,
+};
+
 const initialData: IData = {
   boards: [
     {
@@ -573,5 +587,5 @@ const initialData: IData = {
 
 export default initialData;
 
-export { UpdateEnum };
+export { UpdateEnum, initialEmptySubtask, initialEmptyTask };
 export type { UpdateType, IData, IBoard, IColumn, ITask, ISubtask };

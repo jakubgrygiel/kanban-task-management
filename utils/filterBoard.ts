@@ -1,5 +1,9 @@
 import { IBoard, IColumn, IData, ISubtask, ITask } from "@/data/initialData";
 
+interface IKeyString {
+  [path: string]: string;
+}
+
 function getBoard(
   data: IData,
   boardId: string | undefined
@@ -47,7 +51,7 @@ function updateSubtask(
   columnId: string | undefined,
   taskId: string | undefined,
   subtaskId: string | undefined,
-  path: string,
+  path: IKeyString,
   value: any
 ) {
   const boardIdx = data.boards.findIndex((board) => board.id === boardId);
@@ -63,7 +67,6 @@ function updateSubtask(
   const subtaskIdx = data.boards[boardIdx].columns[columnIdx].tasks[
     taskIdx
   ].subtasks.findIndex((subtask) => subtask.id === subtaskId);
-
   data.boards[boardIdx].columns[columnIdx].tasks[taskIdx].subtasks[subtaskIdx][
     path
   ] = value;

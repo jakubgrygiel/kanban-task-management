@@ -50,7 +50,10 @@ export default function Subtasks({ content }: ISubtasksProps) {
 
   return (
     <StyledWrapper>
-      <Legend>Subtasks (2 of 3)</Legend>
+      <Legend>
+        Subtasks ({content.filter((subtask: any) => subtask.isCompleted).length}{" "}
+        of {content.length})
+      </Legend>
       <List>{renderSubtasks()}</List>
     </StyledWrapper>
   );

@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { FormEvent } from "react";
 import ItemInput from "./ItemInput";
+import { ISubtask } from "@/data/initialData";
 
 const StyledWrapper = styled.fieldset`
   display: flex;
@@ -51,23 +52,40 @@ const AddNewItemBtn = styled.button`
 interface IItemListProps {
   label: string;
   type: string;
+  content: ISubtask[];
+  updateTaskItem: (subtaskId: string, newValue: string) => void;
 }
 
-export default function ItemList({ label, type }: IItemListProps) {
+export default function ItemList({
+  label,
+  type,
+  content,
+  updateTaskItem,
+}: IItemListProps) {
   function handleClick(e: FormEvent) {
     e.preventDefault();
+  }
+
+  function renderItems() {
+    let i = 0;
+    return content.map((subtask) => {
+      i++;
+      return (
+        <ItemInput
+          key={subtask.id}
+          subtaskId={subtask.id}
+          placeholder="e.g. Drink coffee & smile"
+          value={subtask.title}
+          updateTaskItem={updateTaskItem}
+        />
+      );
+    });
   }
 
   return (
     <StyledWrapper>
       <Legend>{label}</Legend>
-      <List>
-        <ItemInput id="item-1-add-new-task" placeholder="e.g. Make coffee" />
-        <ItemInput
-          id="item-2-add-new-task"
-          placeholder="e.g. Drink coffee & smile"
-        />
-      </List>
+      <List>{renderItems()}</List>
       <AddNewItemBtn onClick={handleClick}>+Add New {type}</AddNewItemBtn>
     </StyledWrapper>
   );

@@ -1,4 +1,4 @@
-import { FormEvent } from "react";
+import { FormEvent, useRef } from "react";
 import styled from "styled-components";
 
 const StyledWrapper = styled.li`
@@ -47,18 +47,37 @@ const DeleteItemBtn = styled.button`
 `;
 
 interface IItemInputProps {
-  id: string;
+  subtaskId: string;
   placeholder: string;
+  value: string;
+  updateTaskItem: (subtaskId: string, newValue: string) => void;
 }
 
-export default function ItemInput({ id, placeholder }: IItemInputProps) {
+export default function ItemInput({
+  subtaskId,
+  placeholder,
+  value,
+  updateTaskItem,
+}: IItemInputProps) {
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  function handleChange() {
+    inputRef.current && updateTaskItem(subtaskId, inputRef.current.value);
+  }
+
   function handleClick(e: FormEvent) {
     e.preventDefault();
   }
 
   return (
     <StyledWrapper>
-      <Input id={id} type="text" placeholder={placeholder} />
+      <Input
+        ref={inputRef}
+        type="text"
+        placeholder={placeholder}
+        value={value}
+        onChange={handleChange}
+      />
       <DeleteItemBtn onClick={handleClick}>
         <img src="/assets/icon-cross.svg" alt="delete subtask icon" />
       </DeleteItemBtn>

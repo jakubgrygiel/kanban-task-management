@@ -1,3 +1,4 @@
+import { useRef } from "react";
 import styled from "styled-components";
 
 const StyledWrapper = styled.div`
@@ -42,18 +43,35 @@ const Textarea = styled.textarea`
 interface IModalTextareaProps {
   id: string;
   name: string;
+  value: string;
   placeholder: string;
+  updateTaskData: (path: string, newValue: string | boolean) => void;
 }
 
 export default function ModalTextarea({
   id,
   name,
+  value,
   placeholder,
+  updateTaskData,
 }: IModalTextareaProps) {
+  const inputRef = useRef<HTMLTextAreaElement>(null);
+
+  function handleChange() {
+    inputRef.current && updateTaskData(id, inputRef.current.value);
+  }
+
   return (
     <StyledWrapper>
       <Label htmlFor={id}>{name}</Label>
-      <Textarea id={id} placeholder={placeholder} rows={4}></Textarea>
+      <Textarea
+        ref={inputRef}
+        id={id}
+        value={value}
+        placeholder={placeholder}
+        rows={4}
+        onChange={handleChange}
+      ></Textarea>
     </StyledWrapper>
   );
 }

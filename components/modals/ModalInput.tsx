@@ -1,3 +1,4 @@
+import { useReducer, useRef } from "react";
 import styled from "styled-components";
 
 const StyledWrapper = styled.div`
@@ -40,18 +41,35 @@ const Input = styled.input`
 interface IModalInputProps {
   id: string;
   name: string;
+  value: string;
   placeholder: string;
+  updateTaskData: (path: string, newValue: string | boolean) => void;
 }
 
 export default function ModalInput({
   id,
   name,
+  value,
   placeholder,
+  updateTaskData,
 }: IModalInputProps) {
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  function handleChange() {
+    inputRef.current && updateTaskData(id, inputRef.current.value);
+  }
+
   return (
     <StyledWrapper>
       <Label htmlFor={id}>{name}</Label>
-      <Input id={id} type="text" placeholder={placeholder} />
+      <Input
+        ref={inputRef}
+        id={id}
+        type="text"
+        value={value}
+        placeholder={placeholder}
+        onChange={handleChange}
+      />
     </StyledWrapper>
   );
 }
