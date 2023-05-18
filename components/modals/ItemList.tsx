@@ -53,22 +53,22 @@ interface IItemListProps {
   label: string;
   type: string;
   content: ISubtask[];
-  addNewSubtask: () => void;
-  updateSubtask: (subtaskId: string, newValue: string) => void;
-  deleteSubtask: (subtaskId: string) => void;
+  addNewItem: () => void;
+  updateValue: (itemId: string, newValue: string) => void;
+  deleteItem: (itemId: string) => void;
 }
 
 export default function ItemList({
   label,
   type,
   content,
-  addNewSubtask,
-  updateSubtask,
-  deleteSubtask,
+  addNewItem,
+  updateValue,
+  deleteItem,
 }: IItemListProps) {
   function handleClick(e: FormEvent) {
     e.preventDefault();
-    addNewSubtask();
+    addNewItem();
   }
 
   function renderItems() {
@@ -81,8 +81,8 @@ export default function ItemList({
           subtaskId={subtask.id}
           placeholder="e.g. Drink coffee & smile"
           value={subtask.title}
-          updateSubtask={updateSubtask}
-          deleteSubtask={deleteSubtask}
+          updateSubtask={updateValue}
+          deleteSubtask={deleteItem}
         />
       );
     });

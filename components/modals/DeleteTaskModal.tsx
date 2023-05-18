@@ -4,7 +4,7 @@ import DeleteForm from "./DeleteForm";
 import { ModalsCtx } from "@/context/ModalsCtx";
 import { DataCtx } from "@/context/DataCtx";
 import { useContext } from "react";
-import { getTask } from "@/utils/filterBoard";
+import { getTask } from "@/utils/crud";
 
 interface IDeleteTaskModalProps {}
 

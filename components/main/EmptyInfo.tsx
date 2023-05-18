@@ -7,6 +7,7 @@ const StyledWrapper = styled.div`
   align-items: center;
   flex-direction: column;
   gap: 32px;
+  width: 100%;
   color: ${({ theme }) => theme.colors.secondaryText};
 `;
 

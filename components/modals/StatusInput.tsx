@@ -99,7 +99,7 @@ export default function StatusInput({
   const optionRef = useRef<HTMLButtonElement>(null);
   const { data, activeBoardId } = useContext(DataCtx);
   const content = data.boards.find((board) => board.id === activeBoardId);
-  const columnsNames = content?.columns.map((column) => column.name);
+  const columnsNames = content?.columns.map((column) => column.title);
 
   function handleClick(e: FormEvent) {
     e.preventDefault();

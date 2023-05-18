@@ -63,7 +63,7 @@ export default function Column({ content, colorNum }: IColumnProps) {
       <ColumnTitleWrapper>
         <ColumnIcon colorNum={colorNum} />
         <ColumnTitle>
-          {content.name} ({content.tasks.length})
+          {content.title} ({content.tasks.length})
         </ColumnTitle>
       </ColumnTitleWrapper>
       <TaskList>{renderTasks()}</TaskList>

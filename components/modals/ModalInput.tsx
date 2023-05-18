@@ -43,7 +43,7 @@ interface IModalInputProps {
   name: string;
   value: string;
   placeholder: string;
-  updateTaskData: (path: string, newValue: string | boolean) => void;
+  updateValue: (path: string, newValue: string | boolean) => void;
 }
 
 export default function ModalInput({
@@ -51,12 +51,12 @@ export default function ModalInput({
   name,
   value,
   placeholder,
-  updateTaskData,
+  updateValue,
 }: IModalInputProps) {
   const inputRef = useRef<HTMLInputElement>(null);
 
   function handleChange() {
-    inputRef.current && updateTaskData(id, inputRef.current.value);
+    inputRef.current && updateValue(id, inputRef.current.value);
   }
 
   return (

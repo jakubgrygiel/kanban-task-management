@@ -45,7 +45,7 @@ interface IModalTextareaProps {
   name: string;
   value: string;
   placeholder: string;
-  updateTaskData: (path: string, newValue: string | boolean) => void;
+  updateValue: (path: string, newValue: string | boolean) => void;
 }
 
 export default function ModalTextarea({
@@ -53,12 +53,12 @@ export default function ModalTextarea({
   name,
   value,
   placeholder,
-  updateTaskData,
+  updateValue,
 }: IModalTextareaProps) {
   const inputRef = useRef<HTMLTextAreaElement>(null);
 
   function handleChange() {
-    inputRef.current && updateTaskData(id, inputRef.current.value);
+    inputRef.current && updateValue(id, inputRef.current.value);
   }
 
   return (

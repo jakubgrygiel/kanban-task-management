@@ -29,7 +29,7 @@ export default function BoardsLinks() {
       <BoardBtn
         key={board.id}
         id={board.id}
-        name={board.name}
+        name={board.title}
         isActive={board.isActive}
       />
     ));
@@ -37,9 +37,13 @@ export default function BoardsLinks() {
 
   return (
     <StyledWrapper>
-      <H2>ALL BOARDS ({data.boards.length})</H2>
-      {renderBoardLinks()}
-      <AddBoardBtn />
+      {data && (
+        <>
+          <H2>ALL BOARDS ({data.boards.length})</H2>
+          {renderBoardLinks()}
+          <AddBoardBtn />
+        </>
+      )}
     </StyledWrapper>
   );
 }

@@ -11,14 +11,14 @@ interface IData {
 }
 
 interface IBoard {
-  name: string;
+  title: string;
   id: string;
   isActive: boolean;
   columns: IColumn[];
 }
 
 interface IColumn {
-  name: string;
+  title: string;
   id: string;
   tasks: ITask[];
 }
@@ -37,6 +37,30 @@ interface ISubtask {
   isCompleted: boolean;
 }
 
+const initialEmptyBoard: IBoard = {
+  title: "",
+  id: "",
+  isActive: false,
+  columns: [
+    {
+      title: "Todo",
+      id: "",
+      tasks: [],
+    },
+    {
+      title: "Doing",
+      id: "",
+      tasks: [],
+    },
+  ],
+};
+
+const initialEmptyColumn: IColumn = {
+  title: "",
+  id: "",
+  tasks: [],
+};
+
 const initialEmptyTask: ITask = {
   title: "",
   id: "",
@@ -54,12 +78,12 @@ const initialEmptySubtask: ISubtask = {
 const initialData: IData = {
   boards: [
     {
-      name: "Platform Launch",
+      title: "Platform Launch",
       id: "a75hunefo5ljl7wmeii5pelc",
       isActive: true,
       columns: [
         {
-          name: "Todo",
+          title: "Todo",
           id: "grzbuj9m2ptpkkr0qkoi48py",
           tasks: [
             {
@@ -138,7 +162,7 @@ const initialData: IData = {
           ],
         },
         {
-          name: "Doing",
+          title: "Doing",
           id: "tldg4yplg97norozi24hy0c8",
           tasks: [
             {
@@ -275,7 +299,7 @@ const initialData: IData = {
           ],
         },
         {
-          name: "Done",
+          title: "Done",
           id: "dofu8emmzyncwk9q1gfm0wiq",
           tasks: [
             {
@@ -406,12 +430,12 @@ const initialData: IData = {
       ],
     },
     {
-      name: "Marketing Plan",
+      title: "Marketing Plan",
       id: "rqzr411q1otqabyc53pkhvdg",
       isActive: false,
       columns: [
         {
-          name: "Todo",
+          title: "Todo",
           id: "qq6is4yqjgtpcrarjr3gudat",
           tasks: [
             {
@@ -506,24 +530,24 @@ const initialData: IData = {
           ],
         },
         {
-          name: "Doing",
+          title: "Doing",
           id: "f2pob21jmg5b03119mzbougf",
           tasks: [],
         },
         {
-          name: "Done",
+          title: "Done",
           id: "cl81hah9pbogore119b5t1e4",
           tasks: [],
         },
       ],
     },
     {
-      name: "Roadmap",
+      title: "Roadmap",
       id: "wje5u6hhrzue1bh9lql12s0i",
       isActive: false,
       columns: [
         {
-          name: "Now",
+          title: "Now",
           id: "x1pcqenx35kht9zhggzcwwov",
           tasks: [
             {
@@ -571,12 +595,12 @@ const initialData: IData = {
           ],
         },
         {
-          name: "Next",
+          title: "Next",
           id: "yg28xc1wdvkzr3wncsx4qumk",
           tasks: [],
         },
         {
-          name: "Later",
+          title: "Later",
           id: "l2mty46vzl9ftfd09gvcbr3t",
           tasks: [],
         },
@@ -587,5 +611,11 @@ const initialData: IData = {
 
 export default initialData;
 
-export { UpdateEnum, initialEmptySubtask, initialEmptyTask };
+export {
+  UpdateEnum,
+  initialEmptySubtask,
+  initialEmptyTask,
+  initialEmptyBoard,
+  initialEmptyColumn,
+};
 export type { UpdateType, IData, IBoard, IColumn, ITask, ISubtask };

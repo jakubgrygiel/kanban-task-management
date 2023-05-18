@@ -93,9 +93,66 @@ function updateTask(
     (task) => task.id === taskId
   );
   if (taskIdx === -1) return data;
-  let newData = deepCopyObject(data);
+  let newData: IData = deepCopyObject(data);
   newData.boards[boardIdx].columns[columnIdx].tasks[taskIdx][path] = value;
   return newData;
 }
 
-export { getBoard, getColumn, getTask, getSubtask, updateSubtask, updateTask };
+function updateTaskStatus(
+  data: IData,
+  boardId: string | undefined,
+  task: ITask
+) {
+  const boardIdx = data.boards.findIndex((board) => board.id === boardId);
+  if (boardIdx === -1) return data;
+  const columnIdx = data.boards[boardIdx].columns.findIndex(
+    (column) => column.title === task.status
+  );
+  let newData: IData = deepCopyObject(data);
+  newData.boards[boardIdx].columns[columnIdx].tasks.push(task);
+  return newData;
+}
+
+function removeTask(
+  data: IData,
+  boardId: string | undefined,
+  columnId: string | undefined,
+  taskId: string | undefined
+) {
+  const boardIdx = data.boards.findIndex((board) => board.id === boardId);
+  if (boardIdx === -1) return data;
+  const columnIdx = data.boards[boardIdx].columns.findIndex(
+    (column) => column.id === columnId
+  );
+  if (columnIdx === -1) return data;
+  const taskIdx = data.boards[boardIdx].columns[columnIdx].tasks.findIndex(
+    (task) => task.id === taskId
+  );
+  if (taskIdx === -1) return data;
+  let newData: IData = deepCopyObject(data);
+  newData.boards[boardIdx].columns[columnIdx].tasks.splice(taskIdx, 1);
+  return newData;
+}
+
+function removeBoard(data: IData, boardId: string | undefined) {
+  const boardIdx = data.boards.findIndex((board) => board.id === boardId);
+  if (boardIdx === -1) return data;
+  let newData: IData = deepCopyObject(data);
+  newData.boards.splice(boardIdx, 1);
+  if (newData.boards.length > 0) {
+    newData.boards[0].isActive = true;
+  }
+  return newData;
+}
+
+export {
+  getBoard,
+  getColumn,
+  getTask,
+  getSubtask,
+  updateSubtask,
+  updateTask,
+  updateTaskStatus,
+  removeBoard,
+  removeTask,
+};

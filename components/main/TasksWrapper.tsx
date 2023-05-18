@@ -57,11 +57,18 @@ export default function TasksWrapper({ isOpen }: ITaskWrapperProps) {
 
   return (
     <StyledWrapper isOpen={isOpen} isEmpty={isEmpty}>
-      <ColumnsWrapper>
-        {renderColumns()}
-        <SecondAddNewColumnBtn />
-      </ColumnsWrapper>
-      {isEmpty && <EmptyInfo />}
+      {data ? (
+        data.boards.length > 0 ? (
+          <ColumnsWrapper>
+            {renderColumns()}
+            <SecondAddNewColumnBtn />
+          </ColumnsWrapper>
+        ) : (
+          <EmptyInfo />
+        )
+      ) : (
+        <EmptyInfo />
+      )}
     </StyledWrapper>
   );
 }

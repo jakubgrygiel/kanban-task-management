@@ -4,7 +4,7 @@ import ModalTextarea from "./ModalTextarea";
 import { FormEvent, useContext, useEffect, useState } from "react";
 import ItemList from "./ItemList";
 import StatusInput from "./StatusInput";
-import { getTask } from "@/utils/filterBoard";
+import { getTask } from "@/utils/crud";
 import { DataCtx } from "@/context/DataCtx";
 import { ModalsCtx } from "@/context/ModalsCtx";
 import {
@@ -15,6 +15,7 @@ import {
 import { deepCopyObject, setProperty } from "@/utils/helpers";
 import { create } from "domain";
 import { createId } from "@paralleldrive/cuid2";
+import useFormData from "@/hooks/useFormData";
 
 const StyledWrapper = styled.form`
   display: flex;
@@ -52,33 +53,7 @@ interface IAddEditTaskFormProps {
 }
 
 export default function AddEditTaskForm({ editMode }: IAddEditTaskFormProps) {
-  const { data, activeBoardId } = useContext(DataCtx);
-  const { currentTaskIds } = useContext(ModalsCtx);
-  const [formData, setFormData] = useState<ITask>();
-
-  useEffect(() => {
-    const task = getTask(
-      data,
-      activeBoardId,
-      currentTaskIds.columnId,
-      currentTaskIds.taskId
-    );
-    if (task) {
-      setFormData(task);
-    } else {
-      setInitialTaskData();
-    }
-  }, []);
-
-  function setInitialTaskData() {
-    const newTask: ITask = deepCopyObject(initialEmptyTask);
-    const newSubtask1 = { ...initialEmptySubtask };
-    const newSubtask2 = { ...initialEmptySubtask };
-    newSubtask1.id = createId();
-    newSubtask2.id = createId();
-    newTask.subtasks = [newSubtask1, newSubtask2];
-    setFormData(newTask);
-  }
+  const { formData, updateFormData } = useFormData("task");
 
   function handleClick(e: FormEvent) {
     e.preventDefault();
@@ -87,7 +62,7 @@ export default function AddEditTaskForm({ editMode }: IAddEditTaskFormProps) {
   function updateTaskData(path: string, newValue: string | boolean) {
     let newTask: ITask = deepCopyObject(formData);
     newTask = setProperty(newTask, path, newValue);
-    setFormData(newTask);
+    updateFormData(newTask);
   }
 
   function updateSubtask(subtaskId: string, newValue: string) {
@@ -100,7 +75,7 @@ export default function AddEditTaskForm({ editMode }: IAddEditTaskFormProps) {
       "title",
       newValue
     );
-    setFormData(newTask);
+    updateFormData(newTask);
   }
 
   function deleteSubtask(subtaskId: string) {
@@ -109,7 +84,7 @@ export default function AddEditTaskForm({ editMode }: IAddEditTaskFormProps) {
       (subtask) => subtask.id === subtaskId
     );
     newTask.subtasks.splice(indexOfSubtaskToDelete, 1);
-    setFormData(newTask);
+    updateFormData(newTask);
   }
 
   function addNewSubtask() {
@@ -117,13 +92,13 @@ export default function AddEditTaskForm({ editMode }: IAddEditTaskFormProps) {
     let newSubtask = { ...initialEmptySubtask };
     newSubtask.id = createId();
     newTask.subtasks.push(newSubtask);
-    setFormData(newTask);
+    updateFormData(newTask);
   }
 
   function changeStatus(status: string) {
     let newTask: ITask = deepCopyObject(formData);
     newTask.status = status;
-    setFormData(newTask);
+    updateFormData(newTask);
   }
 
   return (
@@ -135,7 +110,7 @@ export default function AddEditTaskForm({ editMode }: IAddEditTaskFormProps) {
             name="Title"
             value={formData.title}
             placeholder="e.g. Take coffee break"
-            updateTaskData={updateTaskData}
+            updateValue={updateTaskData}
           />
           <ModalTextarea
             id="description"
@@ -143,15 +118,15 @@ export default function AddEditTaskForm({ editMode }: IAddEditTaskFormProps) {
             value={formData.description}
             placeholder="e.g. It’s always good to take a break. This 15 minute break will 
           recharge the batteries a little."
-            updateTaskData={updateTaskData}
+            updateValue={updateTaskData}
           />
           <ItemList
             label="Subtasks"
             type="Subtask"
             content={formData.subtasks}
-            addNewSubtask={addNewSubtask}
-            updateSubtask={updateSubtask}
-            deleteSubtask={deleteSubtask}
+            addNewItem={addNewSubtask}
+            updateValue={updateSubtask}
+            deleteItem={deleteSubtask}
           />
           <StatusInput
             name="Status"

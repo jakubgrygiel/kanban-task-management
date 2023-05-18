@@ -8,8 +8,15 @@ import Subtasks from "./Subtasks";
 import { useContext } from "react";
 import { ModalsCtx } from "@/context/ModalsCtx";
 import { DataCtx } from "@/context/DataCtx";
-import { getBoard, getColumn, getTask, updateTask } from "@/utils/filterBoard";
-import { IColumn } from "@/data/initialData";
+import {
+  getBoard,
+  getColumn,
+  getTask,
+  removeTask,
+  updateTask,
+  updateTaskStatus,
+} from "@/utils/crud";
+import { IColumn, ITask } from "@/data/initialData";
 import { deepCopyObject } from "@/utils/helpers";
 
 const TopWrapper = styled.div`
@@ -44,15 +51,15 @@ export default function TaskModal() {
   );
 
   function changeStatus(status: string) {
-    let newData = deepCopyObject(data);
-    newData = updateTask(
-      newData,
+    let newTask: ITask = deepCopyObject(task);
+    newTask.status = status;
+    let newData = removeTask(
+      data,
       activeBoardId,
       currentTaskIds.columnId,
-      task!.id,
-      "status",
-      status
+      currentTaskIds.taskId
     );
+    newData = updateTaskStatus(newData, activeBoardId, task!);
     updateData(newData);
   }
 

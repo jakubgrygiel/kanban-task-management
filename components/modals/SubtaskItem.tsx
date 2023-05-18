@@ -1,6 +1,6 @@
 import { DataCtx } from "@/context/DataCtx";
 import { ModalsCtx } from "@/context/ModalsCtx";
-import { getSubtask, updateSubtask } from "@/utils/filterBoard";
+import { getSubtask, updateSubtask } from "@/utils/crud";
 import { deepCopyObject } from "@/utils/helpers";
 import { FormEvent, useContext } from "react";
 import styled from "styled-components";
