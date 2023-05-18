@@ -1,8 +1,9 @@
 import { IBoard, IColumn, IData, ISubtask, ITask } from "@/data/initialData";
 import { deepCopyObject } from "./helpers";
+import { ICurrentTaskIds } from "@/context/ModalsCtx";
 
 interface IKeyString {
-  [path: string]: string;
+  [path: string | number]: string;
 }
 
 function getBoard(
@@ -52,7 +53,7 @@ function updateSubtask(
   columnId: string | undefined,
   taskId: string | undefined,
   subtaskId: string | undefined,
-  path: IKeyString,
+  path: string,
   value: any
 ) {
   const boardIdx = data.boards.findIndex((board) => board.id === boardId);
@@ -71,7 +72,7 @@ function updateSubtask(
   let newData = deepCopyObject(data);
   newData.boards[boardIdx].columns[columnIdx].tasks[taskIdx].subtasks[
     subtaskIdx
-  ][path] = value;
+  ][path as keyof ISubtask] = value;
   return newData;
 }
 
@@ -80,7 +81,7 @@ function updateTask(
   boardId: string | undefined,
   columnId: string | undefined,
   taskId: string | undefined,
-  path: IKeyString,
+  path: string,
   value: any
 ) {
   const boardIdx = data.boards.findIndex((board) => board.id === boardId);
@@ -94,7 +95,9 @@ function updateTask(
   );
   if (taskIdx === -1) return data;
   let newData: IData = deepCopyObject(data);
-  newData.boards[boardIdx].columns[columnIdx].tasks[taskIdx][path] = value;
+  newData.boards[boardIdx].columns[columnIdx].tasks[taskIdx][
+    path as keyof ITask
+  ] = value;
   return newData;
 }
 
@@ -102,15 +105,23 @@ function updateTaskStatus(
   data: IData,
   boardId: string | undefined,
   task: ITask
-) {
+): { updatedData: IData; newCurrentTaskIds: ICurrentTaskIds } {
   const boardIdx = data.boards.findIndex((board) => board.id === boardId);
-  if (boardIdx === -1) return data;
+  if (boardIdx === -1)
+    return {
+      updatedData: data,
+      newCurrentTaskIds: { taskId: undefined, columnId: undefined },
+    };
   const columnIdx = data.boards[boardIdx].columns.findIndex(
     (column) => column.title === task.status
   );
-  let newData: IData = deepCopyObject(data);
-  newData.boards[boardIdx].columns[columnIdx].tasks.push(task);
-  return newData;
+  let updatedData: IData = deepCopyObject(data);
+  updatedData.boards[boardIdx].columns[columnIdx].tasks.push(task);
+  let newCurrentTaskIds: ICurrentTaskIds = {
+    taskId: task.id,
+    columnId: updatedData.boards[boardIdx].columns[columnIdx].id,
+  };
+  return { updatedData, newCurrentTaskIds };
 }
 
 function removeTask(

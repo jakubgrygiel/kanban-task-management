@@ -17,12 +17,13 @@ interface IModalCtx {
   isDeleteBoardOpen: boolean;
   isAddColumnOpen: boolean;
   isTaskOpen: boolean;
-  currentTaskIds: { columnId: string | undefined; taskId: string | undefined };
+  currentTaskIds: ICurrentTaskIds;
+  updateTaskIds: (newTaskIds: ICurrentTaskIds) => void;
   closeModal: () => void;
   openModal: (modal: string, taskIds?: ICurrentTaskIds) => void;
 }
 
-export const ModalsCtx = createContext({
+export const ModalsCtx = createContext<IModalCtx>({
   isAddTaskOpen: false,
   isEditTaskOpen: false,
   isDeleteTaskOpen: false,
@@ -31,7 +32,8 @@ export const ModalsCtx = createContext({
   isDeleteBoardOpen: false,
   isAddColumnOpen: false,
   isTaskOpen: false,
-  currentTaskIds: { columnId: undefined, taskId: undefined },
+  currentTaskIds: { taskId: undefined, columnId: undefined },
+  updateTaskIds: (newTaskIds: ICurrentTaskIds) => {},
   closeModal: () => {},
   openModal: (modal: string, taskIds?: ICurrentTaskIds) => {},
 });
@@ -46,8 +48,8 @@ export function ModalsCtxProvider({ children }: IModalsProviderProps) {
   const [isAddColumnOpen, setIsAddColumnOpen] = useState(false);
   const [isTaskOpen, setIsTaskOpen] = useState(false);
   const [currentTaskIds, setCurrentTaskIds] = useState<ICurrentTaskIds>({
-    columnId: undefined,
     taskId: undefined,
+    columnId: undefined,
   });
 
   function openModal(modal: string, taskIds?: ICurrentTaskIds) {
@@ -76,6 +78,10 @@ export function ModalsCtxProvider({ children }: IModalsProviderProps) {
     setIsTaskOpen(false);
   }
 
+  function updateTaskIds(newTaskIds: ICurrentTaskIds) {
+    setCurrentTaskIds(newTaskIds);
+  }
+
   function closeModal() {
     closeAllModals();
     // setCurrentTaskIds({ columnId: undefined, taskId: undefined });
@@ -91,6 +97,7 @@ export function ModalsCtxProvider({ children }: IModalsProviderProps) {
     isAddColumnOpen,
     isTaskOpen,
     currentTaskIds,
+    updateTaskIds,
     closeModal,
     openModal,
   };

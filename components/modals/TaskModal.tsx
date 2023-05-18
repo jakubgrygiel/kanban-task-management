@@ -40,7 +40,7 @@ const Description = styled.p`
 interface ITaskModalProps {}
 
 export default function TaskModal() {
-  const { currentTaskIds } = useContext(ModalsCtx);
+  const { currentTaskIds, updateTaskIds } = useContext(ModalsCtx);
   const { data, updateData, activeBoardId } = useContext(DataCtx);
 
   const task = getTask(
@@ -59,8 +59,13 @@ export default function TaskModal() {
       currentTaskIds.columnId,
       currentTaskIds.taskId
     );
-    newData = updateTaskStatus(newData, activeBoardId, task!);
-    updateData(newData);
+    const { updatedData, newCurrentTaskIds } = updateTaskStatus(
+      newData,
+      activeBoardId,
+      newTask
+    );
+    updateData(updatedData);
+    updateTaskIds(newCurrentTaskIds);
   }
 
   return (
