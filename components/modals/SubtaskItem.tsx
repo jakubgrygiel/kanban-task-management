@@ -1,6 +1,6 @@
 import { DataCtx } from "@/context/DataCtx";
 import { ModalsCtx } from "@/context/ModalsCtx";
-import { getSubtask, updateSubtask } from "@/utils/crud";
+import useSubtaskCRUD from "@/hooks/crud-hooks/useSubtaskCRUD";
 import { deepCopyObject } from "@/utils/helpers";
 import { FormEvent, useContext } from "react";
 import styled from "styled-components";
@@ -90,23 +90,10 @@ export default function SubtaskItem({
   text,
   isChecked,
 }: ISubtaskItemProps) {
-  const { data, updateData, activeBoardId } = useContext(DataCtx);
-  const {
-    currentTaskIds: { columnId, taskId },
-  } = useContext(ModalsCtx);
+  const { updateSubtaskStatus } = useSubtaskCRUD();
 
   function changeCompletedState() {
-    let newData = deepCopyObject(data);
-    newData = updateSubtask(
-      newData,
-      activeBoardId,
-      columnId,
-      taskId,
-      id,
-      "isCompleted",
-      !isChecked
-    );
-    updateData(newData);
+    updateSubtaskStatus(id, isChecked);
   }
 
   function handleClick(e: FormEvent) {

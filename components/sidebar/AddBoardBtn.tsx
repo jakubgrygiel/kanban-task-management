@@ -34,6 +34,7 @@ export default function AddBoardBtn() {
   function handleClick() {
     openModal("add-board");
   }
+
   return (
     <StyledWrapper onClick={handleClick}>
       <svg width="16" height="16" xmlns="http://www.w3.org/2000/svg">

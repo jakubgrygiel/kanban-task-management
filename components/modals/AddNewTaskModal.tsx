@@ -12,8 +12,6 @@ const ModalTitle = styled.h3`
 interface IAddNewTaskModalProps {}
 
 export default function AddNewTaskModal() {
-  const { activeBoardId } = useContext(DataCtx);
-
   return (
     <ModalWrapper>
       <ModalTitle>Add New Task</ModalTitle>

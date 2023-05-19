@@ -49,6 +49,7 @@ const BoardTitle = styled.h1`
 
 export default function Header() {
   const { darkMode } = useContext(DarkModeCtx);
+
   return (
     <StyledWrapper>
       <LogoWrapper>

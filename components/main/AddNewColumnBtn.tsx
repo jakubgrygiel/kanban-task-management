@@ -29,5 +29,6 @@ export default function AddNewColumnBtn() {
   function handleClick() {
     openModal("add-column");
   }
+
   return <StyledWrapper onClick={handleClick}>+ Add New Column</StyledWrapper>;
 }

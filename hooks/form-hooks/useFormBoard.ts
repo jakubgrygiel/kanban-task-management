@@ -1,63 +1,23 @@
-import { DataCtx } from "@/context/DataCtx";
-import { ModalsCtx } from "@/context/ModalsCtx";
-import {
-  IBoard,
-  ITask,
-  initialEmptyBoard,
-  initialEmptySubtask,
-  initialEmptyTask,
-} from "@/data/initialData";
-import { getBoard, getTask } from "@/utils/crud";
+import { IBoard, initialEmptyBoard } from "@/data/initialData";
 import { deepCopyObject } from "@/utils/helpers";
 import { createId } from "@paralleldrive/cuid2";
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
+import useBoardCRUD from "../crud-hooks/useBoardCRUD";
 
-export default function useFormData(type: string) {
-  const { data, activeBoardId } = useContext(DataCtx);
-  const { currentTaskIds } = useContext(ModalsCtx);
-  const [formData, setFormData] = useState<ITask | IBoard>();
+export default function useFormBoard() {
+  const [formData, setFormData] = useState<IBoard>();
+  const { board } = useBoardCRUD();
 
   useEffect(() => {
-    if (type === "task") {
-      getTaskData();
-    }
-    if (type === "board") {
-      getBoardData();
-    }
+    getBoardData();
   }, []);
 
-  function getTaskData() {
-    const task = getTask(
-      data,
-      activeBoardId,
-      currentTaskIds.columnId,
-      currentTaskIds.taskId
-    );
-    if (task) {
-      setFormData(task);
-    } else {
-      setInitialTaskData();
-    }
-  }
-
   function getBoardData() {
-    const board = getBoard(data, activeBoardId);
     if (board) {
       setFormData(board);
     } else {
       setInitialBoardData();
     }
-  }
-
-  function setInitialTaskData() {
-    const newTask: ITask = deepCopyObject(initialEmptyTask);
-    const newSubtask1 = { ...initialEmptySubtask };
-    const newSubtask2 = { ...initialEmptySubtask };
-    newTask.id = createId();
-    newSubtask1.id = createId();
-    newSubtask2.id = createId();
-    newTask.subtasks = [newSubtask1, newSubtask2];
-    setFormData(newTask);
   }
 
   function setInitialBoardData() {
@@ -69,7 +29,7 @@ export default function useFormData(type: string) {
     setFormData(newBoard);
   }
 
-  function updateFormData(newData: ITask | IBoard) {
+  function updateFormData(newData: IBoard) {
     setFormData(newData);
   }
 

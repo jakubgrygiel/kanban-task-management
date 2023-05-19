@@ -1,23 +1,12 @@
 import styled from "styled-components";
 import ModalWrapper from "./ModalWrapper";
 import DeleteForm from "./DeleteForm";
-import { ModalsCtx } from "@/context/ModalsCtx";
-import { DataCtx } from "@/context/DataCtx";
-import { useContext } from "react";
-import { getTask } from "@/utils/crud";
+import useTaskCRUD from "@/hooks/crud-hooks/useTaskCRUD";
 
 interface IDeleteTaskModalProps {}
 
 export default function DeleteTaskModal() {
-  const { currentTaskIds } = useContext(ModalsCtx);
-  const { data, activeBoardId } = useContext(DataCtx);
-
-  const task = getTask(
-    data,
-    activeBoardId,
-    currentTaskIds.columnId,
-    currentTaskIds.taskId
-  );
+  const { task } = useTaskCRUD();
 
   return (
     <ModalWrapper>

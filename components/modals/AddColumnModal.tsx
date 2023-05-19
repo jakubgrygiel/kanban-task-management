@@ -10,13 +10,10 @@ const ModalTitle = styled.h3`
 interface IAddColumnModalProps {}
 
 export default function AddColumnModal() {
-  function handleClick(e: FormEvent) {
-    e.preventDefault();
-  }
   return (
     <ModalWrapper>
       <ModalTitle>Add New Column</ModalTitle>
-      <AddEditBoardForm editMode={true} addColumnMode={true} />
+      <AddEditBoardForm editMode={true} />
     </ModalWrapper>
   );
 }

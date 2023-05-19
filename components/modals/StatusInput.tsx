@@ -88,12 +88,17 @@ interface IStatusInputProps {
   id: string;
   name: string;
   status: string;
+  changeStatus: (status: string) => void;
 }
 
-export default function StatusInput({ id, name, status }: IStatusInputProps) {
+export default function StatusInput({
+  id,
+  name,
+  status,
+  changeStatus,
+}: IStatusInputProps) {
   const [isOptionsOpen, setIsOptionsOpen] = useState(false);
   const { board } = useBoardCRUD();
-  const { updateStatus } = useTaskCRUD();
 
   const columnsNames = board?.columns.map((column) => column.title);
 
@@ -104,7 +109,7 @@ export default function StatusInput({ id, name, status }: IStatusInputProps) {
 
   function handleClickOption(e: FormEvent, status: string) {
     e.preventDefault();
-    updateStatus(status);
+    changeStatus(status);
     setIsOptionsOpen(false);
   }
 

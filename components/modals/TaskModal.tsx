@@ -33,7 +33,7 @@ const Description = styled.p`
 interface ITaskModalProps {}
 
 export default function TaskModal() {
-  const { task } = useTaskCRUD();
+  const { task, updateStatus } = useTaskCRUD();
 
   return (
     <>
@@ -48,7 +48,12 @@ export default function TaskModal() {
           </TopWrapper>
           <Description>{task.description}</Description>
           <Subtasks content={task.subtasks} />
-          <StatusInput name="Status" id="status" status={task.status} />
+          <StatusInput
+            name="Status"
+            id="status"
+            status={task.status}
+            changeStatus={updateStatus}
+          />
         </ModalWrapper>
       ) : (
         <p>loading</p>

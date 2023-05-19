@@ -15,14 +15,6 @@ const StyledWrapper = styled.div`
 export default function MainWrapper() {
   const [isOpen, setIsOpen] = useState(true);
 
-  function handleSidebarOpen() {
-    setIsOpen(true);
-  }
-
-  function handleSidebarClose() {
-    setIsOpen(false);
-  }
-
   function toggleSidebar() {
     setIsOpen((prevState) => !prevState);
   }

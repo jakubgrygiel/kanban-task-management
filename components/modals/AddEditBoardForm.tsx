@@ -2,10 +2,10 @@ import styled from "styled-components";
 import ModalInput from "./ModalInput";
 import { FormEvent } from "react";
 import ItemList from "./ItemList";
-import useFormData from "@/hooks/useFormData";
 import { deepCopyObject, setProperty } from "@/utils/helpers";
 import { IBoard, initialEmptyColumn } from "@/data/initialData";
 import { createId } from "@paralleldrive/cuid2";
+import useFormBoard from "@/hooks/form-hooks/useFormBoard";
 
 const StyledWrapper = styled.form`
   display: flex;
@@ -40,14 +40,10 @@ const CreateEditBoardBtn = styled.button`
 
 interface IAddEditBoardFormProps {
   editMode: boolean;
-  addColumnMode: boolean;
 }
 
-export default function AddEditBoardForm({
-  editMode,
-  addColumnMode,
-}: IAddEditBoardFormProps) {
-  const { formData, updateFormData } = useFormData("board");
+export default function AddEditBoardForm({ editMode }: IAddEditBoardFormProps) {
+  const { formData, updateFormData } = useFormBoard();
 
   function handleClick(e: FormEvent) {
     e.preventDefault();

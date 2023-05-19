@@ -72,7 +72,6 @@ export default function DeleteForm({ label, description }: IDeleteFormProps) {
 
   function handleClickDelete(e: FormEvent) {
     e.preventDefault();
-
     if (label === "Board") {
       updateBoardContent(UpdateEnum.DELETE);
     }

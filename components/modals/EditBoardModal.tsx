@@ -13,10 +13,11 @@ export default function EditBoardModal() {
   function handleClick(e: FormEvent) {
     e.preventDefault();
   }
+
   return (
     <ModalWrapper>
       <ModalTitle>Edit Board</ModalTitle>
-      <AddEditBoardForm editMode={true} addColumnMode={false} />
+      <AddEditBoardForm editMode={true} />
     </ModalWrapper>
   );
 }

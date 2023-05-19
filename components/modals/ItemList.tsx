@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { FormEvent } from "react";
 import ItemInput from "./ItemInput";
-import { ISubtask } from "@/data/initialData";
+import { IColumn, ISubtask } from "@/data/initialData";
 
 const StyledWrapper = styled.fieldset`
   display: flex;
@@ -52,7 +52,7 @@ const AddNewItemBtn = styled.button`
 interface IItemListProps {
   label: string;
   type: string;
-  content: ISubtask[];
+  content: ISubtask[] | IColumn[];
   addNewItem: () => void;
   updateValue: (itemId: string, newValue: string) => void;
   deleteItem: (itemId: string) => void;
@@ -72,9 +72,7 @@ export default function ItemList({
   }
 
   function renderItems() {
-    let i = 0;
     return content.map((subtask) => {
-      i++;
       return (
         <ItemInput
           key={subtask.id}

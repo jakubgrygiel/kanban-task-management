@@ -10,13 +10,10 @@ const ModalTitle = styled.h3`
 interface IAddNewBoardModalProps {}
 
 export default function AddNewBoardModal() {
-  function handleClick(e: FormEvent) {
-    e.preventDefault();
-  }
   return (
     <ModalWrapper>
       <ModalTitle>Add New Board</ModalTitle>
-      <AddEditBoardForm editMode={false} addColumnMode={false} />
+      <AddEditBoardForm editMode={false} />
     </ModalWrapper>
   );
 }

@@ -29,5 +29,6 @@ export default function AddNewTaskBtn() {
   function handleClick() {
     openModal("add-task");
   }
+
   return <StyledWrapper onClick={handleClick}>+ Add New Task</StyledWrapper>;
 }
