@@ -2,11 +2,7 @@ import { IBoard, IColumn, IData, ISubtask, ITask } from "@/data/initialData";
 import { deepCopyObject } from "./helpers";
 import { ICurrentTaskIds } from "@/context/ModalsCtx";
 
-interface IKeyString {
-  [path: string | number]: string;
-}
-
-function getBoard(
+function getBoardData(
   data: IData,
   boardId: string | undefined
 ): IBoard | undefined {
@@ -14,40 +10,40 @@ function getBoard(
   return data.boards.find((board) => board.id === boardId);
 }
 
-function getColumn(
+function getColumnData(
   data: IData,
   boardId: string | undefined,
   columnId: string | undefined
 ): IColumn | undefined {
-  const board = getBoard(data, boardId);
+  const board = getBoardData(data, boardId);
   if (board === undefined || columnId === undefined) return undefined;
   return board.columns.find((column) => column.id === columnId);
 }
 
-function getTask(
+function getTaskData(
   data: IData,
   boardId: string | undefined,
   columnId: string | undefined,
   taskId: string | undefined
 ): ITask | undefined {
-  const column = getColumn(data, boardId, columnId);
+  const column = getColumnData(data, boardId, columnId);
   if (column === undefined || taskId === undefined) return undefined;
   return column.tasks.find((task) => task.id === taskId);
 }
 
-function getSubtask(
+function getSubtaskData(
   data: IData,
   boardId: string | undefined,
   columnId: string | undefined,
   taskId: string | undefined,
   subtaskId: string | undefined
 ): ISubtask | undefined {
-  const task = getTask(data, boardId, columnId, taskId);
+  const task = getTaskData(data, boardId, columnId, taskId);
   if (task === undefined || subtaskId === undefined) return undefined;
   return task.subtasks.find((subtask) => subtask.id === subtaskId);
 }
 
-function updateSubtask(
+function updateSubtaskData(
   data: IData,
   boardId: string | undefined,
   columnId: string | undefined,
@@ -76,7 +72,7 @@ function updateSubtask(
   return newData;
 }
 
-function updateTask(
+function updateTaskData(
   data: IData,
   boardId: string | undefined,
   columnId: string | undefined,
@@ -101,7 +97,7 @@ function updateTask(
   return newData;
 }
 
-function updateTaskStatus(
+function updateTaskStatusData(
   data: IData,
   boardId: string | undefined,
   task: ITask
@@ -124,7 +120,7 @@ function updateTaskStatus(
   return { updatedData, newCurrentTaskIds };
 }
 
-function removeTask(
+function deleteTaskData(
   data: IData,
   boardId: string | undefined,
   columnId: string | undefined,
@@ -145,7 +141,7 @@ function removeTask(
   return newData;
 }
 
-function removeBoard(data: IData, boardId: string | undefined) {
+function deleteBoardData(data: IData, boardId: string | undefined) {
   const boardIdx = data.boards.findIndex((board) => board.id === boardId);
   if (boardIdx === -1) return data;
   let newData: IData = deepCopyObject(data);
@@ -157,13 +153,13 @@ function removeBoard(data: IData, boardId: string | undefined) {
 }
 
 export {
-  getBoard,
-  getColumn,
-  getTask,
-  getSubtask,
-  updateSubtask,
-  updateTask,
-  updateTaskStatus,
-  removeBoard,
-  removeTask,
+  getBoardData,
+  getColumnData,
+  getTaskData,
+  getSubtaskData,
+  updateSubtaskData,
+  updateTaskData,
+  updateTaskStatusData,
+  deleteBoardData,
+  deleteTaskData,
 };

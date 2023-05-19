@@ -25,7 +25,7 @@ export default function BoardsLinks() {
   const { data } = useContext(DataCtx);
 
   function renderBoardLinks() {
-    return data.boards.map((board) => (
+    return data!.boards.map((board) => (
       <BoardBtn
         key={board.id}
         id={board.id}

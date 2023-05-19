@@ -2,7 +2,7 @@ import initialData, { IData } from "@/data/initialData";
 import { useEffect, useState } from "react";
 
 export default function useLocalStorage(key: string) {
-  const [data, setData] = useState<IData>();
+  const [data, setData] = useState<IData | undefined>();
 
   useEffect(() => {
     setData(readValue());
@@ -33,5 +33,5 @@ export default function useLocalStorage(key: string) {
     setData(newData);
   }
 
-  return { activeBoardId, data, updateData };
+  return { data, activeBoardId, updateData };
 }

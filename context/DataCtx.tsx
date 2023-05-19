@@ -8,7 +8,7 @@ interface IDataProviderProps {
 }
 
 interface IDataCtx {
-  data: IData;
+  data: IData | undefined;
   activeBoardId: string | undefined;
   updateData: (newData: IData) => void;
   changeCurrentBoard: (id: string) => void;

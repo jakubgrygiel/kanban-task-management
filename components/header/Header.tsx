@@ -48,11 +48,11 @@ const BoardTitle = styled.h1`
 `;
 
 export default function Header() {
-  const ctx = useContext(DarkModeCtx);
+  const { darkMode } = useContext(DarkModeCtx);
   return (
     <StyledWrapper>
       <LogoWrapper>
-        {ctx.darkMode ? (
+        {darkMode ? (
           <img src="/assets/logo-light.svg" alt="logo of the app" />
         ) : (
           <img src="/assets/logo-dark.svg" alt="logo of the app" />

@@ -5,17 +5,20 @@ import { ModalsCtx } from "@/context/ModalsCtx";
 import { DataCtx } from "@/context/DataCtx";
 import { useContext } from "react";
 import { getBoard } from "@/utils/crud";
+import { IBoard } from "@/data/initialData";
 
 interface IDeleteBoardModalProps {}
 
 export default function DeleteBoardModal() {
   const { data, activeBoardId } = useContext(DataCtx);
-
-  const board = getBoard(data, activeBoardId);
+  let board: IBoard | undefined;
+  if (data) {
+    board = getBoard(data, activeBoardId);
+  }
 
   return (
     <ModalWrapper>
-      {board && (
+      {data && board && (
         <DeleteForm
           label="Board"
           description={`Are you sure you want to delete the "${board.title}" board? This action will remove all columns and tasks and cannot be reversed.`}

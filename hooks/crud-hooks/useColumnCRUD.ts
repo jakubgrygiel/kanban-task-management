@@ -22,7 +22,7 @@ export default function useColumnCRUD() {
     return newData;
   }
 
-  function updateColumnData(columnId: string, updateType: UpdateType) {
+  function update(columnId: string, updateType: UpdateType) {
     let newData: IData = deepCopyObject(data);
     if (updateType === UpdateEnum.ADD) {
       newData = addColumn(newData, columnId);
@@ -36,5 +36,5 @@ export default function useColumnCRUD() {
     updateData(newData);
   }
 
-  return { updateColumnData };
+  return { update };
 }

@@ -45,7 +45,7 @@ export default function TasksWrapper({ isOpen }: ITaskWrapperProps) {
   const [isEmpty, setIsEmpty] = useState(false);
 
   function renderColumns() {
-    const activeBoard: IBoard | undefined = data.boards.find(
+    const activeBoard: IBoard | undefined = data!.boards.find(
       (board) => board.isActive
     );
     let i = -1;
