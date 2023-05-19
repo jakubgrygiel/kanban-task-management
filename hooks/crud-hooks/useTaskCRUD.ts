@@ -6,61 +6,74 @@ import { DataCtx } from "@/context/DataCtx";
 import {
   deleteTaskData,
   getTaskData,
+  updateTaskData,
   updateTaskStatusData,
 } from "@/utils/crud";
 import { ModalsCtx } from "@/context/ModalsCtx";
 
 export default function useTaskCRUD() {
   const { data, activeBoardId, updateData } = useContext(DataCtx);
-  const {
-    currentTaskIds: { columnId, taskId },
-    updateTaskIds,
-  } = useContext(ModalsCtx);
+  const { currentTaskIds, updateTaskIds } = useContext(ModalsCtx);
   const [task, setTask] = useState<ITask>();
 
   useEffect(() => {
     if (data) {
-      const taskData = getTaskData(data, activeBoardId, columnId, taskId);
+      const taskData = getTaskData(data, {
+        boardId: activeBoardId,
+        ...currentTaskIds,
+      });
       setTask(taskData);
     }
   }, [data]);
 
   function addNewTask(newTaskData: ITask) {}
 
-  function updateTask(boardId: string, newTaskData: ITask) {}
+  function updateTask(newTask: ITask) {
+    const { updatedData, newCurrentTaskIds } = updateTaskData(
+      data!,
+      {
+        boardId: activeBoardId,
+        ...currentTaskIds,
+      },
+      newTask
+    );
+    updateData(updatedData);
+  }
 
-  function deleteTask(taskId: string) {
-    const newData = deleteTaskData(data!, activeBoardId, columnId, taskId);
+  function deleteTask() {
+    const newData = deleteTaskData(data!, {
+      boardId: activeBoardId,
+      ...currentTaskIds,
+    });
     updateData(newData);
   }
 
   function updateStatus(status: string) {
     let newTask: ITask = deepCopyObject(task);
     newTask.status = status;
-    const newData = deleteTaskData(data!, activeBoardId, columnId, taskId);
-    const { updatedData, newCurrentTaskIds } = updateTaskStatusData(
-      newData,
-      activeBoardId,
+    const { updatedData, newCurrentTaskIds } = updateTaskData(
+      data!,
+      {
+        boardId: activeBoardId,
+        ...currentTaskIds,
+      },
       newTask
     );
     updateData(updatedData);
     updateTaskIds(newCurrentTaskIds);
   }
 
-  function update(
-    updateType: UpdateType,
-    taskId?: string,
-    newTaskData?: ITask
-  ) {
+  function updateTaskContent(updateType: UpdateType, newTaskData?: ITask) {
     if (newTaskData && updateType === UpdateEnum.ADD) {
       addNewTask(newTaskData);
     }
-    if (newTaskData && taskId && updateType === UpdateEnum.UPDATE) {
-      updateTask(taskId, newTaskData);
+    if (newTaskData && updateType === UpdateEnum.UPDATE) {
+      updateTask(newTaskData);
     }
-    if (taskId && updateType === UpdateEnum.DELETE) {
-      deleteTask(taskId);
+    if (updateType === UpdateEnum.DELETE) {
+      deleteTask();
     }
   }
-  return { update, task, updateStatus };
+
+  return { updateTaskContent, task, updateStatus };
 }

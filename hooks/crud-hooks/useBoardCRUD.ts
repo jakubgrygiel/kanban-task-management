@@ -5,7 +5,7 @@ import { deleteBoardData, getBoardData } from "@/utils/crud";
 
 export default function useBoardCRUD() {
   const { data, activeBoardId, updateData } = useContext(DataCtx);
-  const [board, setBoard] = useState<IBoard>();
+  const [board, setBoard] = useState<IBoard | undefined>();
 
   useEffect(() => {
     if (data) {
@@ -16,28 +16,24 @@ export default function useBoardCRUD() {
 
   function addNewBoard(newBoardData: IBoard) {}
 
-  function updateBoard(boardId: string, newBoardData: IBoard) {}
+  function updateBoard(newBoardData: IBoard) {}
 
-  function deleteBoard(boardId: string) {
-    const newData = deleteBoardData(data!, boardId);
+  function deleteBoard() {
+    const newData = deleteBoardData(data!, activeBoardId);
     updateData(newData);
   }
 
-  function update(
-    updateType: UpdateType,
-    boardId?: string,
-    newBoardData?: IBoard
-  ) {
+  function updateBoardContent(updateType: UpdateType, newBoardData?: IBoard) {
     if (newBoardData && updateType === UpdateEnum.ADD) {
       addNewBoard(newBoardData);
     }
-    if (newBoardData && boardId && updateType === UpdateEnum.UPDATE) {
-      updateBoard(boardId, newBoardData);
+    if (newBoardData && updateType === UpdateEnum.UPDATE) {
+      updateBoard(newBoardData);
     }
-    if (boardId && updateType === UpdateEnum.DELETE) {
-      deleteBoard(boardId);
+    if (updateType === UpdateEnum.DELETE) {
+      deleteBoard();
     }
   }
 
-  return { board, update };
+  return { board, updateBoardContent };
 }

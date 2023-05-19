@@ -13,21 +13,18 @@ export default function useSubtaskCRUD() {
     subtaskId: string,
     currentState: boolean
   ) {
-    let newData = updateSubtaskData(
+    const newData = updateSubtaskData(
       data!,
-      activeBoardId,
-      columnId,
-      taskId,
-      subtaskId,
+      { boardId: activeBoardId, columnId, taskId, subtaskId },
       "isCompleted",
       !currentState
     );
     updateData(newData);
   }
 
-  function updateIsCompleted(subtaskId: string, currentState: boolean) {
+  function updateSubtaskStatus(subtaskId: string, currentState: boolean) {
     updateSubtaskCompletedState(subtaskId, currentState);
   }
 
-  return { updateIsCompleted };
+  return { updateSubtaskStatus };
 }

@@ -1,9 +1,9 @@
 import styled from "styled-components";
 import { FormEvent, useContext } from "react";
 import { ModalsCtx } from "@/context/ModalsCtx";
-import { DataCtx } from "@/context/DataCtx";
-import { removeBoard, removeTask } from "@/utils/crud";
-import { deepCopyObject } from "@/utils/helpers";
+import useTaskCRUD from "@/hooks/crud-hooks/useTaskCRUD";
+import useBoardCRUD from "@/hooks/crud-hooks/useBoardCRUD";
+import { UpdateEnum } from "@/data/initialData";
 
 const StyledWrapper = styled.div`
   display: flex;
@@ -66,31 +66,27 @@ interface IDeleteFormProps {
 }
 
 export default function DeleteForm({ label, description }: IDeleteFormProps) {
-  const { closeModal, currentTaskIds } = useContext(ModalsCtx);
-  const { data, activeBoardId, updateData } = useContext(DataCtx);
+  const { closeModal } = useContext(ModalsCtx);
+  const { updateTaskContent } = useTaskCRUD();
+  const { updateBoardContent } = useBoardCRUD();
 
   function handleClickDelete(e: FormEvent) {
     e.preventDefault();
-    let newData = deepCopyObject(data);
+
     if (label === "Board") {
-      newData = removeBoard(newData, activeBoardId);
+      updateBoardContent(UpdateEnum.DELETE);
     }
     if (label === "Task") {
-      newData = removeTask(
-        newData,
-        activeBoardId,
-        currentTaskIds.columnId,
-        currentTaskIds.taskId
-      );
+      updateTaskContent(UpdateEnum.DELETE);
     }
-    // console.log(newData);
-    updateData(newData);
     closeModal();
   }
+
   function handleClickCancel(e: FormEvent) {
     e.preventDefault();
     closeModal();
   }
+
   return (
     <StyledWrapper>
       <ModalTitle>Delete {label}</ModalTitle>

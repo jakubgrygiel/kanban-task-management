@@ -8,16 +8,9 @@ import Subtasks from "./Subtasks";
 import { useContext } from "react";
 import { ModalsCtx } from "@/context/ModalsCtx";
 import { DataCtx } from "@/context/DataCtx";
-import {
-  getBoard,
-  getColumn,
-  getTask,
-  removeTask,
-  updateTask,
-  updateTaskStatus,
-} from "@/utils/crud";
 import { IColumn, ITask } from "@/data/initialData";
 import { deepCopyObject } from "@/utils/helpers";
+import useTaskCRUD from "@/hooks/crud-hooks/useTaskCRUD";
 
 const TopWrapper = styled.div`
   display: flex;
@@ -40,33 +33,7 @@ const Description = styled.p`
 interface ITaskModalProps {}
 
 export default function TaskModal() {
-  const { currentTaskIds, updateTaskIds } = useContext(ModalsCtx);
-  const { data, updateData, activeBoardId } = useContext(DataCtx);
-
-  const task = getTask(
-    data,
-    activeBoardId,
-    currentTaskIds.columnId,
-    currentTaskIds.taskId
-  );
-
-  function changeStatus(status: string) {
-    let newTask: ITask = deepCopyObject(task);
-    newTask.status = status;
-    let newData = removeTask(
-      data,
-      activeBoardId,
-      currentTaskIds.columnId,
-      currentTaskIds.taskId
-    );
-    const { updatedData, newCurrentTaskIds } = updateTaskStatus(
-      newData,
-      activeBoardId,
-      newTask
-    );
-    updateData(updatedData);
-    updateTaskIds(newCurrentTaskIds);
-  }
+  const { task } = useTaskCRUD();
 
   return (
     <>
@@ -81,12 +48,7 @@ export default function TaskModal() {
           </TopWrapper>
           <Description>{task.description}</Description>
           <Subtasks content={task.subtasks} />
-          <StatusInput
-            name="Status"
-            id="status"
-            status={task.status}
-            changeStatus={changeStatus}
-          />
+          <StatusInput name="Status" id="status" status={task.status} />
         </ModalWrapper>
       ) : (
         <p>loading</p>

@@ -1,4 +1,6 @@
 import { DataCtx } from "@/context/DataCtx";
+import useBoardCRUD from "@/hooks/crud-hooks/useBoardCRUD";
+import useTaskCRUD from "@/hooks/crud-hooks/useTaskCRUD";
 import { createId } from "@paralleldrive/cuid2";
 import { FormEvent, useContext, useRef, useState } from "react";
 import styled from "styled-components";
@@ -86,20 +88,14 @@ interface IStatusInputProps {
   id: string;
   name: string;
   status: string;
-  changeStatus: (status: string) => void;
 }
 
-export default function StatusInput({
-  id,
-  name,
-  status,
-  changeStatus,
-}: IStatusInputProps) {
+export default function StatusInput({ id, name, status }: IStatusInputProps) {
   const [isOptionsOpen, setIsOptionsOpen] = useState(false);
-  const optionRef = useRef<HTMLButtonElement>(null);
-  const { data, activeBoardId } = useContext(DataCtx);
-  const content = data.boards.find((board) => board.id === activeBoardId);
-  const columnsNames = content?.columns.map((column) => column.title);
+  const { board } = useBoardCRUD();
+  const { updateStatus } = useTaskCRUD();
+
+  const columnsNames = board?.columns.map((column) => column.title);
 
   function handleClick(e: FormEvent) {
     e.preventDefault();
@@ -108,7 +104,7 @@ export default function StatusInput({
 
   function handleClickOption(e: FormEvent, status: string) {
     e.preventDefault();
-    changeStatus(status);
+    updateStatus(status);
     setIsOptionsOpen(false);
   }
 
@@ -119,6 +115,7 @@ export default function StatusInput({
       </Option>
     ));
   }
+
   return (
     <StyledWrapper>
       <Label htmlFor={id}>{name}</Label>
