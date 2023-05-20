@@ -1,19 +1,19 @@
-import { IBoard, initialEmptyBoard } from "@/data/initialData";
+import { IBoard, UpdateEnum, initialEmptyBoard } from "@/data/initialData";
 import { deepCopyObject } from "@/utils/helpers";
 import { createId } from "@paralleldrive/cuid2";
 import { useEffect, useState } from "react";
 import useBoardCRUD from "../crud-hooks/useBoardCRUD";
 
-export default function useFormBoard() {
+export default function useFormBoard(editMode: boolean) {
   const [formData, setFormData] = useState<IBoard>();
-  const { board } = useBoardCRUD();
+  const { board, updateBoardContent } = useBoardCRUD();
 
   useEffect(() => {
     getBoardData();
-  }, []);
+  }, [board]);
 
   function getBoardData() {
-    if (board) {
+    if (editMode && board) {
       setFormData(board);
     } else {
       setInitialBoardData();
@@ -33,5 +33,13 @@ export default function useFormBoard() {
     setFormData(newData);
   }
 
-  return { formData, updateFormData };
+  function updateAppData() {
+    if (editMode) {
+      updateBoardContent(UpdateEnum.UPDATE, formData);
+      return;
+    }
+    updateBoardContent(UpdateEnum.ADD, formData);
+  }
+
+  return { formData, updateFormData, updateAppData };
 }

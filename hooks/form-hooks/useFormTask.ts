@@ -1,5 +1,6 @@
 import {
   ITask,
+  UpdateEnum,
   initialEmptySubtask,
   initialEmptyTask,
 } from "@/data/initialData";
@@ -8,16 +9,16 @@ import { createId } from "@paralleldrive/cuid2";
 import { useEffect, useState } from "react";
 import useTaskCRUD from "../crud-hooks/useTaskCRUD";
 
-export default function useFormTask() {
+export default function useFormTask(editMode: boolean) {
   const [formData, setFormData] = useState<ITask>();
-  const { task } = useTaskCRUD();
+  const { task, updateTaskContent } = useTaskCRUD();
 
   useEffect(() => {
     getTaskData();
-  }, []);
+  }, [task]);
 
   function getTaskData() {
-    if (task) {
+    if (editMode && task) {
       setFormData(task);
     } else {
       setInitialTaskData();
@@ -39,5 +40,13 @@ export default function useFormTask() {
     setFormData(newData);
   }
 
-  return { formData, updateFormData };
+  function updateAppData() {
+    if (editMode) {
+      updateTaskContent(UpdateEnum.UPDATE, formData);
+      return;
+    }
+    updateTaskContent(UpdateEnum.ADD, formData);
+  }
+
+  return { formData, updateFormData, updateAppData };
 }

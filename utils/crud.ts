@@ -101,6 +101,45 @@ function findSubtaskIdx(data: IData, subtaskIds: ISubtaskIds): IFindIdx {
   return { boardIdx, columnIdx, taskIdx, subtaskIdx };
 }
 
+function findColumnByStatus(data: IData, boardIdx: number, status: string) {
+  const columnIdx = data.boards[boardIdx].columns.findIndex(
+    (column) => column.title === status
+  );
+  return columnIdx;
+}
+
+function addNewBoardData(data: IData, newBoard: IBoard) {
+  let newData: IData = deepCopyObject(data);
+  newData.boards.push(newBoard);
+  return newData;
+}
+
+function addNewTaskData(
+  data: IData,
+  boardId: string | undefined,
+  newTask: ITask
+): IData {
+  const boardIdx = findBoardIdx(data, boardId);
+  if (boardIdx === -1) return data;
+  const columnIdx = findColumnByStatus(data, boardIdx, newTask.status);
+  if (columnIdx === -1) return data;
+  let newData: IData = deepCopyObject(data);
+  newData.boards[boardIdx].columns[columnIdx].tasks.push(newTask);
+  return newData;
+}
+
+function updateBoardData(
+  data: IData,
+  boardId: string | undefined,
+  newBoard: IBoard
+): IData {
+  const boardIdx = findBoardIdx(data, boardId);
+  if (boardIdx === -1) return data;
+  let newData: IData = deepCopyObject(data);
+  newData.boards[boardIdx] = newBoard;
+  return newData;
+}
+
 function updateTaskData(
   data: IData,
   taskIds: ITaskIds,
@@ -169,9 +208,7 @@ function updateTaskStatusData(
       updatedData: data,
       newCurrentTaskIds: { taskId: undefined, columnId: undefined },
     };
-  const columnIdx = data.boards[boardIdx].columns.findIndex(
-    (column) => column.title === task.status
-  );
+  const columnIdx = findColumnByStatus(data, boardIdx, task.status);
   let updatedData: IData = deepCopyObject(data);
   updatedData.boards[boardIdx].columns[columnIdx].tasks.push(task);
   let newCurrentTaskIds: ICurrentTaskIds = {
@@ -205,9 +242,12 @@ export {
   getColumnData,
   getTaskData,
   getSubtaskData,
-  updateSubtaskData,
+  addNewBoardData,
+  addNewTaskData,
+  updateBoardData,
   updateTaskData,
   updateTaskStatusData,
+  updateSubtaskData,
   deleteBoardData,
   deleteTaskData,
 };

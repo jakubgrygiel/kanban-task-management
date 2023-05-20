@@ -1,13 +1,15 @@
 import styled from "styled-components";
 import ModalInput from "./ModalInput";
 import ModalTextarea from "./ModalTextarea";
-import { FormEvent } from "react";
+import { FormEvent, useContext } from "react";
 import ItemList from "./ItemList";
 import StatusInput from "./StatusInput";
 import { ITask, initialEmptySubtask } from "@/data/initialData";
 import { deepCopyObject, setProperty } from "@/utils/helpers";
 import { createId } from "@paralleldrive/cuid2";
 import useFormTask from "@/hooks/form-hooks/useFormTask";
+import useTaskCRUD from "@/hooks/crud-hooks/useTaskCRUD";
+import { ModalsCtx } from "@/context/ModalsCtx";
 
 const StyledWrapper = styled.form`
   display: flex;
@@ -45,10 +47,13 @@ interface IAddEditTaskFormProps {
 }
 
 export default function AddEditTaskForm({ editMode }: IAddEditTaskFormProps) {
-  const { formData, updateFormData } = useFormTask();
+  const { formData, updateFormData, updateAppData } = useFormTask(editMode);
+  const { closeModal } = useContext(ModalsCtx);
 
   function handleClick(e: FormEvent) {
     e.preventDefault();
+    updateAppData();
+    closeModal();
   }
 
   function updateTaskData(path: string, newValue: string | boolean) {

@@ -4,10 +4,10 @@ import { IData, ITask, UpdateEnum, UpdateType } from "@/data/initialData";
 import { useContext, useEffect, useState } from "react";
 import { DataCtx } from "@/context/DataCtx";
 import {
+  addNewTaskData,
   deleteTaskData,
   getTaskData,
   updateTaskData,
-  updateTaskStatusData,
 } from "@/utils/crud";
 import { ModalsCtx } from "@/context/ModalsCtx";
 
@@ -26,7 +26,10 @@ export default function useTaskCRUD() {
     }
   }, [data]);
 
-  function addNewTask(newTaskData: ITask) {}
+  function addNewTask(newTaskData: ITask) {
+    const updatedData = addNewTaskData(data!, activeBoardId, newTaskData);
+    updateData(updatedData);
+  }
 
   function updateTask(newTask: ITask) {
     const { updatedData, newCurrentTaskIds } = updateTaskData(
@@ -38,6 +41,7 @@ export default function useTaskCRUD() {
       newTask
     );
     updateData(updatedData);
+    updateTaskIds(newCurrentTaskIds);
   }
 
   function deleteTask() {

@@ -1,11 +1,12 @@
 import styled from "styled-components";
 import ModalInput from "./ModalInput";
-import { FormEvent } from "react";
+import { FormEvent, useContext } from "react";
 import ItemList from "./ItemList";
 import { deepCopyObject, setProperty } from "@/utils/helpers";
 import { IBoard, initialEmptyColumn } from "@/data/initialData";
 import { createId } from "@paralleldrive/cuid2";
 import useFormBoard from "@/hooks/form-hooks/useFormBoard";
+import { ModalsCtx } from "@/context/ModalsCtx";
 
 const StyledWrapper = styled.form`
   display: flex;
@@ -43,10 +44,13 @@ interface IAddEditBoardFormProps {
 }
 
 export default function AddEditBoardForm({ editMode }: IAddEditBoardFormProps) {
-  const { formData, updateFormData } = useFormBoard();
+  const { formData, updateFormData, updateAppData } = useFormBoard(editMode);
+  const { closeModal } = useContext(ModalsCtx);
 
   function handleClick(e: FormEvent) {
     e.preventDefault();
+    updateAppData();
+    closeModal();
   }
 
   function updateBoardData(path: string, newValue: string | boolean) {
@@ -90,7 +94,7 @@ export default function AddEditBoardForm({ editMode }: IAddEditBoardFormProps) {
       {formData && (
         <>
           <ModalInput
-            id="name-add-new-task"
+            id="title"
             name="Name"
             placeholder="e.g. Web Design"
             value={formData.title}

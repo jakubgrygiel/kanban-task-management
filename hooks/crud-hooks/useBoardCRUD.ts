@@ -1,7 +1,12 @@
 import { IBoard, UpdateEnum, UpdateType } from "@/data/initialData";
 import { DataCtx } from "@/context/DataCtx";
 import { useContext, useEffect, useState } from "react";
-import { deleteBoardData, getBoardData } from "@/utils/crud";
+import {
+  addNewBoardData,
+  deleteBoardData,
+  getBoardData,
+  updateBoardData,
+} from "@/utils/crud";
 
 export default function useBoardCRUD() {
   const { data, activeBoardId, updateData } = useContext(DataCtx);
@@ -14,9 +19,15 @@ export default function useBoardCRUD() {
     }
   }, [data]);
 
-  function addNewBoard(newBoardData: IBoard) {}
+  function addNewBoard(newBoardData: IBoard) {
+    const newData = addNewBoardData(data!, newBoardData);
+    updateData(newData);
+  }
 
-  function updateBoard(newBoardData: IBoard) {}
+  function updateBoard(newBoardData: IBoard) {
+    const newData = updateBoardData(data!, activeBoardId, newBoardData);
+    updateData(newData);
+  }
 
   function deleteBoard() {
     const newData = deleteBoardData(data!, activeBoardId);
