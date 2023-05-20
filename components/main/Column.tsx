@@ -2,12 +2,13 @@ import styled from "styled-components";
 import Task from "./Task";
 import { IColumn } from "@/data/initialData";
 
-const StyledWrapper = styled.div`
+const StyledWrapper = styled.div<IIsEmpty>`
   display: flex;
   justify-content: flex-start;
   align-items: flex-start;
   flex-direction: column;
   gap: 1.5rem;
+  height: ${({ isEmpty }) => (isEmpty ? "100%" : "auto")};
   width: 280px;
 `;
 
@@ -32,18 +33,26 @@ const ColumnTitle = styled.h3`
   text-transform: uppercase;
 `;
 
-const TaskList = styled.ul`
+const TaskList = styled.ul<IIsEmpty>`
   display: flex;
   justify-content: flex-start;
   align-items: flex-start;
   flex-direction: column;
   gap: 1.5rem;
+  height: ${({ isEmpty }) => (isEmpty ? "100%" : "auto")};
   width: 100%;
   padding-bottom: 3rem;
+  border-radius: 0.375rem;
+  border: ${({ isEmpty, theme }) =>
+    isEmpty ? `2px  dashed ${theme.colors.columnBorder}` : "none"};
 `;
 
 interface IColorNum {
   colorNum: number;
+}
+
+interface IIsEmpty {
+  isEmpty: boolean;
 }
 interface IColumnProps {
   content: IColumn;
@@ -51,6 +60,8 @@ interface IColumnProps {
 }
 
 export default function Column({ content, colorNum }: IColumnProps) {
+  const isEmpty = content.tasks.length === 0 ? true : false;
+
   function renderTasks() {
     const columnId = content.id;
     return content.tasks.map((task: any) => (
@@ -59,14 +70,14 @@ export default function Column({ content, colorNum }: IColumnProps) {
   }
 
   return (
-    <StyledWrapper>
+    <StyledWrapper isEmpty={isEmpty}>
       <ColumnTitleWrapper>
         <ColumnIcon colorNum={colorNum} />
         <ColumnTitle>
           {content.title} ({content.tasks.length})
         </ColumnTitle>
       </ColumnTitleWrapper>
-      <TaskList>{renderTasks()}</TaskList>
+      <TaskList isEmpty={isEmpty}>{renderTasks()}</TaskList>
     </StyledWrapper>
   );
 }

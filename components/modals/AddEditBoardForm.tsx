@@ -7,6 +7,7 @@ import { IBoard, initialEmptyColumn } from "@/data/initialData";
 import { createId } from "@paralleldrive/cuid2";
 import useFormBoard from "@/hooks/form-hooks/useFormBoard";
 import { ModalsCtx } from "@/context/ModalsCtx";
+import useValidation from "@/hooks/form-hooks/useValidation";
 
 const StyledWrapper = styled.form`
   display: flex;
@@ -44,8 +45,10 @@ interface IAddEditBoardFormProps {
 }
 
 export default function AddEditBoardForm({ editMode }: IAddEditBoardFormProps) {
-  const { formData, updateFormData, updateAppData } = useFormBoard(editMode);
   const { closeModal } = useContext(ModalsCtx);
+  const { formData, updateFormData, updateAppData } = useFormBoard(editMode);
+  const { hasError: titleHasError, handleBlur: handleTitleBlur } =
+    useValidation(formData?.title);
 
   function handleClick(e: FormEvent) {
     e.preventDefault();
@@ -98,7 +101,9 @@ export default function AddEditBoardForm({ editMode }: IAddEditBoardFormProps) {
             name="Name"
             placeholder="e.g. Web Design"
             value={formData.title}
+            hasError={titleHasError}
             updateValue={updateBoardData}
+            handleBlur={handleTitleBlur}
           />
           <ItemList
             label="Columns"

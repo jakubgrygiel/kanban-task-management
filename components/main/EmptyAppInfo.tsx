@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import AddNewColumnBtn from "./AddNewColumnBtn";
+import AddNewBoardBtn from "./AddNewBoardBtn";
 
 const StyledWrapper = styled.div`
   display: flex;
@@ -11,11 +11,11 @@ const StyledWrapper = styled.div`
   color: ${({ theme }) => theme.colors.secondaryText};
 `;
 
-export default function EmptyInfo() {
+export default function EmptyAppInfo() {
   return (
     <StyledWrapper>
-      <p>This board is empty. Create a new column to get started.</p>
-      <AddNewColumnBtn />
+      <p>You don't have any boards yet. Create a new board to get started.</p>
+      <AddNewBoardBtn />
     </StyledWrapper>
   );
 }

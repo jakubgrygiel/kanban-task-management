@@ -6,11 +6,14 @@ import {
 } from "@/data/initialData";
 import { deepCopyObject } from "@/utils/helpers";
 import { createId } from "@paralleldrive/cuid2";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import useTaskCRUD from "../crud-hooks/useTaskCRUD";
+import { getBoardData } from "@/utils/crud";
+import { DataCtx } from "@/context/DataCtx";
 
 export default function useFormTask(editMode: boolean) {
   const [formData, setFormData] = useState<ITask>();
+  const { data, activeBoardId } = useContext(DataCtx);
   const { task, updateTaskContent } = useTaskCRUD();
 
   useEffect(() => {
@@ -30,10 +33,16 @@ export default function useFormTask(editMode: boolean) {
     const newSubtask1 = { ...initialEmptySubtask };
     const newSubtask2 = { ...initialEmptySubtask };
     newTask.id = createId();
+    newTask.status = getInitialStatus();
     newSubtask1.id = createId();
     newSubtask2.id = createId();
     newTask.subtasks = [newSubtask1, newSubtask2];
     setFormData(newTask);
+  }
+
+  function getInitialStatus() {
+    const currentBoard = getBoardData(data!, activeBoardId);
+    return currentBoard ? currentBoard.columns[0].title : "";
   }
 
   function updateFormData(newData: ITask) {

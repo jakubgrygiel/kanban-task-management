@@ -10,6 +10,7 @@ import { createId } from "@paralleldrive/cuid2";
 import useFormTask from "@/hooks/form-hooks/useFormTask";
 import useTaskCRUD from "@/hooks/crud-hooks/useTaskCRUD";
 import { ModalsCtx } from "@/context/ModalsCtx";
+import useValidation from "@/hooks/form-hooks/useValidation";
 
 const StyledWrapper = styled.form`
   display: flex;
@@ -47,8 +48,18 @@ interface IAddEditTaskFormProps {
 }
 
 export default function AddEditTaskForm({ editMode }: IAddEditTaskFormProps) {
-  const { formData, updateFormData, updateAppData } = useFormTask(editMode);
   const { closeModal } = useContext(ModalsCtx);
+  const { formData, updateFormData, updateAppData } = useFormTask(editMode);
+  const {
+    isValid: isTitleValid,
+    handleBlur: handleTitleBlur,
+    hasError: titleHasError,
+  } = useValidation(formData?.title);
+  const {
+    isValid: isDescriptionValid,
+    handleBlur: handleDescriptionBlur,
+    hasError: descriptionHasError,
+  } = useValidation(formData?.description);
 
   function handleClick(e: FormEvent) {
     e.preventDefault();
@@ -107,7 +118,9 @@ export default function AddEditTaskForm({ editMode }: IAddEditTaskFormProps) {
             name="Title"
             value={formData.title}
             placeholder="e.g. Take coffee break"
+            hasError={titleHasError}
             updateValue={updateTaskData}
+            handleBlur={handleTitleBlur}
           />
           <ModalTextarea
             id="description"
@@ -115,7 +128,9 @@ export default function AddEditTaskForm({ editMode }: IAddEditTaskFormProps) {
             value={formData.description}
             placeholder="e.g. It’s always good to take a break. This 15 minute break will 
           recharge the batteries a little."
+            hasError={descriptionHasError}
             updateValue={updateTaskData}
+            handleBlur={handleDescriptionBlur}
           />
           <ItemList
             label="Subtasks"

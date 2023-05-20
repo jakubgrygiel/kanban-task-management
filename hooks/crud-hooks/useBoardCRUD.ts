@@ -20,6 +20,9 @@ export default function useBoardCRUD() {
   }, [data]);
 
   function addNewBoard(newBoardData: IBoard) {
+    if (activeBoardId === undefined) {
+      newBoardData.isActive = true;
+    }
     const newData = addNewBoardData(data!, newBoardData);
     updateData(newData);
   }

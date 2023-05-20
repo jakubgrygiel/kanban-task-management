@@ -1,6 +1,4 @@
-import { DataCtx } from "@/context/DataCtx";
 import { ModalsCtx } from "@/context/ModalsCtx";
-import useBoardCRUD from "@/hooks/crud-hooks/useBoardCRUD";
 import { useContext } from "react";
 import styled from "styled-components";
 
@@ -23,28 +21,14 @@ const StyledWrapper = styled.button`
   &:hover {
     background-color: ${({ theme }) => theme.colors.buttonAddTaskBgHover};
   }
-
-  &:disabled {
-    cursor: not-allowed;
-    opacity: 0.3;
-  }
 `;
 
-export default function AddNewTaskBtn() {
+export default function AddNewBoardBtn() {
   const { openModal } = useContext(ModalsCtx);
-  const { data } = useContext(DataCtx);
-  const { board } = useBoardCRUD();
-
-  const isDisabled =
-    board?.columns.length === 0 || data?.boards.length === 0 ? true : false;
 
   function handleClick() {
-    openModal("add-task");
+    openModal("add-board");
   }
 
-  return (
-    <StyledWrapper onClick={handleClick} disabled={isDisabled}>
-      + Add New Task
-    </StyledWrapper>
-  );
+  return <StyledWrapper onClick={handleClick}>+ Add New Board</StyledWrapper>;
 }

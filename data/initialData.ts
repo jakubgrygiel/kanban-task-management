@@ -37,6 +37,28 @@ interface ISubtask {
   isCompleted: boolean;
 }
 
+interface IBoardValidation {
+  title: boolean;
+  columns: IColumnValidation[];
+}
+
+interface IColumnValidation {
+  title: boolean;
+  id: string;
+}
+
+interface ITaskValidation {
+  title: boolean;
+  description: boolean;
+  status: boolean;
+  subtasks: ISubtaskValidation[];
+}
+
+interface ISubtaskValidation {
+  title: boolean;
+  id: string;
+}
+
 const initialEmptyBoard: IBoard = {
   title: "",
   id: "",
@@ -618,4 +640,15 @@ export {
   initialEmptyBoard,
   initialEmptyColumn,
 };
-export type { UpdateType, IData, IBoard, IColumn, ITask, ISubtask };
+export type {
+  UpdateType,
+  IData,
+  IBoard,
+  IColumn,
+  ITask,
+  ISubtask,
+  IBoardValidation,
+  IColumnValidation,
+  ITaskValidation,
+  ISubtaskValidation,
+};

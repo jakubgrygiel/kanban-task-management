@@ -1,10 +1,11 @@
 import styled from "styled-components";
-import EmptyInfo from "./EmptyInfo";
 import Column from "./Column";
 import SecondAddNewColumnBtn from "./SecondAddNewColumnBtn";
 import { IBoard } from "@/data/initialData";
 import { useContext } from "react";
 import { DataCtx } from "@/context/DataCtx";
+import EmptyBoardInfo from "./EmptyBoardInfo";
+import EmptyAppInfo from "./EmptyAppInfo";
 
 const StyledWrapper = styled.div<IWrapper>`
   position: absolute;
@@ -42,7 +43,7 @@ export default function TasksWrapper({ isOpen }: ITaskWrapperProps) {
   const { data } = useContext(DataCtx);
 
   function renderColumns() {
-    const activeBoard: IBoard | undefined = data!.boards.find(
+    const activeBoard: IBoard | undefined = data?.boards.find(
       (board) => board.isActive
     );
     let i = -1;
@@ -54,18 +55,30 @@ export default function TasksWrapper({ isOpen }: ITaskWrapperProps) {
 
   return (
     <StyledWrapper isOpen={isOpen}>
-      {data ? (
-        data.boards.length > 0 ? (
-          <ColumnsWrapper>
-            {renderColumns()}
-            <SecondAddNewColumnBtn />
-          </ColumnsWrapper>
-        ) : (
-          <EmptyInfo />
-        )
+      {data === undefined || data.boards.length === 0 ? (
+        <EmptyAppInfo />
+      ) : data.boards[data!.boards.findIndex((board) => board.isActive)].columns
+          .length === 0 ? (
+        <EmptyBoardInfo />
       ) : (
-        <EmptyInfo />
+        <ColumnsWrapper>
+          {renderColumns()}
+          <SecondAddNewColumnBtn />
+        </ColumnsWrapper>
       )}
     </StyledWrapper>
   );
 }
+
+// {data ? (
+//   data.boards.length > 0 ? (
+//     <ColumnsWrapper>
+//       {renderColumns()}
+//       <SecondAddNewColumnBtn />
+//     </ColumnsWrapper>
+//   ) : (
+//     <EmptyInfo />
+//   )
+// ) : (
+//   <EmptyInfo />
+// )}
