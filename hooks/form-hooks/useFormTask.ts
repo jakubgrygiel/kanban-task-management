@@ -10,11 +10,18 @@ import { useContext, useEffect, useState } from "react";
 import useTaskCRUD from "../crud-hooks/useTaskCRUD";
 import { getBoardData } from "@/utils/crud";
 import { DataCtx } from "@/context/DataCtx";
+import useItemsValidation from "./useItemsValidation";
 
 export default function useFormTask(editMode: boolean) {
   const [formData, setFormData] = useState<ITask>();
   const { data, activeBoardId } = useContext(DataCtx);
   const { task, updateTaskContent } = useTaskCRUD();
+  const {
+    itemsValidation,
+    handleBlur,
+    getValidationData,
+    updateValidationState,
+  } = useItemsValidation();
 
   useEffect(() => {
     getTaskData();
@@ -23,6 +30,7 @@ export default function useFormTask(editMode: boolean) {
   function getTaskData() {
     if (editMode && task) {
       setFormData(task);
+      getValidationData(task.subtasks);
     } else {
       setInitialTaskData();
     }
@@ -38,6 +46,8 @@ export default function useFormTask(editMode: boolean) {
     newSubtask2.id = createId();
     newTask.subtasks = [newSubtask1, newSubtask2];
     setFormData(newTask);
+    console.log("here");
+    getValidationData(newTask.subtasks);
   }
 
   function getInitialStatus() {
@@ -57,5 +67,12 @@ export default function useFormTask(editMode: boolean) {
     updateTaskContent(UpdateEnum.ADD, formData);
   }
 
-  return { formData, updateFormData, updateAppData };
+  return {
+    formData,
+    updateFormData,
+    updateAppData,
+    itemsValidation,
+    handleBlur,
+    updateValidationState,
+  };
 }

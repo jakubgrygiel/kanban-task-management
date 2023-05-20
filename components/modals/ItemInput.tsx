@@ -47,29 +47,31 @@ const DeleteItemBtn = styled.button`
 `;
 
 interface IItemInputProps {
-  subtaskId: string;
+  itemId: string;
   placeholder: string;
   value: string;
-  updateSubtask: (subtaskId: string, newValue: string) => void;
-  deleteSubtask: (subtaskId: string) => void;
+  updateItem: (subtaskId: string, newValue: string) => void;
+  deleteItem: (subtaskId: string) => void;
+  handleBlur: (itemId: string) => void;
 }
 
 export default function ItemInput({
-  subtaskId,
+  itemId,
   placeholder,
   value,
-  updateSubtask,
-  deleteSubtask,
+  updateItem,
+  deleteItem,
+  handleBlur,
 }: IItemInputProps) {
   const inputRef = useRef<HTMLInputElement>(null);
 
   function handleChange() {
-    inputRef.current && updateSubtask(subtaskId, inputRef.current.value);
+    inputRef.current && updateItem(itemId, inputRef.current.value);
   }
 
   function handleClick(e: FormEvent) {
     e.preventDefault();
-    deleteSubtask(subtaskId);
+    deleteItem(itemId);
   }
 
   return (
@@ -80,6 +82,7 @@ export default function ItemInput({
         placeholder={placeholder}
         value={value}
         onChange={handleChange}
+        onBlur={() => handleBlur(itemId)}
       />
       <DeleteItemBtn onClick={handleClick}>
         <img src="/assets/icon-cross.svg" alt="delete subtask icon" />

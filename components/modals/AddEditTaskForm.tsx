@@ -4,11 +4,10 @@ import ModalTextarea from "./ModalTextarea";
 import { FormEvent, useContext } from "react";
 import ItemList from "./ItemList";
 import StatusInput from "./StatusInput";
-import { ITask, initialEmptySubtask } from "@/data/initialData";
+import { ITask, UpdateEnum, initialEmptySubtask } from "@/data/initialData";
 import { deepCopyObject, setProperty } from "@/utils/helpers";
 import { createId } from "@paralleldrive/cuid2";
 import useFormTask from "@/hooks/form-hooks/useFormTask";
-import useTaskCRUD from "@/hooks/crud-hooks/useTaskCRUD";
 import { ModalsCtx } from "@/context/ModalsCtx";
 import useValidation from "@/hooks/form-hooks/useValidation";
 
@@ -49,17 +48,17 @@ interface IAddEditTaskFormProps {
 
 export default function AddEditTaskForm({ editMode }: IAddEditTaskFormProps) {
   const { closeModal } = useContext(ModalsCtx);
-  const { formData, updateFormData, updateAppData } = useFormTask(editMode);
   const {
-    isValid: isTitleValid,
-    handleBlur: handleTitleBlur,
-    hasError: titleHasError,
-  } = useValidation(formData?.title);
-  const {
-    isValid: isDescriptionValid,
-    handleBlur: handleDescriptionBlur,
-    hasError: descriptionHasError,
-  } = useValidation(formData?.description);
+    formData,
+    updateFormData,
+    updateAppData,
+    updateValidationState,
+    handleBlur,
+  } = useFormTask(editMode);
+  const { handleBlur: handleTitleBlur, hasError: titleHasError } =
+    useValidation(formData?.title);
+  const { handleBlur: handleDescriptionBlur, hasError: descriptionHasError } =
+    useValidation(formData?.description);
 
   function handleClick(e: FormEvent) {
     e.preventDefault();
@@ -84,6 +83,7 @@ export default function AddEditTaskForm({ editMode }: IAddEditTaskFormProps) {
       newValue
     );
     updateFormData(newTask);
+    updateValidationState(UpdateEnum.UPDATE, subtaskId, newValue);
   }
 
   function deleteSubtask(subtaskId: string) {
@@ -93,6 +93,7 @@ export default function AddEditTaskForm({ editMode }: IAddEditTaskFormProps) {
     );
     newTask.subtasks.splice(indexOfSubtaskToDelete, 1);
     updateFormData(newTask);
+    updateValidationState(UpdateEnum.DELETE, subtaskId);
   }
 
   function addNewSubtask() {
@@ -101,6 +102,7 @@ export default function AddEditTaskForm({ editMode }: IAddEditTaskFormProps) {
     newSubtask.id = createId();
     newTask.subtasks.push(newSubtask);
     updateFormData(newTask);
+    updateValidationState(UpdateEnum.ADD, newSubtask.id);
   }
 
   function changeStatus(status: string) {
@@ -139,6 +141,7 @@ export default function AddEditTaskForm({ editMode }: IAddEditTaskFormProps) {
             addNewItem={addNewSubtask}
             updateValue={updateSubtask}
             deleteItem={deleteSubtask}
+            handleBlur={handleBlur}
           />
           <StatusInput
             name="Status"

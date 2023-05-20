@@ -56,6 +56,7 @@ interface IItemListProps {
   addNewItem: () => void;
   updateValue: (itemId: string, newValue: string) => void;
   deleteItem: (itemId: string) => void;
+  handleBlur: (itemId: string) => void;
 }
 
 export default function ItemList({
@@ -65,6 +66,7 @@ export default function ItemList({
   addNewItem,
   updateValue,
   deleteItem,
+  handleBlur,
 }: IItemListProps) {
   function handleClick(e: FormEvent) {
     e.preventDefault();
@@ -72,15 +74,16 @@ export default function ItemList({
   }
 
   function renderItems() {
-    return content.map((subtask) => {
+    return content.map((item) => {
       return (
         <ItemInput
-          key={subtask.id}
-          subtaskId={subtask.id}
+          key={item.id}
+          itemId={item.id}
           placeholder="e.g. Drink coffee & smile"
-          value={subtask.title}
-          updateSubtask={updateValue}
-          deleteSubtask={deleteItem}
+          value={item.title}
+          updateItem={updateValue}
+          deleteItem={deleteItem}
+          handleBlur={handleBlur}
         />
       );
     });
