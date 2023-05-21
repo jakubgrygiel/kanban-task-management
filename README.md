@@ -1,38 +1,62 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Task Management App
 
-## Getting Started
+CRUD app where you can manage your invoices. App built in Next.js.
 
-First, run the development server:
+Link to demo: https://invoice-next-app-beige.vercel.app/ \
+App UI based on a project from Frontend Mentor: https://www.frontendmentor.io/challenges/kanban-task-management-web-app-wgQLt-HlbB \
+When styling this app, I was also inspired by the modern UI made by the user Jay: https://www.frontendmentor.io/solutions/kanban-task-management-web-app-rFSlSM5ogv
+
+## Table of contents
+
+- [Introduction](#introduction)
+- [Technologies](#technologies)
+- [Features](#features)
+- [Building process](#building-process)
+- [Future Development](#future-development)
+- [Installation and launch](#installation-and-launch)
+- [License](#license)
+
+## Introduction
+
+A great fullstack CRUD app where you can log in with your Google account, add, edit and delete invoices. All invoices are stored in the database and are returned to the user depending on the currently logged in user's id. Invoices can be edited and their status changed. All saved changes are sent to the database and updated in real time on the client side.
+
+![overview of current project](public/project-overview.webp)
+
+## Technologies
+
+- [Next.js](https://nextjs.org/ "Next.js Page")
+- [TypeScript](https://www.typescriptlang.org/ "Typescript Page")
+- [Styled Components](https://styled-components.com/ "Styled Components Page")
+
+## Features
+
+- Login with Google
+- CRUD operations
+- Saving data in localStorage
+- Form validation
+- Light/dark mode
+
+## Building process
+
+Applications where you can manage tasks and subtasks in projects. The data is saved in localStorage.
+
+During the project, I wanted the code to be as clear as possible and open to expansion. I included all CRUD operations in custom hooks referring to the main Context with data. Due to the large number of modals, I used Portals for the first time.
+
+The project itself turned out to be a great way to test my skills and principles of clean code, which I am still learning.
+
+## Future Development
+
+Currently, I am working on implementing drag and drop functionality using the React DnD library. This will enhance the user experience and allow for easier task management.
+
+## Installation and launch
+
+To run the application on your system, install all packages and open the app with the commands below.
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## License
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
-
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
-
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+[MIT](https://choosealicense.com/licenses/mit/)

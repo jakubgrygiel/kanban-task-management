@@ -106,9 +106,7 @@ export default function AddEditTaskForm({ editMode }: IAddEditTaskFormProps) {
             placeholder="e.g. It’s always good to take a break. This 15 minute break will 
           recharge the batteries a little."
             value={formData.description}
-            hasError={validation.description}
             updateValue={updateTaskData}
-            handleBlur={handleBlur.description}
           />
           <ItemList
             label="Subtasks"

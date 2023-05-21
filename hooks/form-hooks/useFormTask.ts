@@ -23,11 +23,7 @@ export default function useFormTask(editMode: boolean) {
     hasError: titleHasError,
     isValid: titleIsValid,
   } = useValidation(formData?.title);
-  const {
-    handleBlur: handleBlurDescription,
-    hasError: descriptionHasError,
-    isValid: descriptionIsValid,
-  } = useValidation(formData?.description);
+
   const {
     isValid: itemsAreValid,
     itemsValidation,
@@ -81,17 +77,15 @@ export default function useFormTask(editMode: boolean) {
 
   const handleBlur = {
     title: handleBlurTitle,
-    description: handleBlurDescription,
     items: handleBlurItems,
   };
 
   const validation = {
     title: titleHasError,
-    description: descriptionHasError,
     items: itemsValidation,
   };
 
-  const formIsValid = titleIsValid && descriptionIsValid && itemsAreValid;
+  const formIsValid = titleIsValid && itemsAreValid;
 
   return {
     formIsValid,

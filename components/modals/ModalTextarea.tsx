@@ -17,7 +17,7 @@ const Label = styled.label`
   font-size: 0.75rem;
 `;
 
-const Textarea = styled.textarea<IInput>`
+const Textarea = styled.textarea`
   width: 100%;
   padding: 0.5rem 1rem;
   font-weight: 500;
@@ -25,9 +25,7 @@ const Textarea = styled.textarea<IInput>`
   font-size: 0.8125rem;
   color: ${({ theme }) => theme.colors.inputText};
   background-color: ${({ theme }) => theme.colors.inputBg};
-  border: 1px solid
-    ${({ theme, hasError }) =>
-      hasError ? theme.colors.inputInvalidBorder : theme.colors.inputBorder};
+  border: 1px solid ${({ theme }) => theme.colors.inputBorder};
   border-radius: 0.25rem;
   resize: none;
   transition: border-color 0.3s ease-in-out;
@@ -49,9 +47,7 @@ interface IModalTextareaProps {
   name: string;
   value: string;
   placeholder: string;
-  hasError: boolean;
   updateValue: (path: string, newValue: string | boolean) => void;
-  handleBlur: () => void;
 }
 
 export default function ModalTextarea({
@@ -59,9 +55,7 @@ export default function ModalTextarea({
   name,
   value,
   placeholder,
-  hasError,
   updateValue,
-  handleBlur,
 }: IModalTextareaProps) {
   const inputRef = useRef<HTMLTextAreaElement>(null);
 
@@ -72,18 +66,14 @@ export default function ModalTextarea({
   return (
     <StyledWrapper>
       <Label htmlFor={id}>{name}</Label>
-      <InputContainer hasError={hasError}>
-        <Textarea
-          ref={inputRef}
-          id={id}
-          value={value}
-          placeholder={placeholder}
-          rows={4}
-          hasError={hasError}
-          onChange={handleChange}
-          onBlur={handleBlur}
-        ></Textarea>
-      </InputContainer>
+      <Textarea
+        ref={inputRef}
+        id={id}
+        value={value}
+        placeholder={placeholder}
+        rows={4}
+        onChange={handleChange}
+      ></Textarea>
     </StyledWrapper>
   );
 }
