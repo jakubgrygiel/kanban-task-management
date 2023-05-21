@@ -1,7 +1,5 @@
 import { useRef } from "react";
 import styled from "styled-components";
-import { IInput } from "./ModalInput";
-import InputContainer from "./InputContainer";
 
 const StyledWrapper = styled.div`
   display: flex;

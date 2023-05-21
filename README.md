@@ -1,8 +1,8 @@
 # Task Management App
 
-CRUD app where you can manage your invoices. App built in Next.js.
+CRUD app where you can manage your tasks. App built in Next.js.
 
-Link to demo: https://invoice-next-app-beige.vercel.app/ \
+Link to demo: https://kanban-task-management-omega.vercel.app/dashboard \
 App UI based on a project from Frontend Mentor: https://www.frontendmentor.io/challenges/kanban-task-management-web-app-wgQLt-HlbB \
 When styling this app, I was also inspired by the modern UI made by the user Jay: https://www.frontendmentor.io/solutions/kanban-task-management-web-app-rFSlSM5ogv
 
@@ -17,8 +17,6 @@ When styling this app, I was also inspired by the modern UI made by the user Jay
 - [License](#license)
 
 ## Introduction
-
-A great fullstack CRUD app where you can log in with your Google account, add, edit and delete invoices. All invoices are stored in the database and are returned to the user depending on the currently logged in user's id. Invoices can be edited and their status changed. All saved changes are sent to the database and updated in real time on the client side.
 
 ![overview of current project](public/project-overview.webp)
 

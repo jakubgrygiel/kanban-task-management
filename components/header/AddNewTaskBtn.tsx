@@ -12,7 +12,7 @@ const StyledWrapper = styled.button`
   gap: 12px;
   height: 48px;
 
-  padding: 0 24px;
+  padding: 0 1.5rem;
   text-align: left;
   color: ${({ theme }) => theme.colors.buttonAddTaskText};
   background-color: ${({ theme }) => theme.colors.buttonAddTaskBg};
@@ -27,6 +27,24 @@ const StyledWrapper = styled.button`
   &:disabled {
     cursor: not-allowed;
     opacity: 0.3;
+  }
+
+  @media (max-width: ${({ theme }) => theme.screens.mobile}) {
+    display: flex;
+    justify-content: center;
+    height: 32px;
+    width: 48px;
+    padding: 0;
+
+    span:first-of-type {
+      display: none;
+    }
+  }
+
+  @media (min-width: ${({ theme }) => theme.screens.mobile}) {
+    span:last-of-type {
+      display: none;
+    }
   }
 `;
 
@@ -44,7 +62,10 @@ export default function AddNewTaskBtn() {
 
   return (
     <StyledWrapper onClick={handleClick} disabled={isDisabled}>
-      + Add New Task
+      <span>+ Add New Task</span>
+      <span>
+        <img src="/assets/icon-add-task-mobile.svg" alt="add new task icon" />
+      </span>
     </StyledWrapper>
   );
 }

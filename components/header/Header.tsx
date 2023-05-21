@@ -5,19 +5,24 @@ import AddNewTaskBtn from "./AddNewTaskBtn";
 import MoreBtn from "../ui/MoreBtn";
 import EditTaskBtn from "./EditBoardBtn";
 import DeleteTaskBtn from "./DeleteBoardBtn";
+import useBoardCRUD from "@/hooks/crud-hooks/useBoardCRUD";
 
 const StyledWrapper = styled.div`
   z-index: ${({ theme }) => theme.zLevels.level2};
   display: flex;
-  justify-content: flex-start;
+  justify-content: space-between;
   align-items: center;
   height: 100px;
   width: 100%;
   background-color: ${({ theme }) => theme.colors.headerBg};
   border-bottom: 1px solid ${({ theme }) => theme.colors.lightBorder};
+
+  @media (max-width: ${({ theme }) => theme.screens.mobile}) {
+    height: 64px;
+  }
 `;
 
-const LogoWrapper = styled.div`
+const LogoWrapperDesktop = styled.div`
   display: flex;
   justify-content: flex-start;
   align-items: center;
@@ -25,6 +30,24 @@ const LogoWrapper = styled.div`
   width: 300px;
   padding-left: 32px;
   border-right: 1px solid ${({ theme }) => theme.colors.lightBorder};
+
+  @media (max-width: ${({ theme }) => theme.screens.mobile}) {
+    display: none;
+  }
+`;
+
+const LogoWrapperMobile = styled.div`
+  display: none;
+
+  @media (max-width: ${({ theme }) => theme.screens.mobile}) {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    height: 100%;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    border-right: 1px solid ${({ theme }) => theme.colors.lightBorder};
+  }
 `;
 
 const MainWrapper = styled.div`
@@ -33,7 +56,13 @@ const MainWrapper = styled.div`
   align-items: center;
   gap: 24px;
   width: calc(100% - 300px);
-  padding: 24px;
+  padding: 1.5rem;
+
+  @media (max-width: ${({ theme }) => theme.screens.mobile}) {
+    gap: 1rem;
+    width: 100%;
+    padding: 1rem;
+  }
 `;
 
 const BtnsWrapper = styled.div`
@@ -41,26 +70,38 @@ const BtnsWrapper = styled.div`
   justify-content: center;
   align-items: center;
   gap: 24px;
+
+  @media (max-width: ${({ theme }) => theme.screens.mobile}) {
+    gap: 1rem;
+  }
 `;
 
 const BoardTitle = styled.h1`
-  font-size: 24px;
+  font-size: 1.5rem;
+
+  @media (max-width: ${({ theme }) => theme.screens.mobile}) {
+    font-size: 1.125rem;
+  }
 `;
 
 export default function Header() {
   const { darkMode } = useContext(DarkModeCtx);
+  const { board } = useBoardCRUD();
 
   return (
     <StyledWrapper>
-      <LogoWrapper>
+      <LogoWrapperDesktop>
         {darkMode ? (
           <img src="/assets/logo-light.svg" alt="logo of the app" />
         ) : (
           <img src="/assets/logo-dark.svg" alt="logo of the app" />
         )}
-      </LogoWrapper>
+      </LogoWrapperDesktop>
+      <LogoWrapperMobile>
+        <img src="/assets/logo-mobile.svg" alt="logo of the app" />
+      </LogoWrapperMobile>
       <MainWrapper>
-        <BoardTitle>Platform Launch</BoardTitle>
+        <BoardTitle>{board && board.title}</BoardTitle>
         <BtnsWrapper>
           <AddNewTaskBtn />
           <MoreBtn>
