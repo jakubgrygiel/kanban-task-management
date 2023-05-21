@@ -3,6 +3,7 @@ import BoardBtn from "./BoardBtn";
 import AddBoardBtn from "./AddBoardBtn";
 import { useContext } from "react";
 import { DataCtx } from "@/context/DataCtx";
+import GetDemoBoardBtn from "./GetDemoBoardBtn";
 
 const StyledWrapper = styled.div`
   display: flex;
@@ -11,6 +12,8 @@ const StyledWrapper = styled.div`
   flex-direction: column;
   gap: 4px;
   width: 100%;
+  height: 100%;
+  padding-bottom: 1rem;
 `;
 
 const H2 = styled.h2`
@@ -20,6 +23,15 @@ const H2 = styled.h2`
   letter-spacing: 2.4px;
   color: ${({ theme }) => theme.colors.secondaryText};
 `;
+
+// const BtnsContainer = styled.div`
+//   display: flex;
+//   justify-content: flex-start;
+//   align-items: flex-start;
+//   flex-direction: column;
+//   gap: 4px;
+//   width: 100%;
+// `;
 
 export default function BoardsLinks() {
   const { data } = useContext(DataCtx);
@@ -42,6 +54,7 @@ export default function BoardsLinks() {
           <H2>ALL BOARDS ({data.boards.length})</H2>
           {renderBoardLinks()}
           <AddBoardBtn />
+          <GetDemoBoardBtn />
         </>
       )}
     </StyledWrapper>
