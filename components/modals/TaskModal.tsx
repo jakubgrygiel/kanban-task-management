@@ -34,7 +34,7 @@ interface ITaskModalProps {}
 
 export default function TaskModal() {
   const { task, updateStatus } = useTaskCRUD();
-
+  console.log(task);
   return (
     <>
       {task ? (

@@ -1,8 +1,8 @@
 import { IColumn, ISubtask, UpdateEnum, UpdateType } from "@/data/initialData";
 import { deepCopyObject } from "@/utils/helpers";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
-interface IItemsValidation {
+export interface IItemsValidation {
   id: string;
   hasError: boolean;
   isValid: boolean;
@@ -14,11 +14,35 @@ export default function useItemsValidation() {
     IItemsValidation[] | undefined
   >();
 
-  console.log(itemsValidation);
+  const isValid = checkIfItemsAreValid();
+
+  function checkIfItemsAreValid() {
+    let isValid = true;
+    if (itemsValidation === undefined) return isValid;
+    itemsValidation.forEach((item) => {
+      if (!item.isValid) {
+        isValid = false;
+      }
+    });
+    return isValid;
+  }
 
   function getValidationData(items: IColumn[] | ISubtask[]) {
     const newItemsValidation: IItemsValidation[] = items.map((item) => {
-      return { id: item.id, hasError: false, isValid: true, isTouched: false };
+      if (item.title === "") {
+        return {
+          id: item.id,
+          hasError: false,
+          isValid: false,
+          isTouched: false,
+        };
+      }
+      return {
+        id: item.id,
+        hasError: false,
+        isValid: true,
+        isTouched: true,
+      };
     });
     setItemsValidation(newItemsValidation);
   }
@@ -93,6 +117,7 @@ export default function useItemsValidation() {
   }
 
   return {
+    isValid,
     itemsValidation,
     handleBlur,
     getValidationData,

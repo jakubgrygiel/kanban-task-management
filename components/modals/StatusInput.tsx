@@ -6,6 +6,7 @@ import { FormEvent, useContext, useRef, useState } from "react";
 import styled from "styled-components";
 
 const StyledWrapper = styled.div`
+  z-index: 2;
   position: relative;
   display: flex;
   justify-content: flex-start;

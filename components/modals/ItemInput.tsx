@@ -1,5 +1,6 @@
 import { FormEvent, useRef } from "react";
 import styled from "styled-components";
+import Input from "./Input";
 
 const StyledWrapper = styled.li`
   display: flex;
@@ -8,29 +9,6 @@ const StyledWrapper = styled.li`
   gap: 0.8rem;
   width: 100%;
   list-style: none;
-`;
-
-const Input = styled.input`
-  height: 40px;
-  width: 100%;
-  padding: 0.5rem 1rem;
-  font-weight: 500;
-  font-size: 0.8125rem;
-  color: ${({ theme }) => theme.colors.inputText};
-  background-color: ${({ theme }) => theme.colors.inputBg};
-  border: 1px solid ${({ theme }) => theme.colors.inputBorder};
-  border-radius: 0.25rem;
-  transition: border-color 0.3s ease-in-out;
-
-  &::placeholder {
-    font-weight: 500;
-    font-size: 0.8125rem;
-    color: ${({ theme }) => theme.colors.inputPlaceholder};
-  }
-
-  &:hover {
-    border-color: ${({ theme }) => theme.colors.inputHoverBorder};
-  }
 `;
 
 const DeleteItemBtn = styled.button`
@@ -50,6 +28,7 @@ interface IItemInputProps {
   itemId: string;
   placeholder: string;
   value: string;
+  hasError: boolean;
   updateItem: (subtaskId: string, newValue: string) => void;
   deleteItem: (subtaskId: string) => void;
   handleBlur: (itemId: string) => void;
@@ -59,16 +38,11 @@ export default function ItemInput({
   itemId,
   placeholder,
   value,
+  hasError,
   updateItem,
   deleteItem,
   handleBlur,
 }: IItemInputProps) {
-  const inputRef = useRef<HTMLInputElement>(null);
-
-  function handleChange() {
-    inputRef.current && updateItem(itemId, inputRef.current.value);
-  }
-
   function handleClick(e: FormEvent) {
     e.preventDefault();
     deleteItem(itemId);
@@ -77,12 +51,12 @@ export default function ItemInput({
   return (
     <StyledWrapper>
       <Input
-        ref={inputRef}
-        type="text"
-        placeholder={placeholder}
+        id={itemId}
         value={value}
-        onChange={handleChange}
-        onBlur={() => handleBlur(itemId)}
+        placeholder={placeholder}
+        hasError={hasError}
+        updateValue={updateItem}
+        handleBlur={handleBlur}
       />
       <DeleteItemBtn onClick={handleClick}>
         <img src="/assets/icon-cross.svg" alt="delete subtask icon" />

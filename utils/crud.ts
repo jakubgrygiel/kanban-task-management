@@ -137,6 +137,7 @@ function updateBoardData(
   if (boardIdx === -1) return data;
   let newData: IData = deepCopyObject(data);
   newData.boards[boardIdx] = newBoard;
+  newData = updateAllTaskStatus(newData, boardIdx);
   return newData;
 }
 
@@ -195,6 +196,20 @@ function updateSubtaskData(
 
 function checkForStatusChange(oldTask: ITask, newTask: ITask) {
   return oldTask.status !== newTask.status ? true : false;
+}
+
+function updateAllTaskStatus(data: IData, boardIdx: number) {
+  const newData: IData = deepCopyObject(data);
+  newData.boards[boardIdx].columns = newData.boards[boardIdx].columns.map(
+    (column) => {
+      column.tasks = column.tasks.map((task) => {
+        task.status = column.title;
+        return task;
+      });
+      return column;
+    }
+  );
+  return newData;
 }
 
 function updateTaskStatusData(

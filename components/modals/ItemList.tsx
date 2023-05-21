@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { FormEvent } from "react";
 import ItemInput from "./ItemInput";
 import { IColumn, ISubtask } from "@/data/initialData";
+import { IItemsValidation } from "@/hooks/form-hooks/useItemsValidation";
 
 const StyledWrapper = styled.fieldset`
   display: flex;
@@ -56,6 +57,7 @@ interface IItemListProps {
   addNewItem: () => void;
   updateValue: (itemId: string, newValue: string) => void;
   deleteItem: (itemId: string) => void;
+  validation: IItemsValidation[] | undefined;
   handleBlur: (itemId: string) => void;
 }
 
@@ -66,6 +68,7 @@ export default function ItemList({
   addNewItem,
   updateValue,
   deleteItem,
+  validation,
   handleBlur,
 }: IItemListProps) {
   function handleClick(e: FormEvent) {
@@ -75,12 +78,17 @@ export default function ItemList({
 
   function renderItems() {
     return content.map((item) => {
+      const itemValidData = validation?.find(
+        (itemValid) => itemValid.id === item.id
+      );
+
       return (
         <ItemInput
           key={item.id}
           itemId={item.id}
           placeholder="e.g. Drink coffee & smile"
           value={item.title}
+          hasError={itemValidData!.hasError}
           updateItem={updateValue}
           deleteItem={deleteItem}
           handleBlur={handleBlur}

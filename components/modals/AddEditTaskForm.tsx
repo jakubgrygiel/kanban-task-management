@@ -9,7 +9,7 @@ import { deepCopyObject, setProperty } from "@/utils/helpers";
 import { createId } from "@paralleldrive/cuid2";
 import useFormTask from "@/hooks/form-hooks/useFormTask";
 import { ModalsCtx } from "@/context/ModalsCtx";
-import useValidation from "@/hooks/form-hooks/useValidation";
+import CreateBtn from "./CreateBtn";
 
 const StyledWrapper = styled.form`
   display: flex;
@@ -20,28 +20,6 @@ const StyledWrapper = styled.form`
   width: 100%;
 `;
 
-const CreateEditTaskBtn = styled.button`
-  cursor: pointer;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 12px;
-  height: 40px;
-  width: 100%;
-  padding: 0 1.25rem;
-  text-align: left;
-  font-size: 0.8125rem;
-  color: ${({ theme }) => theme.colors.buttonPrimaryText};
-  background-color: ${({ theme }) => theme.colors.buttonPrimaryBg};
-  border: none;
-  border-radius: 1.25rem;
-  transition: background-color 0.3s ease-in-out;
-
-  &:hover {
-    background-color: ${({ theme }) => theme.colors.buttonPrimaryHoverBg};
-  }
-`;
-
 interface IAddEditTaskFormProps {
   editMode: boolean;
 }
@@ -49,16 +27,14 @@ interface IAddEditTaskFormProps {
 export default function AddEditTaskForm({ editMode }: IAddEditTaskFormProps) {
   const { closeModal } = useContext(ModalsCtx);
   const {
+    formIsValid,
     formData,
     updateFormData,
     updateAppData,
+    validation,
     updateValidationState,
     handleBlur,
   } = useFormTask(editMode);
-  const { handleBlur: handleTitleBlur, hasError: titleHasError } =
-    useValidation(formData?.title);
-  const { handleBlur: handleDescriptionBlur, hasError: descriptionHasError } =
-    useValidation(formData?.description);
 
   function handleClick(e: FormEvent) {
     e.preventDefault();
@@ -70,6 +46,15 @@ export default function AddEditTaskForm({ editMode }: IAddEditTaskFormProps) {
     let newTask: ITask = deepCopyObject(formData);
     newTask = setProperty(newTask, path, newValue);
     updateFormData(newTask);
+  }
+
+  function addNewSubtask() {
+    let newTask: ITask = deepCopyObject(formData);
+    let newSubtask = { ...initialEmptySubtask };
+    newSubtask.id = createId();
+    newTask.subtasks.push(newSubtask);
+    updateFormData(newTask);
+    updateValidationState(UpdateEnum.ADD, newSubtask.id);
   }
 
   function updateSubtask(subtaskId: string, newValue: string) {
@@ -96,15 +81,6 @@ export default function AddEditTaskForm({ editMode }: IAddEditTaskFormProps) {
     updateValidationState(UpdateEnum.DELETE, subtaskId);
   }
 
-  function addNewSubtask() {
-    let newTask: ITask = deepCopyObject(formData);
-    let newSubtask = { ...initialEmptySubtask };
-    newSubtask.id = createId();
-    newTask.subtasks.push(newSubtask);
-    updateFormData(newTask);
-    updateValidationState(UpdateEnum.ADD, newSubtask.id);
-  }
-
   function changeStatus(status: string) {
     let newTask: ITask = deepCopyObject(formData);
     newTask.status = status;
@@ -118,21 +94,21 @@ export default function AddEditTaskForm({ editMode }: IAddEditTaskFormProps) {
           <ModalInput
             id="title"
             name="Title"
-            value={formData.title}
             placeholder="e.g. Take coffee break"
-            hasError={titleHasError}
+            value={formData.title}
+            hasError={validation.title}
             updateValue={updateTaskData}
-            handleBlur={handleTitleBlur}
+            handleBlur={handleBlur.title}
           />
           <ModalTextarea
             id="description"
             name="Description"
-            value={formData.description}
             placeholder="e.g. It’s always good to take a break. This 15 minute break will 
           recharge the batteries a little."
-            hasError={descriptionHasError}
+            value={formData.description}
+            hasError={validation.description}
             updateValue={updateTaskData}
-            handleBlur={handleDescriptionBlur}
+            handleBlur={handleBlur.description}
           />
           <ItemList
             label="Subtasks"
@@ -141,7 +117,8 @@ export default function AddEditTaskForm({ editMode }: IAddEditTaskFormProps) {
             addNewItem={addNewSubtask}
             updateValue={updateSubtask}
             deleteItem={deleteSubtask}
-            handleBlur={handleBlur}
+            validation={validation.items}
+            handleBlur={handleBlur.items}
           />
           <StatusInput
             name="Status"
@@ -149,9 +126,9 @@ export default function AddEditTaskForm({ editMode }: IAddEditTaskFormProps) {
             status={formData.status}
             changeStatus={changeStatus}
           />
-          <CreateEditTaskBtn onClick={handleClick}>
+          <CreateBtn disabled={!formIsValid} handleClick={handleClick}>
             {editMode ? "Save changes" : "Create New Task"}
-          </CreateEditTaskBtn>
+          </CreateBtn>
         </>
       )}
     </StyledWrapper>
