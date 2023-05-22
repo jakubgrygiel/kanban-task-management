@@ -84,7 +84,6 @@ export function ModalsCtxProvider({ children }: IModalsProviderProps) {
 
   function closeModal() {
     closeAllModals();
-    // setCurrentTaskIds({ columnId: undefined, taskId: undefined });
   }
 
   const ctx: IModalCtx = {

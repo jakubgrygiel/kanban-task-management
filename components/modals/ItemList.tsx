@@ -33,7 +33,7 @@ const AddNewItemBtn = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 12px;
+  gap: 0.75rem;
   height: 40px;
   width: 100%;
   padding: 0 1.25rem;

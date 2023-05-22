@@ -1,9 +1,6 @@
-import styled from "styled-components";
 import ModalWrapper from "./ModalWrapper";
 import DeleteForm from "./DeleteForm";
 import useTaskCRUD from "@/hooks/crud-hooks/useTaskCRUD";
-
-interface IDeleteTaskModalProps {}
 
 export default function DeleteTaskModal() {
   const { task } = useTaskCRUD();

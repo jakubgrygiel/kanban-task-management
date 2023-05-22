@@ -10,18 +10,41 @@ const StyledWrapper = styled.div`
   justify-content: flex-start;
   align-items: flex-start;
   flex-direction: column;
-  gap: 4px;
-  width: 100%;
+  gap: 0.25rem;
   height: 100%;
+  width: 100%;
   padding-bottom: 1rem;
 `;
 
 const H2 = styled.h2`
   padding-left: 2rem;
   padding-bottom: 1rem;
-  font-size: 12px;
+  font-size: 0.75rem;
   letter-spacing: 2.4px;
   color: ${({ theme }) => theme.colors.secondaryText};
+`;
+
+const LinksScrollWrapper = styled.div`
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  width: 100%;
+  max-height: calc(100dvh - 379px);
+  overflow: hidden;
+  overflow-y: auto;
+
+  @media (max-width: ${({ theme }) => theme.screens.mobile}) {
+    max-height: calc(100dvh - 331px);
+  }
+`;
+
+const LinksWrapper = styled.div`
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  flex-direction: column;
+  gap: 0.25rem;
+  width: 100%;
 `;
 
 export default function BoardsLinks() {
@@ -43,7 +66,9 @@ export default function BoardsLinks() {
       {data && (
         <>
           <H2>ALL BOARDS ({data.boards.length})</H2>
-          {renderBoardLinks()}
+          <LinksScrollWrapper>
+            <LinksWrapper>{renderBoardLinks()}</LinksWrapper>
+          </LinksScrollWrapper>
           <AddBoardBtn />
           <GetDemoBoardBtn />
         </>

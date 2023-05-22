@@ -9,7 +9,7 @@ const StyledWrapper = styled.button`
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  gap: 12px;
+  gap: 0.75rem;
   height: 48px;
 
   padding: 0 1.5rem;
@@ -17,7 +17,7 @@ const StyledWrapper = styled.button`
   color: ${({ theme }) => theme.colors.buttonAddTaskText};
   background-color: ${({ theme }) => theme.colors.buttonAddTaskBg};
   border: none;
-  border-radius: 24px;
+  border-radius: 1.5rem;
   transition: background-color 0.3s ease-in-out;
 
   &:hover {

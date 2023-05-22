@@ -5,7 +5,7 @@ import ModalsWrapper from "@/components/modals/ModalsWrapper";
 import { useEffect, useState } from "react";
 
 const StyledWrapper = styled.div`
-  min-height: 100vh;
+  min-height: 100dvh;
   width: 100%;
   color: ${({ theme }) => theme.colors.mainText};
   background-color: ${({ theme }) => theme.colors.mainBg};

@@ -7,10 +7,10 @@ const StyledWrapper = styled.button`
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  gap: 12px;
+  gap: 0.75rem;
   height: 48px;
   width: 100%;
-  padding-left: 32px;
+  padding-left: 2rem;
   text-align: left;
   color: ${({ theme }) => theme.colors.purpleText};
   background-color: transparent;

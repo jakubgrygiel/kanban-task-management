@@ -68,6 +68,7 @@ const StyledWrapper = styled.div`
   align-items: flex-start;
   flex-direction: column;
   height: 100%;
+  max-height: calc(100dvh - 96px);
   width: 100%;
   padding: 1rem 1.5rem 2rem 0;
   border-radius: 0.5rem;

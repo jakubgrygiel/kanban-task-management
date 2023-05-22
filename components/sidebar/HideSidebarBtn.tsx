@@ -7,15 +7,15 @@ const StyledWrapper = styled.button`
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  gap: 12px;
+  gap: 0.75rem;
   height: 48px;
   width: 100%;
-  padding-left: 32px;
+  padding-left: 2rem;
   text-align: left;
   color: ${({ theme }) => theme.colors.secondaryText};
   background-color: transparent;
   border: none;
-  border-radius: 0 24px 24px 0;
+  border-radius: 0 1.5rem 1.5rem 0;
   transition: opacity 0.3s ease-in-out;
 
   &:hover {
@@ -37,7 +37,7 @@ const OpenSidebar = styled.div<ISidebarIsOpen>`
   height: 48px;
   width: 56px;
   background-color: ${({ theme }) => theme.colors.purpleBg};
-  border-radius: 0 24px 24px 0;
+  border-radius: 0 1.5rem 1.5rem 0;
   transform: translateX(${({ isOpen }) => (isOpen ? "0" : "356px")});
   transition: transform 0.3s ease-in-out;
 `;

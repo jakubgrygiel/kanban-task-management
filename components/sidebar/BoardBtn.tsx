@@ -8,10 +8,10 @@ const StyledWrapper = styled.button<IIsActive>`
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  gap: 12px;
+  gap: 0.75rem;
   height: 48px;
   width: 100%;
-  padding-left: 32px;
+  padding-left: 2rem;
   text-align: left;
   color: ${({ theme, isActive }) =>
     isActive
@@ -20,7 +20,7 @@ const StyledWrapper = styled.button<IIsActive>`
   background-color: ${({ theme, isActive }) =>
     isActive ? theme.colors.buttonBoardBgActive : "transparent"};
   border: none;
-  border-radius: 0 24px 24px 0;
+  border-radius: 0 1.5rem 1.5rem 0;
   transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
 
   svg {

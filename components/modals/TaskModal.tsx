@@ -5,11 +5,6 @@ import EditTaskBtn from "./EditTaskBtn";
 import DeleteTaskBtn from "./DeleteTaskBtn";
 import StatusInput from "./StatusInput";
 import Subtasks from "./Subtasks";
-import { useContext } from "react";
-import { ModalsCtx } from "@/context/ModalsCtx";
-import { DataCtx } from "@/context/DataCtx";
-import { IColumn, ITask } from "@/data/initialData";
-import { deepCopyObject } from "@/utils/helpers";
 import useTaskCRUD from "@/hooks/crud-hooks/useTaskCRUD";
 
 const TopWrapper = styled.div`
@@ -30,11 +25,9 @@ const Description = styled.p`
   color: ${({ theme }) => theme.colors.secondaryText};
 `;
 
-interface ITaskModalProps {}
-
 export default function TaskModal() {
   const { task, updateStatus } = useTaskCRUD();
-  console.log(task);
+
   return (
     <>
       {task ? (

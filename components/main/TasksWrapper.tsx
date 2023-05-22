@@ -52,6 +52,9 @@ export default function TasksWrapper({ isOpen }: ITaskWrapperProps) {
     );
     let i = -1;
     return activeBoard?.columns.map((column) => {
+      if (i === 8) {
+        i = -1;
+      }
       i++;
       return <Column key={column.id} content={column} colorNum={i} />;
     });

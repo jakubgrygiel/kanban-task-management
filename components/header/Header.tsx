@@ -3,10 +3,10 @@ import { useContext } from "react";
 import styled from "styled-components";
 import AddNewTaskBtn from "./AddNewTaskBtn";
 import MoreBtn from "../ui/MoreBtn";
-import EditTaskBtn from "./EditBoardBtn";
-import DeleteTaskBtn from "./DeleteBoardBtn";
 import useBoardCRUD from "@/hooks/crud-hooks/useBoardCRUD";
 import ToggleMobileSidebar from "./ToggleMobileSidebar";
+import DeleteBoardBtn from "./DeleteBoardBtn";
+import EditBoardBtn from "./EditBoardBtn";
 
 const StyledWrapper = styled.div`
   z-index: ${({ theme }) => theme.zLevels.level2};
@@ -112,8 +112,8 @@ export default function Header({ toggleSidebar }: IHeaderProps) {
         <BtnsWrapper>
           <AddNewTaskBtn />
           <MoreBtn>
-            <EditTaskBtn />
-            <DeleteTaskBtn />
+            <EditBoardBtn />
+            <DeleteBoardBtn />
           </MoreBtn>
         </BtnsWrapper>
       </MainWrapper>

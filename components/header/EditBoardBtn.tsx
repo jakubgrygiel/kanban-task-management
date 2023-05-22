@@ -1,6 +1,5 @@
 import { DataCtx } from "@/context/DataCtx";
 import { ModalsCtx } from "@/context/ModalsCtx";
-import useBoardCRUD from "@/hooks/crud-hooks/useBoardCRUD";
 import { FormEvent, useContext } from "react";
 import styled from "styled-components";
 
@@ -29,10 +28,8 @@ const StyledWrapper = styled.button`
 export default function EditBoardBtn() {
   const { openModal } = useContext(ModalsCtx);
   const { data } = useContext(DataCtx);
-  const { board } = useBoardCRUD();
 
-  const isDisabled =
-    board?.columns.length === 0 || data?.boards.length === 0 ? true : false;
+  const isDisabled = data?.boards.length === 0 ? true : false;
 
   function handleClick(e: FormEvent) {
     e.preventDefault();

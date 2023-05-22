@@ -8,7 +8,7 @@ const StyledWrapper = styled.span`
   height: 20px;
   width: 40px;
   background-color: ${({ theme }) => theme.colors.purpleBg};
-  border-radius: 12px;
+  border-radius: 0.75rem;
 `;
 
 const Circle = styled.span<IChecked>`

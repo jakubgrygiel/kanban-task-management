@@ -6,8 +6,6 @@ const ModalTitle = styled.h3`
   font-size: 1.125rem;
 `;
 
-interface IEditTaskModalProps {}
-
 export default function EditTaskModal() {
   return (
     <ModalWrapper>

@@ -1,9 +1,6 @@
-import styled from "styled-components";
 import ModalWrapper from "./ModalWrapper";
 import DeleteForm from "./DeleteForm";
 import useBoardCRUD from "@/hooks/crud-hooks/useBoardCRUD";
-
-interface IDeleteBoardModalProps {}
 
 export default function DeleteBoardModal() {
   const { board } = useBoardCRUD();

@@ -12,14 +12,14 @@ const EditDeleteBtn = styled.button`
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  gap: 12px;
+  gap: 0.75rem;
   height: 48px;
-  padding: 0 12px;
+  padding: 0 0.75rem;
   text-align: left;
   color: ${({ theme }) => theme.colors.buttonAddTaskText};
   background-color: transparent;
   border: none;
-  border-radius: 24px;
+  border-radius: 1.5rem;
   transition: background-color 0.3s ease-in-out;
 
   &:hover {
@@ -39,10 +39,10 @@ const Dropdown = styled.div`
   justify-content: center;
   align-items: flex-start;
   flex-direction: column;
-  gap: 16px;
+  gap: 1rem;
   width: 192px;
-  padding: 16px;
-  border-radius: 8px;
+  padding: 1rem;
+  border-radius: 0.5rem;
   background-color: ${({ theme }) => theme.colors.dropListCardBg};
   box-shadow: ${({ theme }) => theme.colors.dropListCardShadow};
 `;
