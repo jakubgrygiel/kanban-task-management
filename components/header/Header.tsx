@@ -6,9 +6,11 @@ import MoreBtn from "../ui/MoreBtn";
 import EditTaskBtn from "./EditBoardBtn";
 import DeleteTaskBtn from "./DeleteBoardBtn";
 import useBoardCRUD from "@/hooks/crud-hooks/useBoardCRUD";
+import ToggleMobileSidebar from "./ToggleMobileSidebar";
 
 const StyledWrapper = styled.div`
   z-index: ${({ theme }) => theme.zLevels.level2};
+  position: relative;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -28,7 +30,7 @@ const LogoWrapperDesktop = styled.div`
   align-items: center;
   height: 100%;
   width: 300px;
-  padding-left: 32px;
+  padding-left: 2rem;
   border-right: 1px solid ${({ theme }) => theme.colors.lightBorder};
 
   @media (max-width: ${({ theme }) => theme.screens.mobile}) {
@@ -69,7 +71,7 @@ const BtnsWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 24px;
+  gap: 1.5rem;
 
   @media (max-width: ${({ theme }) => theme.screens.mobile}) {
     gap: 1rem;
@@ -80,11 +82,15 @@ const BoardTitle = styled.h1`
   font-size: 1.5rem;
 
   @media (max-width: ${({ theme }) => theme.screens.mobile}) {
-    font-size: 1.125rem;
+    display: none;
   }
 `;
 
-export default function Header() {
+interface IHeaderProps {
+  toggleSidebar: () => void;
+}
+
+export default function Header({ toggleSidebar }: IHeaderProps) {
   const { darkMode } = useContext(DarkModeCtx);
   const { board } = useBoardCRUD();
 
@@ -102,6 +108,7 @@ export default function Header() {
       </LogoWrapperMobile>
       <MainWrapper>
         <BoardTitle>{board && board.title}</BoardTitle>
+        <ToggleMobileSidebar toggleSidebar={toggleSidebar} />
         <BtnsWrapper>
           <AddNewTaskBtn />
           <MoreBtn>

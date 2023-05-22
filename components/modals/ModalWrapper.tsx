@@ -18,6 +18,10 @@ const StyledWrapper = styled.div`
   justify-content: center;
   align-items: center;
   padding: 2rem;
+
+  @media (max-width: ${({ theme }) => theme.screens.mobile}) {
+    padding: 1rem;
+  }
 `;
 
 const Backdrop = styled.div`
@@ -28,19 +32,33 @@ const Backdrop = styled.div`
   animation: ${fadeIn} 0.3s linear;
 `;
 
-const ModalContainer = styled.div`
+const ModalScrollWrapper = styled.div`
   position: relative;
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  flex-direction: column;
-  gap: 1.5rem;
+  max-height: 100%;
   width: 100%;
   max-width: 480px;
   padding: 2rem;
   border-radius: 0.375rem;
   background-color: ${({ theme }) => theme.colors.modalBg};
   animation: ${fadeIn} 0.3s linear;
+  overflow: hidden;
+  overflow-y: auto;
+
+  @media (max-width: ${({ theme }) => theme.screens.mobile}) {
+    padding: 1rem;
+  }
+`;
+
+const ModalContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-direction: column;
+  gap: 1.5rem;
+  width: 100%;
 `;
 
 interface IModalWrapperProps {
@@ -69,7 +87,9 @@ export default function ModalWrapper({ children }: IModalWrapperProps) {
   return (
     <StyledWrapper>
       <Backdrop onClick={handleClick} />
-      <ModalContainer>{children}</ModalContainer>
+      <ModalScrollWrapper>
+        <ModalContainer>{children}</ModalContainer>
+      </ModalScrollWrapper>
     </StyledWrapper>
   );
 }

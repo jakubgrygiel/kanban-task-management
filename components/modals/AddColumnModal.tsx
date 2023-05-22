@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import ModalWrapper from "./ModalWrapper";
-import { FormEvent } from "react";
 import AddEditBoardForm from "./AddEditBoardForm";
 
 const ModalTitle = styled.h3`

@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import Sidebar from "../sidebar/Sidebar";
-import { useState } from "react";
 import TasksWrapper from "./TasksWrapper";
 
 const StyledWrapper = styled.div`
@@ -8,21 +7,27 @@ const StyledWrapper = styled.div`
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  height: calc(100vh - 100px);
+  height: calc(100dvh - 100px);
   width: 100%;
+
+  @media (max-width: ${({ theme }) => theme.screens.mobile}) {
+    height: calc(100dvh - 64px);
+  }
 `;
 
-export default function MainWrapper() {
-  const [isOpen, setIsOpen] = useState(true);
+interface IMainWrapperProps {
+  isOpen: boolean;
+  toggleSidebar: () => void;
+}
 
-  function toggleSidebar() {
-    setIsOpen((prevState) => !prevState);
-  }
-
+export default function MainWrapper({
+  isOpen,
+  toggleSidebar,
+}: IMainWrapperProps) {
   return (
     <StyledWrapper>
-      <Sidebar isOpen={isOpen} toggleSidebar={toggleSidebar} />
       <TasksWrapper isOpen={isOpen} />
+      <Sidebar isOpen={isOpen} toggleSidebar={toggleSidebar} />
     </StyledWrapper>
   );
 }

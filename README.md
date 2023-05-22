@@ -2,7 +2,7 @@
 
 CRUD app where you can manage your tasks. App built in Next.js.
 
-Link to demo: https://kanban-task-management-omega.vercel.app/dashboard \
+Link to demo: https://kanban-task-management-omega.vercel.app \
 App UI based on a project from Frontend Mentor: https://www.frontendmentor.io/challenges/kanban-task-management-web-app-wgQLt-HlbB \
 When styling this app, I was also inspired by the modern UI made by the user Jay: https://www.frontendmentor.io/solutions/kanban-task-management-web-app-rFSlSM5ogv
 
@@ -17,6 +17,8 @@ When styling this app, I was also inspired by the modern UI made by the user Jay
 - [License](#license)
 
 ## Introduction
+
+App where you can manage tasks and subtasks in projects. The data is saved in localStorage.
 
 ![overview of current project](public/project-overview.webp)
 
@@ -36,9 +38,7 @@ When styling this app, I was also inspired by the modern UI made by the user Jay
 
 ## Building process
 
-Applications where you can manage tasks and subtasks in projects. The data is saved in localStorage.
-
-During the project, I wanted the code to be as clear as possible and open to expansion. I included all CRUD operations in custom hooks referring to the main Context with data. Due to the large number of modals, I used Portals for the first time.
+During the project, I wanted the code to be as clear as possible and open to adding new features. I included all CRUD operations in custom hooks referring to the main context with data. Due to the large number of modals, I used Portals for the first time.
 
 The project itself turned out to be a great way to test my skills and principles of clean code, which I am still learning.
 

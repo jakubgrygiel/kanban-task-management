@@ -67,7 +67,7 @@ const lightTheme = {
     "hsla(104, 83%, 70%, 1)",
     "hsla(7, 68%, 65%, 1)",
   ],
-  screens: { desktop: "1100px", tablet: "800px", mobile: "500px" },
+  screens: { desktop: "1100px", tablet: "800px", mobile: "700px" },
   zLevels: {
     level1: 0,
     level2: 1000,
@@ -146,7 +146,7 @@ const darkTheme = {
     "hsla(104, 83%, 70%, 1)",
     "hsla(7, 68%, 65%, 1)",
   ],
-  screens: { desktop: "1100px", tablet: "800px", mobile: "500px" },
+  screens: { desktop: "1100px", tablet: "800px", mobile: "700px" },
   zLevels: {
     level1: 0,
     level2: 1000,

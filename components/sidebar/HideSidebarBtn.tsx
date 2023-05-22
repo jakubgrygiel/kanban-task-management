@@ -21,6 +21,10 @@ const StyledWrapper = styled.button`
   &:hover {
     opacity: 0.7;
   }
+
+  @media (max-width: ${({ theme }) => theme.screens.mobile}) {
+    display: none;
+  }
 `;
 
 const OpenSidebar = styled.div<ISidebarIsOpen>`

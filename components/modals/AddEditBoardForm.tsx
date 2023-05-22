@@ -8,6 +8,7 @@ import { createId } from "@paralleldrive/cuid2";
 import useFormBoard from "@/hooks/form-hooks/useFormBoard";
 import { ModalsCtx } from "@/context/ModalsCtx";
 import CreateBtn from "./CreateBtn";
+import CancelBtn from "./CancelBtn";
 
 const StyledWrapper = styled.form`
   display: flex;
@@ -105,6 +106,7 @@ export default function AddEditBoardForm({ editMode }: IAddEditBoardFormProps) {
           <CreateBtn disabled={!formIsValid} handleClick={handleClick}>
             {editMode ? "Save changes" : "Create New Board"}
           </CreateBtn>
+          <CancelBtn mobile={true} />
         </>
       )}
     </StyledWrapper>

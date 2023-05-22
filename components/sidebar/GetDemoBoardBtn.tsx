@@ -43,7 +43,7 @@ export default function GetDemoBoardBtn() {
           fill="#828FA3"
         />
       </svg>
-      <span>+ Upload Demo board</span>
+      <span>+ Upload Demo Board</span>
     </StyledWrapper>
   );
 }

@@ -17,21 +17,12 @@ const StyledWrapper = styled.div`
 `;
 
 const H2 = styled.h2`
-  padding-left: 32px;
+  padding-left: 2rem;
   padding-bottom: 1rem;
   font-size: 12px;
   letter-spacing: 2.4px;
   color: ${({ theme }) => theme.colors.secondaryText};
 `;
-
-// const BtnsContainer = styled.div`
-//   display: flex;
-//   justify-content: flex-start;
-//   align-items: flex-start;
-//   flex-direction: column;
-//   gap: 4px;
-//   width: 100%;
-// `;
 
 export default function BoardsLinks() {
   const { data } = useContext(DataCtx);

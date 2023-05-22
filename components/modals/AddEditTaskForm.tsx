@@ -10,6 +10,7 @@ import { createId } from "@paralleldrive/cuid2";
 import useFormTask from "@/hooks/form-hooks/useFormTask";
 import { ModalsCtx } from "@/context/ModalsCtx";
 import CreateBtn from "./CreateBtn";
+import CancelBtn from "./CancelBtn";
 
 const StyledWrapper = styled.form`
   display: flex;
@@ -127,6 +128,7 @@ export default function AddEditTaskForm({ editMode }: IAddEditTaskFormProps) {
           <CreateBtn disabled={!formIsValid} handleClick={handleClick}>
             {editMode ? "Save changes" : "Create New Task"}
           </CreateBtn>
+          <CancelBtn mobile={true} />
         </>
       )}
     </StyledWrapper>

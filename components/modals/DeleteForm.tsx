@@ -4,6 +4,7 @@ import { ModalsCtx } from "@/context/ModalsCtx";
 import useTaskCRUD from "@/hooks/crud-hooks/useTaskCRUD";
 import useBoardCRUD from "@/hooks/crud-hooks/useBoardCRUD";
 import { UpdateEnum } from "@/data/initialData";
+import CancelBtn from "./CancelBtn";
 
 const StyledWrapper = styled.div`
   display: flex;
@@ -32,6 +33,10 @@ const BtnsWrapper = styled.div`
   align-items: center;
   gap: 1.5rem;
   width: 100%;
+
+  @media (max-width: ${({ theme }) => theme.screens.mobile}) {
+    flex-direction: column;
+  }
 `;
 
 const DeleteBtn = styled.button`
@@ -48,15 +53,6 @@ const DeleteBtn = styled.button`
 
   &:hover {
     background-color: ${({ theme }) => theme.colors.buttonDeleteHoverBg};
-  }
-`;
-
-const CancelBtn = styled(DeleteBtn)`
-  color: ${({ theme }) => theme.colors.buttonSecondaryText};
-  background-color: ${({ theme }) => theme.colors.buttonSecondaryBg};
-
-  &:hover {
-    background-color: ${({ theme }) => theme.colors.buttonSecondaryHoverBg};
   }
 `;
 
@@ -81,18 +77,13 @@ export default function DeleteForm({ label, description }: IDeleteFormProps) {
     closeModal();
   }
 
-  function handleClickCancel(e: FormEvent) {
-    e.preventDefault();
-    closeModal();
-  }
-
   return (
     <StyledWrapper>
       <ModalTitle>Delete {label}</ModalTitle>
       <Description>{description}</Description>
       <BtnsWrapper>
         <DeleteBtn onClick={handleClickDelete}>Delete</DeleteBtn>
-        <CancelBtn onClick={handleClickCancel}>Cancel</CancelBtn>
+        <CancelBtn />
       </BtnsWrapper>
     </StyledWrapper>
   );

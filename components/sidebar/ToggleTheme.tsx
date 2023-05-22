@@ -6,7 +6,11 @@ import ToggleCheckbox from "./ToggleCheckbox";
 
 const StyledWrapper = styled.div`
   width: 100%;
-  padding-left: 24px;
+  padding-left: 1.5rem;
+
+  @media (max-width: ${({ theme }) => theme.screens.mobile}) {
+    padding-left: 1rem;
+  }
 `;
 
 const ToggleWrapper = styled.div`

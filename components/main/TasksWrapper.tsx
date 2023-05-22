@@ -20,6 +20,10 @@ const StyledWrapper = styled.div<IWrapper>`
   overflow: hidden;
   overflow-x: auto;
   overflow-y: auto;
+
+  @media (max-width: ${({ theme }) => theme.screens.mobile}) {
+    left: 0;
+  }
 `;
 
 const ColumnsWrapper = styled.div`
