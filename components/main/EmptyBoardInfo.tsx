@@ -9,6 +9,10 @@ const StyledWrapper = styled.div`
   gap: 32px;
   width: 100%;
   color: ${({ theme }) => theme.colors.secondaryText};
+
+  p {
+    text-align: center;
+  }
 `;
 
 export default function EmptyBoardInfo() {

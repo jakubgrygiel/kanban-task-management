@@ -16,6 +16,7 @@ const StyledWrapper = styled.button`
 `;
 
 const BoardTitle = styled.h1`
+  color: ${({ theme }) => theme.colors.mainText};
   font-size: 1.125rem;
 `;
 
@@ -30,7 +31,7 @@ export default function ToggleMobileSidebar({
 
   return (
     <StyledWrapper onClick={toggleSidebar}>
-      <BoardTitle>{board && board.title}</BoardTitle>
+      <BoardTitle>{board ? board.title : "Add New Board"}</BoardTitle>
       <img src="/assets/icon-chevron-down.svg" alt="open board icon" />
     </StyledWrapper>
   );
