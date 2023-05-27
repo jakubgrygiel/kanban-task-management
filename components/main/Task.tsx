@@ -3,7 +3,7 @@ import { ITask } from "@/data/initialData";
 import { useContext } from "react";
 import styled from "styled-components";
 
-const StyledWrapper = styled.li`
+const StyledWrapper = styled.div`
   width: 100%;
   list-style: none;
 `;
@@ -53,8 +53,8 @@ export default function Task({ content, columnId }: ITaskProps) {
   }
 
   return (
-    <StyledWrapper>
-      <TaskButton onClick={handleClick}>
+    <StyledWrapper onClick={handleClick}>
+      <TaskButton>
         <TaskTitle>{content.title}</TaskTitle>
         <SubtasksInfo>
           {
