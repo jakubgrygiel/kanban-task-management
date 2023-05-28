@@ -73,22 +73,7 @@ interface IColumnProps {
 }
 
 export default function Column({ content, colorNum }: IColumnProps) {
-  const { board, updateBoardContent } = useBoardCRUD();
   const isEmpty = content.tasks.length === 0 ? true : false;
-
-  function handleOnDragEnd(result: DropResult) {
-    let currentColumnIdx = board!.columns.findIndex(
-      (column) => column.id === content.id
-    );
-    let newBoard = deepCopyObject(board);
-    let newTasks = deepCopyObject(board?.columns[currentColumnIdx!].tasks);
-    console.log(board?.columns[currentColumnIdx!].tasks);
-    const [reorderedItem] = newTasks.splice(result.source.index, 1);
-    newTasks.splice(result.destination!.index, 0, reorderedItem);
-    newBoard.columns[currentColumnIdx].tasks = newTasks;
-    console.log(newTasks);
-    updateBoardContent(UpdateEnum.UPDATE, newBoard);
-  }
 
   return (
     <StyledWrapper isEmpty={isEmpty}>
@@ -98,32 +83,32 @@ export default function Column({ content, colorNum }: IColumnProps) {
           {content.title} ({content.tasks.length})
         </ColumnTitle>
       </ColumnTitleWrapper>
-      <DragDropContext onDragEnd={handleOnDragEnd}>
-        <Droppable droppableId={`tasks-${content.id}`}>
-          {(provided) => (
-            <TaskList
-              isEmpty={isEmpty}
-              {...provided.droppableProps}
-              ref={provided.innerRef}
-            >
-              {content.tasks.map((task: any, index) => (
-                <Draggable key={task.id} draggableId={task.id} index={index}>
-                  {(provided) => (
-                    <li
-                      {...provided.draggableProps}
-                      {...provided.dragHandleProps}
-                      ref={provided.innerRef}
-                    >
-                      <Task columnId={content.id} content={task} />
-                    </li>
-                  )}
-                </Draggable>
-              ))}
-              {provided.placeholder}
-            </TaskList>
-          )}
-        </Droppable>
-      </DragDropContext>
+      {/* <DragDropContext onDragEnd={handleOnDragEnd}> */}
+      <Droppable droppableId={content.id}>
+        {(provided) => (
+          <TaskList
+            isEmpty={isEmpty}
+            {...provided.droppableProps}
+            ref={provided.innerRef}
+          >
+            {content.tasks.map((task: any, index) => (
+              <Draggable key={task.id} draggableId={task.id} index={index}>
+                {(provided) => (
+                  <li
+                    {...provided.draggableProps}
+                    {...provided.dragHandleProps}
+                    ref={provided.innerRef}
+                  >
+                    <Task columnId={content.id} content={task} />
+                  </li>
+                )}
+              </Draggable>
+            ))}
+            {provided.placeholder}
+          </TaskList>
+        )}
+      </Droppable>
+      {/* </DragDropContext> */}
     </StyledWrapper>
   );
 }
