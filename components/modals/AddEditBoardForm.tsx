@@ -12,10 +12,22 @@ import CancelBtn from "./CancelBtn";
 
 const StyledWrapper = styled.form`
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: flex-start;
   flex-direction: column;
   gap: 1.5rem;
+  width: 100%;
+  max-height: calc(100dvh - 120px);
+  overflow: hidden;
+  overflow-y: auto;
+`;
+
+const Btns = styled.div`
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  flex-direction: column;
+  gap: 1rem;
   width: 100%;
 `;
 
@@ -103,10 +115,12 @@ export default function AddEditBoardForm({ editMode }: IAddEditBoardFormProps) {
             validation={validation.items}
             handleBlur={handleBlur.items}
           />
-          <CreateBtn disabled={!formIsValid} handleClick={handleClick}>
-            {editMode ? "Save changes" : "Create New Board"}
-          </CreateBtn>
-          <CancelBtn mobile={true} />
+          <Btns>
+            <CreateBtn disabled={!formIsValid} handleClick={handleClick}>
+              {editMode ? "Save changes" : "Create New Board"}
+            </CreateBtn>
+            <CancelBtn mobile={true} />
+          </Btns>
         </>
       )}
     </StyledWrapper>

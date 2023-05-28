@@ -134,16 +134,3 @@ export default function TasksWrapper({ isOpen }: ITaskWrapperProps) {
     </StyledWrapper>
   );
 }
-
-// {data ? (
-//   data.boards.length > 0 ? (
-//     <ColumnsWrapper>
-//       {renderColumns()}
-//       <SecondAddNewColumnBtn />
-//     </ColumnsWrapper>
-//   ) : (
-//     <EmptyInfo />
-//   )
-// ) : (
-//   <EmptyInfo />
-// )}

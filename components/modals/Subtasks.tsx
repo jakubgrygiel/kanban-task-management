@@ -26,6 +26,9 @@ const List = styled.ul`
   flex-direction: column;
   gap: 0.75rem;
   width: 100%;
+  max-height: calc(100dvh - 500px);
+  overflow: hidden;
+  overflow-y: auto;
 `;
 
 interface ISubtasksProps {
