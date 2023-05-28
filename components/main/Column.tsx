@@ -1,6 +1,14 @@
 import styled from "styled-components";
 import Task from "./Task";
-import { IColumn } from "@/data/initialData";
+import { IColumn, UpdateEnum } from "@/data/initialData";
+import {
+  DragDropContext,
+  Draggable,
+  DropResult,
+  Droppable,
+} from "react-beautiful-dnd";
+import useBoardCRUD from "@/hooks/crud-hooks/useBoardCRUD";
+import { deepCopyObject } from "@/utils/helpers";
 
 const StyledWrapper = styled.div<IIsEmpty>`
   display: flex;
@@ -38,13 +46,18 @@ const TaskList = styled.ul<IIsEmpty>`
   justify-content: flex-start;
   align-items: flex-start;
   flex-direction: column;
-  gap: 1.5rem;
   height: ${({ isEmpty }) => (isEmpty ? "100%" : "auto")};
   width: 100%;
   padding-bottom: 3rem;
   border-radius: 0.375rem;
   border: ${({ isEmpty, theme }) =>
     isEmpty ? `2px  dashed ${theme.colors.columnBorder}` : "none"};
+
+  li {
+    list-style: none;
+    width: 100%;
+    margin-bottom: 1.5rem;
+  }
 `;
 
 interface IColorNum {
@@ -62,13 +75,6 @@ interface IColumnProps {
 export default function Column({ content, colorNum }: IColumnProps) {
   const isEmpty = content.tasks.length === 0 ? true : false;
 
-  function renderTasks() {
-    const columnId = content.id;
-    return content.tasks.map((task: any) => (
-      <Task key={task.id} columnId={columnId} content={task} />
-    ));
-  }
-
   return (
     <StyledWrapper isEmpty={isEmpty}>
       <ColumnTitleWrapper>
@@ -77,7 +83,32 @@ export default function Column({ content, colorNum }: IColumnProps) {
           {content.title} ({content.tasks.length})
         </ColumnTitle>
       </ColumnTitleWrapper>
-      <TaskList isEmpty={isEmpty}>{renderTasks()}</TaskList>
+      {/* <DragDropContext onDragEnd={handleOnDragEnd}> */}
+      <Droppable droppableId={content.id}>
+        {(provided) => (
+          <TaskList
+            isEmpty={isEmpty}
+            {...provided.droppableProps}
+            ref={provided.innerRef}
+          >
+            {content.tasks.map((task: any, index) => (
+              <Draggable key={task.id} draggableId={task.id} index={index}>
+                {(provided) => (
+                  <li
+                    {...provided.draggableProps}
+                    {...provided.dragHandleProps}
+                    ref={provided.innerRef}
+                  >
+                    <Task columnId={content.id} content={task} />
+                  </li>
+                )}
+              </Draggable>
+            ))}
+            {provided.placeholder}
+          </TaskList>
+        )}
+      </Droppable>
+      {/* </DragDropContext> */}
     </StyledWrapper>
   );
 }
