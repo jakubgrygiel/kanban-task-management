@@ -97,7 +97,7 @@ export default function Sidebar({ isOpen, toggleSidebar }: ISidebarProps) {
     <Wrapper isOpen={isOpen}>
       {isOpen && <Backdrop onClick={toggleSidebar} />}
       <StyledWrapper>
-        <BoardsLinks />
+        <BoardsLinks toggleSidebar={toggleSidebar} />
         <SidebarSettings isOpen={isOpen} toggleSidebar={toggleSidebar} />
       </StyledWrapper>
     </Wrapper>

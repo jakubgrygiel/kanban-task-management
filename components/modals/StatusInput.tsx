@@ -53,7 +53,7 @@ const Button = styled.button`
   }
 `;
 
-const StatusOptions = styled.div`
+const StatusOptions = styled.div<IShowUp>`
   position: absolute;
   top: calc(100% + 0.5rem);
   display: flex;
@@ -66,6 +66,11 @@ const StatusOptions = styled.div`
   background-color: ${({ theme }) => theme.colors.dropListCardBg};
   box-shadow: ${({ theme }) => theme.colors.dropListCardShadow};
   border-radius: 0.5rem;
+
+  @media (max-width: ${({ theme }) => theme.screens.mobile}) {
+    top: ${({ showUp }) =>
+      showUp ? "calc(-96px - 0.5rem)" : "calc(100% + 0.5rem)"};
+  }
 `;
 
 const Option = styled.button`
@@ -85,10 +90,16 @@ const Option = styled.button`
   }
 `;
 
+interface IShowUp {
+  showUp: boolean;
+}
+
+// type prop gives info if input is used inside edit modal or just info modal
 interface IStatusInputProps {
   id: string;
   name: string;
   status: string;
+  type: string;
   changeStatus: (status: string) => void;
 }
 
@@ -96,6 +107,7 @@ export default function StatusInput({
   id,
   name,
   status,
+  type,
   changeStatus,
 }: IStatusInputProps) {
   const [isOptionsOpen, setIsOptionsOpen] = useState(false);
@@ -129,7 +141,11 @@ export default function StatusInput({
         {status}
         <img src="/assets/icon-chevron-down.svg" alt="arrow down icon" />
       </Button>
-      {isOptionsOpen && <StatusOptions>{renderOptions()}</StatusOptions>}
+      {isOptionsOpen && (
+        <StatusOptions showUp={type === "info" ? true : false}>
+          {renderOptions()}
+        </StatusOptions>
+      )}
     </StyledWrapper>
   );
 }

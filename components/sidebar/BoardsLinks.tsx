@@ -47,8 +47,19 @@ const LinksWrapper = styled.div`
   width: 100%;
 `;
 
-export default function BoardsLinks() {
+interface IBoardLinksProps {
+  toggleSidebar: () => void;
+}
+
+export default function BoardsLinks({ toggleSidebar }: IBoardLinksProps) {
   const { data } = useContext(DataCtx);
+
+  function closeSidebar() {
+    if (window.innerWidth >= 700) return;
+    if (window.innerWidth < 700) {
+      toggleSidebar();
+    }
+  }
 
   function renderBoardLinks() {
     return data!.boards.map((board) => (
@@ -57,6 +68,7 @@ export default function BoardsLinks() {
         id={board.id}
         name={board.title}
         isActive={board.isActive}
+        closeSidebar={closeSidebar}
       />
     ));
   }
@@ -69,8 +81,8 @@ export default function BoardsLinks() {
           <LinksScrollWrapper>
             <LinksWrapper>{renderBoardLinks()}</LinksWrapper>
           </LinksScrollWrapper>
-          <AddBoardBtn />
-          <GetDemoBoardBtn />
+          <AddBoardBtn closeSidebar={closeSidebar} />
+          <GetDemoBoardBtn closeSidebar={closeSidebar} />
         </>
       )}
     </StyledWrapper>

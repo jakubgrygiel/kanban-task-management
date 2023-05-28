@@ -46,6 +46,7 @@ export default function TaskModal() {
             id="status"
             status={task.status}
             changeStatus={updateStatus}
+            type="info"
           />
         </ModalWrapper>
       ) : (

@@ -136,6 +136,7 @@ export default function AddEditTaskForm({ editMode }: IAddEditTaskFormProps) {
             id="status"
             status={formData.status}
             changeStatus={changeStatus}
+            type="edit"
           />
           <Btns>
             <CreateBtn disabled={!formIsValid} handleClick={handleClick}>

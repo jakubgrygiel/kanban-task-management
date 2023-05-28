@@ -25,13 +25,20 @@ const StyledWrapper = styled.button`
   }
 `;
 
-export default function GetDemoBoardBtn() {
+interface IGetDemoBoardBtnnProps {
+  closeSidebar: () => void;
+}
+
+export default function GetDemoBoardBtn({
+  closeSidebar,
+}: IGetDemoBoardBtnnProps) {
   const { updateBoardContent } = useBoardCRUD();
 
   function handleClick() {
     const newBoard = deepCopyObject(demoBoardData);
     newBoard.id = createId();
     updateBoardContent(UpdateEnum.ADD, newBoard);
+    closeSidebar();
   }
 
   return (

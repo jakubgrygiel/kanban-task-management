@@ -62,13 +62,20 @@ interface IBoardBtnProps {
   id: string;
   name: string;
   isActive: boolean;
+  closeSidebar: () => void;
 }
 
-export default function BoardBtn({ name, isActive, id }: IBoardBtnProps) {
+export default function BoardBtn({
+  name,
+  isActive,
+  id,
+  closeSidebar,
+}: IBoardBtnProps) {
   const { changeCurrentBoard } = useContext(DataCtx);
 
   function handleClick() {
     changeCurrentBoard(id);
+    closeSidebar();
   }
 
   return (

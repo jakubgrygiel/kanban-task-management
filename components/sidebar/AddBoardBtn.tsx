@@ -28,11 +28,16 @@ const StyledWrapper = styled.button`
   }
 `;
 
-export default function AddBoardBtn() {
+interface IAddBoardBtnProps {
+  closeSidebar: () => void;
+}
+
+export default function AddBoardBtn({ closeSidebar }: IAddBoardBtnProps) {
   const { openModal } = useContext(ModalsCtx);
 
   function handleClick() {
     openModal("add-board");
+    closeSidebar();
   }
 
   return (
