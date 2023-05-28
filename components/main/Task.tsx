@@ -4,12 +4,7 @@ import { useContext } from "react";
 import styled from "styled-components";
 
 const StyledWrapper = styled.div`
-  width: 100%;
-  list-style: none;
-`;
-
-const TaskButton = styled.button`
-  cursor: pointer;
+  /* cursor: pointer; */
   display: flex;
   justify-content: center;
   align-items: flex-start;
@@ -54,16 +49,11 @@ export default function Task({ content, columnId }: ITaskProps) {
 
   return (
     <StyledWrapper onClick={handleClick}>
-      <TaskButton>
-        <TaskTitle>{content.title}</TaskTitle>
-        <SubtasksInfo>
-          {
-            content.subtasks.filter((subtask: any) => subtask.isCompleted)
-              .length
-          }{" "}
-          of {content.subtasks.length} subtasks
-        </SubtasksInfo>
-      </TaskButton>
+      <TaskTitle>{content.title}</TaskTitle>
+      <SubtasksInfo>
+        {content.subtasks.filter((subtask: any) => subtask.isCompleted).length}{" "}
+        of {content.subtasks.length} subtasks
+      </SubtasksInfo>
     </StyledWrapper>
   );
 }
