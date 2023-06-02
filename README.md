@@ -12,7 +12,6 @@ When styling this app, I was also inspired by the modern UI made by the user Jay
 - [Technologies](#technologies)
 - [Features](#features)
 - [Building process](#building-process)
-- [Future Development](#future-development)
 - [Installation and launch](#installation-and-launch)
 - [License](#license)
 
@@ -27,6 +26,7 @@ App where you can manage tasks and subtasks in projects. The data is saved in lo
 - [Next.js](https://nextjs.org/ "Next.js Page")
 - [TypeScript](https://www.typescriptlang.org/ "Typescript Page")
 - [Styled Components](https://styled-components.com/ "Styled Components Page")
+- [React Beautiful DnD](https://www.npmjs.com/package/react-beautiful-dnd/ "React Beautiful DnD")
 
 ## Features
 
@@ -35,6 +35,7 @@ App where you can manage tasks and subtasks in projects. The data is saved in lo
 - Saving data in localStorage
 - Form validation
 - Light/dark mode
+- Drag and drop
 
 ## Building process
 
@@ -42,9 +43,7 @@ During the project, I wanted the code to be as clear as possible and open to add
 
 The project itself turned out to be a great way to test my skills and principles of clean code, which I am still learning.
 
-## Future Development
-
-Currently, I am working on implementing drag and drop functionality using the React DnD library. This will enhance the user experience and allow for easier task management.
+Recently, I implemented drag and drop functionality using the React DnD library. This enhanced the user experience and allowed for easier task management.
 
 ## Installation and launch
 
