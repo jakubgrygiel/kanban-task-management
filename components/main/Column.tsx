@@ -1,14 +1,7 @@
 import styled from "styled-components";
 import Task from "./Task";
-import { IColumn, UpdateEnum } from "@/data/initialData";
-import {
-  DragDropContext,
-  Draggable,
-  DropResult,
-  Droppable,
-} from "react-beautiful-dnd";
-import useBoardCRUD from "@/hooks/crud-hooks/useBoardCRUD";
-import { deepCopyObject } from "@/utils/helpers";
+import { IColumn } from "@/data/initialData";
+import { Draggable, Droppable } from "react-beautiful-dnd";
 
 const StyledWrapper = styled.div<IIsEmpty>`
   display: flex;
@@ -83,7 +76,6 @@ export default function Column({ content, colorNum }: IColumnProps) {
           {content.title} ({content.tasks.length})
         </ColumnTitle>
       </ColumnTitleWrapper>
-      {/* <DragDropContext onDragEnd={handleOnDragEnd}> */}
       <Droppable droppableId={content.id}>
         {(provided) => (
           <TaskList
@@ -108,7 +100,6 @@ export default function Column({ content, colorNum }: IColumnProps) {
           </TaskList>
         )}
       </Droppable>
-      {/* </DragDropContext> */}
     </StyledWrapper>
   );
 }

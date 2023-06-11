@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@formkit/auto-animate": "^1.0.0-beta.6",
     "@paralleldrive/cuid2": "^2.2.0",
     "@supabase/supabase-js": "^2.20.0",
     "@types/node": "18.15.11",

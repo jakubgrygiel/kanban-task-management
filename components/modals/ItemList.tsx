@@ -3,6 +3,7 @@ import { FormEvent } from "react";
 import ItemInput from "./ItemInput";
 import { IColumn, ISubtask } from "@/data/initialData";
 import { IItemsValidation } from "@/hooks/form-hooks/useItemsValidation";
+import { useAutoAnimate } from "@formkit/auto-animate/react";
 
 const StyledWrapper = styled.fieldset`
   display: flex;
@@ -71,6 +72,8 @@ export default function ItemList({
   validation,
   handleBlur,
 }: IItemListProps) {
+  const [animationParent] = useAutoAnimate();
+
   function handleClick(e: FormEvent) {
     e.preventDefault();
     addNewItem();
@@ -100,7 +103,7 @@ export default function ItemList({
   return (
     <StyledWrapper>
       <Legend>{label}</Legend>
-      <List>{renderItems()}</List>
+      <List ref={animationParent}>{renderItems()}</List>
       <AddNewItemBtn onClick={handleClick}>+Add New {type}</AddNewItemBtn>
     </StyledWrapper>
   );
