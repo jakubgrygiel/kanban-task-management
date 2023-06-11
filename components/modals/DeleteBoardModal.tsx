@@ -1,4 +1,4 @@
-import ModalWrapper from "./ModalWrapper";
+import ModalWrapper from "../ui/ModalWrapper";
 import DeleteForm from "./DeleteForm";
 import useBoardCRUD from "@/hooks/crud-hooks/useBoardCRUD";
 

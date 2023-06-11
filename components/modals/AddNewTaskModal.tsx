@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import ModalWrapper from "./ModalWrapper";
+import ModalWrapper from "../ui/ModalWrapper";
 import AddEditTaskForm from "./AddEditTaskForm";
 
 const ModalTitle = styled.h3`

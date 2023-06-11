@@ -4,7 +4,6 @@ import { useContext } from "react";
 import styled from "styled-components";
 
 const StyledWrapper = styled.div`
-  /* cursor: pointer; */
   display: flex;
   justify-content: center;
   align-items: flex-start;

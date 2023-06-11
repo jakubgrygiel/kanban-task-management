@@ -93,8 +93,7 @@ const Option = styled.button`
 interface IShowUp {
   showUp: boolean;
 }
-
-// type prop gives info if input is used inside edit modal or just info modal
+// this type prop gives info if input is used inside edit modal or just info modal
 interface IStatusInputProps {
   id: string;
   name: string;

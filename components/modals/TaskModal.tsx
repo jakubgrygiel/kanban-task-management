@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import ModalWrapper from "./ModalWrapper";
+import ModalWrapper from "../ui/ModalWrapper";
 import MoreBtn from "../ui/MoreBtn";
 import EditTaskBtn from "./EditTaskBtn";
 import DeleteTaskBtn from "./DeleteTaskBtn";

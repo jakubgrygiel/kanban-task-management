@@ -1,6 +1,5 @@
 import { deepCopyObject } from "@/utils/helpers";
-import { createId } from "@paralleldrive/cuid2";
-import { IData, ITask, UpdateEnum, UpdateType } from "@/data/initialData";
+import { ITask, UpdateEnum, UpdateType } from "@/data/initialData";
 import { useContext, useEffect, useState } from "react";
 import { DataCtx } from "@/context/DataCtx";
 import {

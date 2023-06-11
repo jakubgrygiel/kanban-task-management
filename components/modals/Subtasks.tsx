@@ -36,10 +36,6 @@ interface ISubtasksProps {
 }
 
 export default function Subtasks({ content }: ISubtasksProps) {
-  function handleClick(e: FormEvent) {
-    e.preventDefault();
-  }
-
   function renderSubtasks() {
     return content.map((subtask) => (
       <SubtaskItem
